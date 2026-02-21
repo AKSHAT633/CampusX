@@ -29,6 +29,10 @@ import MarketPlace from "./pages/MarketPlace";
 import AddSellItem from "./pages/AddSellItem";
 import MarketItemDetailPage from "./pages/MarketItemDetailPage";
 import Profile from "./pages/Profile";
+import UserSellPost from "./pages/UserSellPost";
+import Chat from "./pages/Chat";
+import ChatMessageInput from "./components/ChatMessageInput";
+
 const App = () => {
   const dispatch = useDispatch();
   const {userData} = useSelector((state)=>state.user)
@@ -77,6 +81,10 @@ const App = () => {
         <Route path="/sell/:id" element={<MarketItemDetailPage/>} />
         <Route path="/sell/add" element={<AddSellItem/>} />
         <Route path="/profile" element={<Profile/>} />
+        <Route path="/all-sell-items" element={<UserSellPost/>} />
+        <Route path="/all-items" element={<UserSellPost/>} />
+        <Route path="/chat" element={<Chat/>} />
+       
       </Routes>
  <FloatingActions />
       <Footer />

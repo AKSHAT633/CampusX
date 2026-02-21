@@ -5,7 +5,6 @@ import {
   Menu,
   X,
   Bell,
-  Search,
   Home,
   MapPin,
   BookOpen,
@@ -24,13 +23,13 @@ import { setUserData } from "../redux/userSlice"
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
-  const [showMobileSearch, setShowMobileSearch] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
+  
   const [isDark, setIsDark] = useState(true)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const profileRef = useRef(null)
+  const notifRef = useRef(null)
   const { userData } = useSelector((state) => state.user)
   const location = useLocation()
 
@@ -54,6 +53,9 @@ const Navbar = () => {
       if (profileRef.current && !profileRef.current.contains(e.target)) {
         setShowProfile(false)
       }
+      if (notifRef.current && !notifRef.current.contains(e.target)) {
+        setNotifOpen(false)
+      }
     }
     document.addEventListener("mousedown", handler)
     return () => document.removeEventListener("mousedown", handler)
@@ -63,7 +65,7 @@ const Navbar = () => {
     { name: "Home", path: "/", icon: Home },
     { name: "Lost & Found", path: "/lost-found", icon: MapPin },
     { name: "MarketPlace", path: "/market", icon: BookOpen },
-    { name: "Study Material", path: "/study-material", icon: GraduationCap },
+    { name: "AI  Notes", path: "/study-material", icon: GraduationCap },
     { name: "Chat", path: "/chat", icon: MessageCircle }
   ]
 
@@ -134,25 +136,7 @@ const Navbar = () => {
               )}
             </button>
 
-            {/* SEARCH */}
-            <div className="hidden lg:flex items-center bg-white/5 border border-blue-500/20 rounded-lg px-3 py-1.5">
-              <Search size={16} className="text-gray-400 mr-2" />
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent outline-none text-sm text-white placeholder-gray-400 w-40"
-              />
-            </div>
-
-            {/* MOBILE SEARCH */}
-            <button
-              onClick={() => setShowMobileSearch(true)}
-              className="lg:hidden p-2 rounded-lg hover:bg-white/5"
-            >
-              <Search className="w-5 h-5 text-gray-300" />
-            </button>
+            {/* search removed */}
 
             {/* NOTIFICATION */}
             <button className="relative p-2 rounded-lg hover:bg-white/5">
@@ -162,7 +146,7 @@ const Navbar = () => {
 
             {/* USER */}
             {userData ? (
-              <div className="relative" ref={profileRef}>
+              <div className="relative" ref={notifRef}>
                 <button
                   onClick={() => setShowProfile(!showProfile)}
                   className="w-9 h-9 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold"
@@ -277,32 +261,7 @@ const Navbar = () => {
         )}
       </AnimatePresence>
 
-      {/* MOBILE SEARCH */}
-      <AnimatePresence>
-        {showMobileSearch && (
-          <motion.div
-            initial={{ y: -80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -80, opacity: 0 }}
-            className="lg:hidden fixed top-0 left-0 right-0 bg-slate-950/95 backdrop-blur-xl border-b border-blue-500/20 p-4 z-50"
-          >
-            <div className="flex items-center gap-3">
-              <Search className="text-gray-400" />
-              <input
-                autoFocus
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent outline-none text-white placeholder-gray-400"
-              />
-              <button onClick={() => setShowMobileSearch(false)}>
-                <X className="text-gray-300" />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* mobile search removed */}
     </motion.nav>
   )
 }

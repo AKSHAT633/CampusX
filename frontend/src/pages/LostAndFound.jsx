@@ -16,6 +16,7 @@ const LostAndFound = () => {
  
   const [filterType, setFilterType] = useState("all")
   const [filterCategory, setFilterCategory] = useState("all")
+  const [searchQuery, setSearchQuery] = useState("")
 
   /* FETCH ITEMS */
   
@@ -29,6 +30,13 @@ const LostAndFound = () => {
     if (filterType !== "all" && item.type !== filterType) return false
     if (filterCategory !== "all" && item.category !== filterCategory)
       return false
+    if (searchQuery && searchQuery.trim() !== "") {
+      const q = searchQuery.trim().toLowerCase()
+      const inTitle = item.title?.toLowerCase()?.includes(q) || false
+      const inDescription = item.description?.toLowerCase()?.includes(q) || false
+      const inPoster = item.postedBy?.name?.toLowerCase()?.includes(q) || false
+      if (!inTitle && !inDescription && !inPoster) return false
+    }
     return true
   })
 
@@ -51,12 +59,21 @@ const LostAndFound = () => {
             Browse lost and found items across campus
           </p>
         </div>
-        <button
-          onClick={() => navigate("/lost-found/add")}
-          className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium shadow"
-        >
-          + Add Lost/Found Item
-        </button>
+        <div className="flex items-center gap-3">
+          <input
+            type="search"
+            placeholder="Search items, descriptions or users"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="px-3 py-2 rounded-lg bg-slate-900 border border-blue-500/20 text-blue-200 mr-2"
+          />
+          <button
+            onClick={() => navigate("/lost-found/add")}
+            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium shadow"
+          >
+            + Add Lost/Found Item
+          </button>
+        </div>
       </div>
 
       {/* FILTERS */}

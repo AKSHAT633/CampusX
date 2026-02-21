@@ -1,324 +1,252 @@
-import React, { useState } from "react"
-import { motion } from "framer-motion"
-import {
-  User,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  Edit,
-  LogOut,
-  ShoppingBag,
-  Package,
-  Star,
-  Settings,
-  Award,
-} from "lucide-react"
-import { useSelector } from "react-redux"
+import React, { useEffect, useRef, useState } from "react"
+import { Edit, Mail, Phone, User, Camera, Trash2 } from "lucide-react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
+import { updateProfile, deleteProfileImage, fetchMarketplaceItems, fetchItems } from "../servers/api"
 
 const Profile = () => {
   const { userData } = useSelector((state) => state.user)
+  const { items: marketplaceItems } = useSelector((state) => state.marketplace)
   const { itemData } = useSelector((state) => state.item)
-  const [isEditing, setIsEditing] = useState(false)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  // Get real user data
-  const profileData = {
-    name: userData?.name || "User",
-    email: userData?.email || "N/A",
-    phone: userData?.phone || "Not provided",
-    location: userData?.location || "Not provided",
-    joinDate: userData?.createdAt
-      ? new Date(userData.createdAt).toLocaleDateString("en-IN", {
-          year: "numeric",
-          month: "long",
-        })
-      : "Recently joined",
-    avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${userData?._id || "user"}`,
+  const [isEditing, setIsEditing] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [profileFile, setProfileFile] = useState(null)
+  const fileInputRef = useRef(null)
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    profileImage: "",
+  })
+
+  /* LOAD USER */
+  useEffect(() => {
+    if (userData) {
+      setFormData({
+        name: userData?.name || "",
+        email: userData?.email || "",
+        phone: userData?.phone || "",
+        profileImage: userData?.ProfileImage || "",
+      })
+      // ensure marketplace and items are loaded for accurate counts
+      if (!marketplaceItems || marketplaceItems.length === 0) fetchMarketplaceItems(dispatch, { category: "all" })
+      if (!itemData || itemData.length === 0) fetchItems(dispatch)
+    }
+  }, [userData])
+
+  /* CHANGE */
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((p) => ({ ...p, [name]: value }))
   }
 
-  // Get user's marketplace items (top 3)
-  const myListings = itemData?.slice(0, 3) || []
+  /* IMAGE */
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
 
-  // Recent activity from items (top 3)
-  const recentActivity = itemData
-    ?.slice(0, 3)
-    .map((item, i) => ({
-      id: item._id,
-      action: `Posted ${item.title}`,
-      date: new Date(item.createdAt).toLocaleDateString("en-IN"),
-      amount: `₹${item.price}`,
-    })) || []
+    if (!file.type.startsWith("image/")) {
+      toast.error("Select image file")
+      return
+    }
 
-  // Calculate stats
-  const stats = {
-    itemsSold: itemData?.filter((i) => i.status === "sold").length || 0,
-    itemsBought: itemData?.filter((i) => i.isClaimed).length || 0,
-    rating: 4.5,
-    reviews: itemData?.length || 0,
+    setProfileFile(file)
+    const reader = new FileReader()
+    reader.onload = () =>
+      setFormData((p) => ({ ...p, profileImage: reader.result }))
+    reader.readAsDataURL(file)
+  }
+
+  /* SAVE */
+  const handleSave = async () => {
+    setIsSaving(true)
+
+    let payload
+    if (profileFile) {
+      payload = new FormData()
+      payload.append("name", formData.name)
+      payload.append("phone", formData.phone)
+      payload.append("profileImage", profileFile)
+    } else {
+      payload = {
+        name: formData.name,
+        phone: formData.phone,
+      }
+    }
+
+    const res = await updateProfile(dispatch, payload)
+
+    if (res?.error) toast.error(res.message)
+    else {
+      toast.success("Profile updated")
+      setIsEditing(false)
+    }
+
+    setIsSaving(false)
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white p-6">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-2xl mx-auto">
+
         {/* HEADER */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold flex items-center gap-2">
-            <User className="w-8 h-8 text-blue-400" />
+            <User className="w-7 h-7 text-blue-400" />
             My Profile
           </h1>
-          <button
-            onClick={() => setIsEditing(!isEditing)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-300 hover:bg-blue-500/30 transition"
-          >
-            <Edit className="w-4 h-4" />
-            {isEditing ? "Done" : "Edit Profile"}
-          </button>
+
+          {!isEditing ? (
+            <button
+              onClick={() => setIsEditing(true)}
+              className="px-4 py-2 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-300 hover:bg-blue-500/30"
+            >
+              Edit
+            </button>
+          ) : (
+            <div className="flex gap-2">
+              <button
+                onClick={() => setIsEditing(false)}
+                className="px-4 py-2 rounded-lg bg-white/10 border border-blue-500/20"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                className="px-4 py-2 rounded-lg bg-blue-600"
+              >
+                {isSaving ? "Saving..." : "Save"}
+              </button>
+            </div>
+          )}
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* LEFT: PROFILE INFO */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* PROFILE CARD */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="rounded-2xl border border-blue-500/20 bg-white/5 backdrop-blur-xl p-6 space-y-4"
+        {/* CARD */}
+        <div className="rounded-2xl border border-blue-500/20 bg-white/5 backdrop-blur-xl p-6 space-y-6">
+
+          {/* AVATAR */}
+          <div className="flex flex-col items-center gap-3">
+            <div
+              className="relative w-28 h-28 cursor-pointer"
+              onClick={() => isEditing && fileInputRef.current?.click()}
             >
-              {/* AVATAR */}
-              <div className="flex justify-center mb-4">
+              {formData.profileImage ? (
                 <img
-                  src={profileData.avatar}
-                  alt={profileData.name}
-                  className="w-24 h-24 rounded-full border-2 border-blue-400"
+                  src={formData.profileImage}
+                  alt="profile"
+                  className="w-28 h-28 rounded-full object-cover border-2 border-blue-400"
                 />
-              </div>
+              ) : (
+                <div className="w-28 h-28 rounded-full border-2 border-blue-400 bg-blue-500/20 flex items-center justify-center text-3xl font-bold">
+                  {(formData.name || "U")[0]}
+                </div>
+              )}
 
-              {/* NAME & BIO */}
-              <div className="text-center">
-                <h2 className="text-2xl font-bold">{profileData.name}</h2>
-              </div>
+              {isEditing && (
+                <div className="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full border border-blue-400">
+                  <Camera className="w-4 h-4" />
+                </div>
+              )}
+            </div>
 
-              {/* INFO ITEMS */}
-              <div className="space-y-3 pt-4 border-t border-blue-500/20">
-                <InfoRow
-                  icon={<Mail className="w-4 h-4" />}
-                  label="Email"
-                  value={userData?.email || "N/A"}
-                />
-                <InfoRow
-                  icon={<User className="w-4 h-4" />}
-                  label="Roll Number"
-                  value={userData?.rollNumber || "N/A"}
-                />
-                <InfoRow
-                  icon={<User className="w-4 h-4" />}
-                  label="Branch"
-                  value={userData?.branch || "N/A"}
-                />
-                <InfoRow
-                  icon={<User className="w-4 h-4" />}
-                  label="Year"
-                  value={userData?.year || "N/A"}
-                />
-                <InfoRow
-                  icon={<Phone className="w-4 h-4" />}
-                  label="Phone"
-                  value={userData?.phone || "N/A"}
-                />
-                <InfoRow
-                  icon={<MapPin className="w-4 h-4" />}
-                  label="Location"
-                  value={userData?.location || "N/A"}
-                />
-                <InfoRow
-                  icon={<Calendar className="w-4 h-4" />}
-                  label="Joined"
-                  value={
-                    userData?.createdAt
-                      ? new Date(userData.createdAt).toLocaleDateString(
-                          "en-IN"
-                        )
-                      : "N/A"
+            {isEditing && formData.profileImage && (
+              <button
+                onClick={async () => {
+                  // if it's a newly selected local file, just clear
+                  if (profileFile) {
+                    setProfileFile(null)
+                    setFormData((p) => ({ ...p, profileImage: "" }))
+                    return
                   }
-                />
-                {userData?.verified && (
-                  <InfoRow
-                    icon={<Star className="w-4 h-4" />}
-                    label="Status"
-                    value={userData.verified ? "✅ Verified" : "❌ Not Verified"}
-                  />
-                )}
-              </div>
-            </motion.div>
 
-            {/* STATS */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="rounded-2xl border border-blue-500/20 bg-white/5 backdrop-blur-xl p-6 space-y-4"
-            >
-              <h3 className="font-semibold flex items-center gap-2">
-                <Award className="w-5 h-5 text-blue-400" />
-                Statistics
-              </h3>
-
-              <div className="grid grid-cols-2 gap-3">
-                <StatCard
-                  icon={<ShoppingBag />}
-                  label="Sold"
-                  value={stats.itemsSold}
-                />
-                <StatCard
-                  icon={<Package />}
-                  label="Listings"
-                  value={stats.reviews}
-                />
-                <StatCard
-                  icon={<Star />}
-                  label="Rating"
-                  value={`${stats.rating}⭐`}
-                />
-                <StatCard
-                  icon={<User />}
-                  label="Claimed"
-                  value={stats.itemsBought}
-                />
-              </div>
-            </motion.div>
-
-            {/* LOGOUT */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-red-500/20 border border-red-500/40 text-red-300 hover:bg-red-500/30 transition font-semibold"
-            >
-              <LogOut className="w-4 h-4" />
-              Logout
-            </motion.button>
+                  // if it's a remote URL, call delete API
+                  const url = formData.profileImage || ""
+                  if (url.startsWith("http")) {
+                    const res = await deleteProfileImage(url)
+                    if (res?.error) toast.error(res.message || "Delete failed")
+                    else toast.success("Image removed")
+                  }
+                  setFormData((p) => ({ ...p, profileImage: "" }))
+                }}
+                className="text-xs text-red-400 flex items-center gap-1"
+              >
+                <Trash2 className="w-3 h-3" />
+                Remove photo
+              </button>
+            )}
           </div>
 
-          {/* RIGHT: ACTIVITIES & LISTINGS */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* RECENT ACTIVITY */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="rounded-2xl border border-blue-500/20 bg-white/5 backdrop-blur-xl p-6"
-            >
-              <h3 className="text-xl font-semibold mb-4">Recent Activity</h3>
+          {/* hidden input */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
 
-              <div className="space-y-3">
-                {recentActivity.length > 0 ? (
-                  recentActivity.map((activity, i) => (
-                    <motion.div
-                      key={activity.id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 + i * 0.05 }}
-                      className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-blue-500/10"
-                    >
-                      <div className="flex-1">
-                        <p className="text-blue-100">{activity.action}</p>
-                        <p className="text-xs text-blue-300/50 mt-0.5">
-                          {activity.date}
-                        </p>
-                      </div>
-                      <p className="text-green-400 font-semibold">
-                        {activity.amount}
-                      </p>
-                    </motion.div>
-                  ))
-                ) : (
-                  <p className="text-center text-blue-300/50 py-4">
-                    No activity yet
-                  </p>
-                )}
+          {/* FIELDS */}
+          <FieldRow
+            icon={<User className="w-4 h-4" />}
+            label="Name"
+            value={formData.name}
+            name="name"
+            isEditing={isEditing}
+            onChange={handleChange}
+          />
+
+          <FieldRow
+            icon={<Mail className="w-4 h-4" />}
+            label="Email"
+            value={formData.email}
+            isEditing={false}
+          />
+
+          <FieldRow
+            icon={<Phone className="w-4 h-4" />}
+            label="Phone"
+            value={formData.phone}
+            name="phone"
+            isEditing={isEditing}
+            onChange={handleChange}
+          />
+
+          {/* User stats: sell items and lost/found posts */}
+          <div className="grid sm:grid-cols-2 gap-4 pt-4">
+            <div className="p-3 rounded-lg bg-slate-900/40 border border-blue-500/20">
+              <p className="text-xs text-blue-300/60">Sell items</p>
+              <div className="flex items-center justify-between mt-2">
+                <div className="text-2xl font-semibold text-blue-100">
+                  {marketplaceItems?.filter((m) => m.seller?._id === userData?._id).length || 0}
+                </div>
+                <button
+                  onClick={() => navigate('/all-sell-items')}
+                  className="px-3 py-1 rounded-lg bg-blue-600 text-white text-sm"
+                >
+                  See Sell Items
+                </button>
               </div>
-            </motion.div>
+            </div>
 
-            {/* MY LISTINGS */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="rounded-2xl border border-blue-500/20 bg-white/5 backdrop-blur-xl p-6"
-            >
-              <h3 className="text-xl font-semibold mb-4">My Listings</h3>
-
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {myListings.length > 0 ? (
-                  myListings.map((item, i) => (
-                    <motion.div
-                      key={item._id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 + i * 0.05 }}
-                      className="rounded-xl overflow-hidden border border-blue-500/20 bg-slate-900/50 hover:border-blue-400/40 transition group"
-                    >
-                      {/* IMAGE */}
-                      <div className="relative h-32 overflow-hidden bg-slate-800">
-                        {item.image ? (
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-blue-300/30">
-                            <ShoppingBag className="w-8 h-8" />
-                          </div>
-                        )}
-                        <div className="absolute top-2 right-2">
-                          <span
-                            className={`px-2 py-1 rounded-full text-xs font-medium ${
-                              item.status === "available"
-                                ? "bg-green-500/20 text-green-300"
-                                : "bg-red-500/20 text-red-300"
-                            }`}
-                          >
-                            {item.status}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* INFO */}
-                      <div className="p-3">
-                        <h4 className="font-semibold line-clamp-2 text-sm mb-1">
-                          {item.title}
-                        </h4>
-                        <p className="text-green-400 font-bold">₹{item.price}</p>
-                      </div>
-                    </motion.div>
-                  ))
-                ) : (
-                  <p className="col-span-full text-center text-blue-300/50 py-8">
-                    No listings yet
-                  </p>
-                )}
+            <div className="p-3 rounded-lg bg-slate-900/40 border border-blue-500/20">
+              <p className="text-xs text-blue-300/60">Lost/Found posts</p>
+              <div className="flex items-center justify-between mt-2">
+                <div className="text-2xl font-semibold text-blue-100">
+                  {itemData?.filter((it) => it.postedBy?._id === userData?._id).length || 0}
+                </div>
+                <button
+                  onClick={() => navigate('/all-items')}
+                  className="px-3 py-1 rounded-lg bg-blue-600 text-white text-sm"
+                >
+                  See Posts
+                </button>
               </div>
-            </motion.div>
-
-            {/* SETTINGS */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="rounded-2xl border border-blue-500/20 bg-white/5 backdrop-blur-xl p-6"
-            >
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <Settings className="w-5 h-5 text-blue-400" />
-                Settings
-              </h3>
-
-              <div className="space-y-3">
-                <SettingRow label="Email Notifications" enabled={true} />
-                <SettingRow label="SMS Alerts" enabled={false} />
-                <SettingRow label="Show my location" enabled={true} />
-                <SettingRow label="Two-factor authentication" enabled={false} />
-              </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -328,40 +256,23 @@ const Profile = () => {
 
 export default Profile
 
-/* ---------- INFO ROW ---------- */
-const InfoRow = ({ icon, label, value }) => (
+
+/* FIELD */
+const FieldRow = ({ icon, label, value, name, isEditing, onChange }) => (
   <div className="flex items-center gap-3">
     <div className="text-blue-400">{icon}</div>
     <div className="flex-1">
-      <p className="text-xs text-blue-300/50">{label}</p>
-      <p className="text-sm text-blue-100">{value}</p>
+      <p className="text-xs text-blue-300/50 mb-1">{label}</p>
+      {isEditing && name ? (
+        <input
+          name={name}
+          value={value}
+          onChange={onChange}
+          className="w-full bg-slate-900/40 border border-blue-500/20 rounded-lg px-3 py-2 text-blue-100"
+        />
+      ) : (
+        <p className="text-sm text-blue-100">{value || "N/A"}</p>
+      )}
     </div>
-  </div>
-)
-
-/* ---------- STAT CARD ---------- */
-const StatCard = ({ icon, label, value }) => (
-  <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 text-center">
-    <div className="text-blue-400 mb-1">{icon}</div>
-    <p className="text-xs text-blue-300/70">{label}</p>
-    <p className="text-lg font-bold text-blue-100">{value}</p>
-  </div>
-)
-
-/* ---------- SETTING ROW ---------- */
-const SettingRow = ({ label, enabled }) => (
-  <div className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-blue-500/10">
-    <p className="text-blue-100">{label}</p>
-    <button
-      className={`relative w-10 h-6 rounded-full transition ${
-        enabled ? "bg-green-500" : "bg-gray-600"
-      }`}
-    >
-      <motion.div
-        initial={false}
-        animate={{ x: enabled ? 20 : 2 }}
-        className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full"
-      />
-    </button>
   </div>
 )

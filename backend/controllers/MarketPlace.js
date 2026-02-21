@@ -1,4 +1,21 @@
 import MarketplaceItem from "../models/MarketplaceItem.js"
+import cloudinary from "../config/cloudinary.js"
+
+const getPublicIdFromUrl = (url) => {
+  if (!url) return null
+  const uploadIndex = url.indexOf('/upload/')
+  let publicId = url
+  if (uploadIndex !== -1) {
+    publicId = url.substring(uploadIndex + '/upload/'.length)
+    // remove version prefix like v12345/
+    publicId = publicId.replace(/^v[0-9]+\//, '')
+    // remove extension
+    publicId = publicId.replace(/\.[^/.]+$/, '')
+  } else {
+    publicId = publicId.replace(/\.[^/.]+$/, '')
+  }
+  return publicId
+}
 
 export const createMarketplaceItem = async (req, res) => {
   try {
@@ -125,5 +142,86 @@ export const getMarketplaceItemById = async (req, res) => {
     return res.status(500).json({
       message: "Failed to fetch item",
     })
+  }
+}
+
+export const deleteMarketplaceItem = async (req, res) => {
+  try {
+    const { id } = req.params
+    const userId = req.userId
+
+    const item = await MarketplaceItem.findById(id)
+    if (!item) return res.status(404).json({ message: 'Item not found' })
+
+    if (String(item.seller) !== String(userId)) {
+      return res.status(403).json({ message: 'Not allowed' })
+    }
+
+    // attempt to delete images from cloudinary
+    if (Array.isArray(item.images) && item.images.length > 0) {
+      for (const img of item.images) {
+        try {
+          const publicId = getPublicIdFromUrl(img)
+          if (publicId) await cloudinary.uploader.destroy(publicId, { resource_type: 'image' })
+        } catch (err) {
+          console.error('Cloudinary delete error for', img, err)
+        }
+      }
+    }
+
+    // remove document via model to avoid issues with document API differences
+    await MarketplaceItem.findByIdAndDelete(id)
+
+    return res.status(200).json({ message: 'Item deleted' })
+  } catch (error) {
+    console.error('Delete marketplace item error:', error)
+    return res.status(500).json({ message: 'Failed to delete item' })
+  }
+}
+
+export const updateMarketplaceItem = async (req, res) => {
+  try {
+    const { id } = req.params
+    const userId = req.userId
+
+    const item = await MarketplaceItem.findById(id)
+    if (!item) return res.status(404).json({ message: 'Item not found' })
+
+    if (String(item.seller) !== String(userId)) {
+      return res.status(403).json({ message: 'Not allowed' })
+    }
+
+    const {
+      title,
+      description,
+      price,
+      category,
+      condition,
+      location,
+      status,
+      isActive,
+    } = req.body
+
+    if (typeof title === 'string') item.title = title.trim()
+    if (typeof description === 'string') item.description = description.trim()
+    if (price !== undefined) item.price = Number(price)
+    if (typeof category === 'string') item.category = category
+    if (typeof condition === 'string') item.condition = condition
+    if (typeof location === 'string') item.location = location
+    if (typeof status === 'string') item.status = status
+    if (typeof isActive !== 'undefined') item.isActive = isActive
+
+    // handle uploaded images (append)
+    if (req.files && req.files.length > 0) {
+      const urls = req.files.map((f) => f.path || f.secure_url || f.url || f.filename).filter(Boolean)
+      item.images = item.images.concat(urls)
+    }
+
+    await item.save()
+
+    return res.status(200).json({ message: 'Item updated', item })
+  } catch (error) {
+    console.error('Update marketplace item error:', error)
+    return res.status(500).json({ message: 'Failed to update item' })
   }
 }

@@ -1,7 +1,8 @@
 import express from "express";
 import { GoogleLogin, GoogleRegister, login, logout, Register } from "../controllers/auth.contollers.js";
 import { isAuth } from "../middlewares/isAuth.js";
-import { currentUser } from "../controllers/curremtUserController.js";
+import { currentUser, updateProfile, deleteProfileImage } from "../controllers/curremtUserController.js";
+import upload from "../middlewares/multer.js";
 
 const userRouter = express.Router();
 
@@ -12,5 +13,7 @@ userRouter.post("/login",login);
 userRouter.post("/logout",logout)
 
 userRouter.get("/current",isAuth,currentUser)
+userRouter.put("/profile", isAuth, upload.single("profileImage"), updateProfile)
+userRouter.delete("/profile/image", isAuth, deleteProfileImage)
 
 export default userRouter;

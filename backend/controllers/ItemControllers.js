@@ -1,6 +1,21 @@
 import Item from "../models/Item.js";
 import User from "../models/User.Models.js";
 import ClaimedModel from "../models/claimed.models.js";
+import cloudinary from "../config/cloudinary.js";
+
+const getPublicIdFromUrl = (url) => {
+  if (!url) return null
+  const uploadIndex = url.indexOf('/upload/')
+  let publicId = url
+  if (uploadIndex !== -1) {
+    publicId = url.substring(uploadIndex + '/upload/'.length)
+    publicId = publicId.replace(/^v[0-9]+\//, '')
+    publicId = publicId.replace(/\.[^/.]+$/, '')
+  } else {
+    publicId = publicId.replace(/\.[^/.]+$/, '')
+  }
+  return publicId
+}
 
 export const createItem = async (req, res) => {
   try {
@@ -44,6 +59,65 @@ export const createItem = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const updateItem = async (req, res) => {
+  try {
+    const { id } = req.params
+    const userId = req.userId
+
+    const item = await Item.findById(id)
+    if (!item) return res.status(404).json({ message: 'Item not found' })
+    if (String(item.postedBy) !== String(userId)) return res.status(403).json({ message: 'Not allowed' })
+
+    const { title, description, category, type, location, date } = req.body
+    if (typeof title === 'string') item.title = title.trim()
+    if (typeof description === 'string') item.description = description.trim()
+    if (typeof category === 'string') item.category = category
+    if (typeof type === 'string') item.type = type
+    if (typeof location === 'string') item.location = location
+    if (date) item.date = new Date(date)
+
+    if (req.file) {
+      const url = req.file.path || req.file.secure_url || req.file.url || req.file.filename
+      if (url) item.images.push(url)
+    }
+
+    await item.save()
+    return res.status(200).json({ message: 'Item updated', item })
+  } catch (error) {
+    console.error('Update item error:', error)
+    return res.status(500).json({ message: 'Server error' })
+  }
+}
+
+export const deleteItem = async (req, res) => {
+  try {
+    const { id } = req.params
+    const userId = req.userId
+
+    const item = await Item.findById(id)
+    if (!item) return res.status(404).json({ message: 'Item not found' })
+    if (String(item.postedBy) !== String(userId)) return res.status(403).json({ message: 'Not allowed' })
+
+    // delete images from cloudinary if present
+    if (Array.isArray(item.images) && item.images.length > 0) {
+      for (const img of item.images) {
+        try {
+          const publicId = getPublicIdFromUrl(img)
+          if (publicId) await cloudinary.uploader.destroy(publicId, { resource_type: 'image' })
+        } catch (err) {
+          console.error('Cloudinary delete error for', img, err)
+        }
+      }
+    }
+
+    await Item.findByIdAndDelete(id)
+    return res.status(200).json({ message: 'Item deleted' })
+  } catch (error) {
+    console.error('Delete item error:', error)
+    return res.status(500).json({ message: 'Server error' })
+  }
+}
 
 export const getAllItems = async (req, res) => {
   try {
