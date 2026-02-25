@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTheme } from '../context/ThemeContext'
 import HeroSlider from '../components/HeroSlider'
 import CampusFeatures from '../components/CampusFeatures'
 import WhyChooseCampusSync from '../components/WhyChooseCampusSync'
@@ -8,9 +9,10 @@ import JoinCTA from '../components/JoinCTA'
 import FloatingActions from '../components/FloatingActions'
 
 const Home = () => {
+  const { isDark } = useTheme()
   return (
    
-         <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-330 to-slate-900">
+         <div className={`min-h-screen ${isDark ? 'bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900' : 'bg-gradient-to-br from-white via-blue-50 to-white'}`}>
 
 
       <HeroSlider />

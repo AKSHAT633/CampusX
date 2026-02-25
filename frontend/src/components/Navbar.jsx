@@ -19,42 +19,37 @@ import axios from "axios"
 import { serverUrl } from "../main"
 import toast from "react-hot-toast"
 import { setUserData } from "../redux/userSlice"
+import { useTheme } from "../context/ThemeContext"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
-  
-  const [isDark, setIsDark] = useState(true)
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const profileRef = useRef(null)
-  const notifRef = useRef(null)
-  const { userData } = useSelector((state) => state.user)
+  const { isDark, toggleTheme } = useTheme()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const location = useLocation()
+  const profileRef = useRef(null)
 
-    const handleLogout = async ()=>{
-        try {
-            const res = await axios.post(`${serverUrl}/api/user/logout`,{},{withCredentials:true});
-            dispatch(setUserData(null));
-            console.log(res);
-            navigate("/login")
-            toast.success("logout successfully");
+  const { userData } = useSelector((state) => state.user)
 
-                
-    
-        } catch (error) {
-            toast.error(error)
-        }
+  /* ---------- LOGOUT ---------- */
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${serverUrl}/api/user/logout`, {}, { withCredentials: true })
+      dispatch(setUserData(null))
+      navigate("/login")
+      toast.success("Logout successfully")
+    } catch {
+      toast.error("Logout failed")
     }
+  }
 
+  /* ---------- CLOSE DROPDOWN ---------- */
   useEffect(() => {
     const handler = (e) => {
       if (profileRef.current && !profileRef.current.contains(e.target)) {
         setShowProfile(false)
-      }
-      if (notifRef.current && !notifRef.current.contains(e.target)) {
-        setNotifOpen(false)
       }
     }
     document.addEventListener("mousedown", handler)
@@ -65,18 +60,37 @@ const Navbar = () => {
     { name: "Home", path: "/", icon: Home },
     { name: "Lost & Found", path: "/lost-found", icon: MapPin },
     { name: "MarketPlace", path: "/market", icon: BookOpen },
-    { name: "AI  Notes", path: "/study-material", icon: GraduationCap },
+    { name: "AI Notes", path: "/study-material", icon: GraduationCap },
     { name: "Chat", path: "/chat", icon: MessageCircle }
   ]
 
-  const firstLetter =
-    userData?.name?.charAt(0)?.toUpperCase() || "U"
+  const firstLetter = userData?.name?.charAt(0)?.toUpperCase() || "U"
+
+  /* ---------- THEME COLORS ---------- */
+  const logoMain = isDark ? "text-white" : "text-slate-800"
+  const iconColor = isDark
+    ? "text-gray-300 hover:text-blue-300"
+    : "text-gray-600 hover:text-blue-600"
+
+  const hoverBg = isDark ? "hover:bg-white/5" : "hover:bg-slate-100"
+
+  const dropdownBg = isDark
+    ? "bg-slate-900/95 border-blue-500/20 text-gray-300"
+    : "bg-white border-slate-200 text-slate-700"
+
+  const dropdownHover = isDark
+    ? "hover:bg-slate-800"
+    : "hover:bg-slate-100"
 
   return (
     <motion.nav
       initial={{ y: -80 }}
       animate={{ y: 0 }}
-      className="sticky top-0 z-50 bg-gradient-to-r from-slate-950/95 via-blue-950/95 to-slate-950/95 backdrop-blur-xl border-b border-blue-500/30"
+      className={`sticky top-0 z-50 backdrop-blur-xl transition-colors ${
+        isDark
+          ? "bg-gradient-to-r from-slate-950/95 via-blue-950/95 to-slate-950/95 border-b border-blue-500/30"
+          : "bg-gradient-to-r from-white/95 via-blue-50/95 to-white/95 border-b border-blue-200/40"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
@@ -85,8 +99,8 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="CampusSync" className="w-10 h-10" />
             <span className="text-lg md:text-xl font-bold">
-              <span className="text-white">Campus</span>
-              <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent">
+              <span className={logoMain}>Campus</span>
+              <span className="bg-gradient-to-r from-blue-500 via-blue-400 to-indigo-500 bg-clip-text text-transparent">
                 Sync
               </span>
             </span>
@@ -104,15 +118,19 @@ const Navbar = () => {
                   to={item.path}
                   className={`relative group flex items-center gap-2 font-medium transition ${
                     isActive
-                      ? "text-blue-300"
-                      : "text-gray-300 hover:text-blue-300"
+                      ? isDark
+                        ? "text-blue-300"
+                        : "text-blue-600"
+                      : isDark
+                      ? "text-gray-300 hover:text-blue-300"
+                      : "text-gray-600 hover:text-blue-600"
                   }`}
                 >
                   <Icon size={16} />
                   {item.name}
 
                   <span
-                    className={`absolute left-0 -bottom-1 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-500 transition-all duration-300 ${
+                    className={`absolute left-0 -bottom-1 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-500 transition-all ${
                       isActive ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   />
@@ -121,42 +139,36 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* RIGHT SIDE */}
+          {/* RIGHT */}
           <div className="flex items-center gap-2">
 
             {/* THEME */}
             <button
-              onClick={() => setIsDark(!isDark)}
-              className="p-2 rounded-lg hover:bg-white/5"
+              onClick={toggleTheme}
+              className={`p-2 rounded-lg ${hoverBg}`}
             >
               {isDark ? (
-                <Sun className="w-5 h-5 text-gray-300 hover:text-blue-300" />
+                <Sun className={`w-5 h-5 ${iconColor}`} />
               ) : (
-                <Moon className="w-5 h-5 text-gray-300 hover:text-blue-300" />
+                <Moon className={`w-5 h-5 ${iconColor}`} />
               )}
             </button>
 
-            {/* search removed */}
-
             {/* NOTIFICATION */}
-            <button className="relative p-2 rounded-lg hover:bg-white/5">
-              <Bell className="w-5 h-5 text-gray-300 hover:text-blue-300" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full"></span>
+            <button className={`relative p-2 rounded-lg ${hoverBg}`}>
+              <Bell className={`w-5 h-5 ${iconColor}`} />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full" />
             </button>
 
             {/* USER */}
             {userData ? (
-              <div className="relative" ref={notifRef}>
+              <div className="relative" ref={profileRef}>
                 <button
                   onClick={() => setShowProfile(!showProfile)}
                   className="w-9 h-9 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold"
                 >
                   {userData.profileImage ? (
-                    <img
-                      src={userData.profileImage}
-                      alt="profile"
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={userData.profileImage} alt="profile" className="w-full h-full object-cover" />
                   ) : (
                     firstLetter
                   )}
@@ -168,43 +180,27 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: -10, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      className="absolute right-0 mt-3 w-44 bg-slate-900/95 backdrop-blur-xl border border-blue-500/20 rounded-xl shadow-xl overflow-hidden"
+                      className={`absolute right-0 mt-3 w-44 backdrop-blur-xl border rounded-xl shadow-xl overflow-hidden ${dropdownBg}`}
                     >
-                      <Link
-                        to="/profile"
-                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-slate-800"
-                        onClick={() => setShowProfile(false)}
-                      >
+                      <Link to="/profile" className={`block px-4 py-2 text-sm ${dropdownHover}`}>
                         Profile
                       </Link>
 
-
-                      <Link
-                        to="/item/myclaim"
-                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-slate-800"
-                        onClick={() => setShowProfile(false)}
-                      >
+                      <Link to="/item/myclaim" className={`block px-4 py-2 text-sm ${dropdownHover}`}>
                         My Claims
                       </Link>
-                    
-                      <Link
-                        to="/item/claim-request"
-                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-slate-800"
-                        onClick={() => setShowProfile(false)}
-                      >
+
+                      <Link to="/item/claim-request" className={`block px-4 py-2 text-sm ${dropdownHover}`}>
                         Claim Requests
                       </Link>
-                        <Link
-                        to="/notes/history"
-                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-slate-800"
-                        onClick={() => setShowProfile(false)}
-                      >
+
+                      <Link to="/notes/history" className={`block px-4 py-2 text-sm ${dropdownHover}`}>
                         Notes History
                       </Link>
 
-                      {/* LOGOUT */}
-                      <button onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-sm bg-red-500/10 text-red-400 hover:bg-red-500/20 border-t border-red-500/20"
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2 text-sm bg-red-500/10 text-red-500 hover:bg-red-500/20 border-t border-red-500/20"
                       >
                         Logout
                       </button>
@@ -221,10 +217,10 @@ const Navbar = () => {
               </Link>
             )}
 
-            {/* MOBILE MENU BTN */}
+            {/* MOBILE BTN */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 text-gray-300"
+              className={`lg:hidden p-2 ${iconColor}`}
             >
               {isOpen ? <X /> : <Menu />}
             </button>
@@ -239,7 +235,11 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-t border-blue-500/20 bg-slate-950/95 backdrop-blur-xl"
+            className={`lg:hidden backdrop-blur-xl ${
+              isDark
+                ? "border-t border-blue-500/20 bg-slate-950/95"
+                : "border-t border-blue-200/40 bg-white/95"
+            }`}
           >
             <div className="px-6 py-4 space-y-3">
               {navItems.map((item) => {
@@ -249,7 +249,11 @@ const Navbar = () => {
                     key={item.name}
                     to={item.path}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-2 text-gray-300 hover:text-blue-300"
+                    className={`flex items-center gap-2 ${
+                      isDark
+                        ? "text-gray-300 hover:text-blue-300"
+                        : "text-gray-600 hover:text-blue-600"
+                    }`}
                   >
                     <Icon size={16} />
                     {item.name}
@@ -260,8 +264,6 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* mobile search removed */}
     </motion.nav>
   )
 }

@@ -4,19 +4,36 @@ import { Sparkles } from "lucide-react"
 import { generateNotes } from "../servers/api"
 import { useDispatch } from "react-redux"
 import { updateCreadits } from "../redux/userSlice"
+import { useTheme } from "../context/ThemeContext"
 
 const TopicForm = ({ loading, setLoading, setResult, setError }) => {
+  const { isDark } = useTheme()
+  const dispatch = useDispatch()
+
   const [topic, setTopic] = useState("")
   const [classLevel, setClassLevel] = useState("")
   const [examType, setExamType] = useState("")
   const [revisionMode, setRevisionMode] = useState(false)
   const [includeDiagram, setIncludeDiagram] = useState(false)
   const [includeChart, setIncludeChart] = useState(false)
-const dispatch = useDispatch();
+
   const [progress, setProgress] = useState(0)
   const [progressText, setProgressText] = useState("")
 
-  /* 🔥 Simulated AI stages */
+  /* ---------- THEME ---------- */
+  const formBg = isDark
+    ? "bg-white/5 border-blue-500/20 text-white"
+    : "bg-white border-slate-200 text-slate-900 shadow-sm"
+
+  const labelText = isDark ? "text-blue-200" : "text-slate-600"
+  const inputBg = isDark
+    ? "bg-slate-900/70 border-blue-500/20 text-white"
+    : "bg-white border-slate-300 text-slate-900"
+
+  const progressBg = isDark ? "bg-slate-800" : "bg-slate-200"
+  const progressTextColor = isDark ? "text-blue-300" : "text-slate-600"
+
+  /* ---------- AI PROGRESS ---------- */
   useEffect(() => {
     if (!loading) {
       setProgress(0)
@@ -43,6 +60,7 @@ const dispatch = useDispatch();
     return () => clearInterval(interval)
   }, [loading])
 
+  /* ---------- SUBMIT ---------- */
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -64,12 +82,9 @@ const dispatch = useDispatch();
         includeDiagram,
         includeChart
       })
-      
 
-      /* finish progress */
       setProgress(100)
       setProgressText("Notes ready ✔")
-      
 
       setTimeout(() => {
         if (data?.error) {
@@ -77,17 +92,16 @@ const dispatch = useDispatch();
         } else {
           setResult(data.notes)
           setTopic("")
-        setClassLevel("")
-        setExamType("")
-        setRevisionMode(false)
-        setIncludeDiagram(false)
-        setIncludeChart(false)
+          setClassLevel("")
+          setExamType("")
+          setRevisionMode(false)
+          setIncludeDiagram(false)
+          setIncludeChart(false)
 
-if(typeof data.remainingCredits === "number")
-dispatch(updateCreadits(data.remainingCredits))
+          if (typeof data.remainingCredits === "number")
+            dispatch(updateCreadits(data.remainingCredits))
         }
         setLoading(false)
-        
       }, 500)
 
     } catch (err) {
@@ -101,37 +115,35 @@ dispatch(updateCreadits(data.remainingCredits))
       onSubmit={handleSubmit}
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-xl mx-auto p-8 rounded-lg bg-white/5 border border-blue-500/20 backdrop-blur-xl shadow-lg"
+      className={`max-w-xl mx-auto p-8 rounded-xl border backdrop-blur-xl ${formBg}`}
     >
       {/* TITLE */}
       <div className="mb-6 flex items-center gap-2">
-        <Sparkles className="text-blue-400" />
-        <h2 className="text-xl font-semibold text-white">
+        <Sparkles className="text-blue-500" />
+        <h2 className="text-xl font-semibold">
           Generate AI Notes
         </h2>
       </div>
 
-      {/* ...existing code... */}
-
       {/* TOPIC */}
       <div className="mb-4">
-        <label className="text-sm text-blue-200">Topic</label>
+        <label className={`text-sm ${labelText}`}>Topic</label>
         <input
           type="text"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           placeholder="Enter topic (e.g. Web Development)"
-          className="w-full mt-1 px-4 py-3 rounded-lg bg-slate-900/70 border border-blue-500/20 outline-none focus:border-blue-400 text-white"
+          className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none focus:border-blue-500 ${inputBg}`}
         />
       </div>
 
       {/* CLASS LEVEL */}
       <div className="mb-4">
-        <label className="text-sm text-blue-200">Class / Level</label>
+        <label className={`text-sm ${labelText}`}>Class / Level</label>
         <select
           value={classLevel}
           onChange={(e) => setClassLevel(e.target.value)}
-          className="w-full mt-1 px-4 py-3 rounded-lg bg-slate-900/70 border border-blue-500/20 outline-none focus:border-blue-400 text-white"
+          className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none focus:border-blue-500 ${inputBg}`}
         >
           <option value="">Select level</option>
           <option>School</option>
@@ -144,11 +156,11 @@ dispatch(updateCreadits(data.remainingCredits))
 
       {/* EXAM TYPE */}
       <div className="mb-4">
-        <label className="text-sm text-blue-200">Exam Type</label>
+        <label className={`text-sm ${labelText}`}>Exam Type</label>
         <select
           value={examType}
           onChange={(e) => setExamType(e.target.value)}
-          className="w-full mt-1 px-4 py-3 rounded-lg bg-slate-900/70 border border-blue-500/20 outline-none focus:border-blue-400 text-white"
+          className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none focus:border-blue-500 ${inputBg}`}
         >
           <option value="">Select exam</option>
           <option>Semester</option>
@@ -161,39 +173,38 @@ dispatch(updateCreadits(data.remainingCredits))
 
       {/* TOGGLES */}
       <div className="space-y-3 mb-6">
-        <Toggle label="Revision Mode" value={revisionMode} onChange={setRevisionMode} />
-        <Toggle label="Include Diagrams" value={includeDiagram} onChange={setIncludeDiagram} />
-        <Toggle label="Include Charts" value={includeChart} onChange={setIncludeChart} />
+        <Toggle label="Revision Mode" value={revisionMode} onChange={setRevisionMode} isDark={isDark} />
+        <Toggle label="Include Diagrams" value={includeDiagram} onChange={setIncludeDiagram} isDark={isDark} />
+        <Toggle label="Include Charts" value={includeChart} onChange={setIncludeChart} isDark={isDark} />
       </div>
 
-      {/* SUBMIT */}
+      {/* BUTTON */}
       <motion.button
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.95 }}
         disabled={loading}
-        className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg shadow-blue-500/30 disabled:opacity-50 mb-4"
+        className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg disabled:opacity-50 mb-4"
       >
         {loading ? "Generating..." : "Generate Notes"}
       </motion.button>
 
-      {/* RECTANGLE PROGRESS BAR BELOW BUTTON */}
+      {/* PROGRESS */}
       <AnimatePresence>
         {loading && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="w-full flex flex-col items-center mb-6"
+            className="w-full flex flex-col items-center mb-2"
           >
-            <div className="w-full max-w-md bg-slate-800 rounded-lg h-6 overflow-hidden border border-blue-400/40 shadow-md">
+            <div className={`w-full rounded-lg h-6 overflow-hidden border ${progressBg}`}>
               <motion.div
-                className="h-6 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg"
+                className="h-6 bg-gradient-to-r from-blue-500 to-indigo-500"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
-                transition={{ ease: "easeOut" }}
               />
             </div>
-            <p className="text-xs text-blue-300 mt-2 text-center w-full">
+            <p className={`text-xs mt-2 ${progressTextColor}`}>
               {progressText}
             </p>
           </motion.div>
@@ -203,23 +214,32 @@ dispatch(updateCreadits(data.remainingCredits))
   )
 }
 
-/* TOGGLE */
-const Toggle = ({ label, value, onChange }) => (
-  <label className="flex items-center justify-between p-3 rounded-lg bg-slate-900/60 border border-blue-500/20 cursor-pointer">
-    <span className="text-sm text-blue-200">{label}</span>
-    <div
+/* ---------- TOGGLE ---------- */
+const Toggle = ({ label, value, onChange, isDark }) => {
+  const bg = isDark
+    ? "bg-slate-900/60 border-blue-500/20 text-blue-200"
+    : "bg-white border-slate-300 text-slate-700"
+
+  return (
+    <label
+      className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer ${bg}`}
       onClick={() => onChange(!value)}
-      className={`w-10 h-5 rounded-full p-1 transition ${
-        value ? "bg-blue-500" : "bg-gray-600"
-      }`}
     >
+      <span className="text-sm">{label}</span>
+
       <div
-        className={`w-3 h-3 bg-white rounded-full transition ${
-          value ? "translate-x-5" : ""
+        className={`w-10 h-5 rounded-full p-1 transition ${
+          value ? "bg-blue-500" : isDark ? "bg-gray-600" : "bg-slate-300"
         }`}
-      />
-    </div>
-  </label>
-)
+      >
+        <div
+          className={`w-3 h-3 bg-white rounded-full transition ${
+            value ? "translate-x-5" : ""
+          }`}
+        />
+      </div>
+    </label>
+  )
+}
 
 export default TopicForm

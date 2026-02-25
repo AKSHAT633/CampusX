@@ -191,3 +191,39 @@ export const logout = async (req, res) => {
 };
 
 
+
+
+
+export const updateTheme = async (req, res) => {
+  try {
+    const userId = req.userId;        // from auth middleware
+    const { theme } = req.body;
+
+    // validate
+    if (!["light", "dark"].includes(theme)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid theme value",
+      });
+    }
+
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { theme },
+      { new: true }
+    ).select("theme");
+
+    return res.json({
+      success: true,
+      message: "Theme updated",
+      theme: user.theme,
+    });
+
+  } catch (error) {
+    console.error("Theme update error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};

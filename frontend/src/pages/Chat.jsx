@@ -1,12 +1,12 @@
 import React from 'react'
-import MessageSideBar from '../components/messageSideBar'
-import ChatMessageInput from '../components/ChatMessageInput'
+import { useTheme } from "../context/ThemeContext"
 
 const Chat = () => {
+  
+  const { isDark } = useTheme()
   return (
     <div>
-      <MessageSideBar/>
-    <ChatMessageInput/>
+      dsfds
     </div>
   )
 }

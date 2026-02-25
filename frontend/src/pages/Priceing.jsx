@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { Diamond, Check, Loader2 } from "lucide-react"
 import axios from "axios"
 import { serverUrl } from "../main"
+import { useTheme } from "../context/ThemeContext"
 
 const plans = [
   { credits: 5, price: 49, popular: false },
@@ -13,6 +14,7 @@ const plans = [
 ]
 
 const Pricing = () => {
+  const { isDark } = useTheme()
   const [loadingPlan, setLoadingPlan] = useState(null)
   const [errorMessage, setErrorMessage] = useState("")
 
@@ -28,7 +30,7 @@ const Pricing = () => {
       )
 
       if (res.data?.url) {
-        window.location.href = res.data.url // redirect to Stripe
+        window.location.href = res.data.url
         return
       }
 
@@ -43,20 +45,44 @@ const Pricing = () => {
     }
   }
 
+  /* ---------- THEME ---------- */
+  const pageBg = isDark
+    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+    : "bg-gradient-to-br from-white via-blue-50 to-white text-slate-900"
+
+  const headerText = isDark ? "text-blue-200/80" : "text-slate-600"
+  const errorText = isDark ? "text-red-300" : "text-red-600"
+
+  const cardBase = isDark
+    ? "bg-white/5 border-blue-500/20"
+    : "bg-white border-slate-200 shadow-lg"
+
+  const popularCard = isDark
+    ? "bg-gradient-to-br from-blue-500/15 to-indigo-500/10 border-blue-400/50"
+    : "bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-300 shadow-xl"
+
+  const featureText = isDark ? "text-blue-100/90" : "text-slate-600"
+
+  const secondaryBtn = isDark
+    ? "bg-white/5 border-blue-500/30 text-blue-200 hover:bg-blue-500/10"
+    : "bg-white border-slate-300 text-slate-700 hover:bg-slate-100"
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white py-16 px-4">
-      
+    <div className={`min-h-screen py-16 px-4 ${pageBg}`}>
       {/* HEADER */}
       <div className="text-center max-w-3xl mx-auto mb-14">
         <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-          Buy <span className="text-blue-400">Credits</span>
+          Buy <span className="text-blue-500">Credits</span>
         </h1>
-        <p className="text-blue-200/80">
+        <p className={headerText}>
           Generate AI notes, diagrams, charts & PDFs using credits.
           Choose a plan that fits your study needs.
         </p>
+
         {errorMessage && (
-          <p className="mt-4 text-sm text-red-300">{errorMessage}</p>
+          <p className={`mt-4 text-sm ${errorText}`}>
+            {errorMessage}
+          </p>
         )}
       </div>
 
@@ -69,10 +95,8 @@ const Pricing = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.15 }}
             whileHover={{ y: -6, scale: 1.02 }}
-            className={`relative rounded-2xl p-6 border backdrop-blur-xl shadow-xl ${
-              plan.popular
-                ? "bg-gradient-to-br from-blue-500/15 to-indigo-500/10 border-blue-400/50"
-                : "bg-white/5 border-blue-500/20"
+            className={`relative rounded-2xl p-6 border backdrop-blur-xl transition ${
+              plan.popular ? popularCard : cardBase
             }`}
           >
             {/* POPULAR */}
@@ -85,7 +109,7 @@ const Pricing = () => {
             {/* ICON */}
             <div className="flex justify-center mb-4">
               <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-600/20 border border-blue-400/40">
-                <Diamond className="w-6 h-6 text-cyan-300" />
+                <Diamond className="w-6 h-6 text-cyan-400" />
               </div>
             </div>
 
@@ -100,21 +124,21 @@ const Pricing = () => {
             </p>
 
             {/* FEATURES */}
-            <ul className="space-y-2 mb-6 text-sm text-blue-100/90">
+            <ul className={`space-y-2 mb-6 text-sm ${featureText}`}>
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-green-400" />
+                <Check className="w-4 h-4 text-green-500" />
                 Generate AI Notes
               </li>
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-green-400" />
+                <Check className="w-4 h-4 text-green-500" />
                 Diagrams & Charts
               </li>
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-green-400" />
+                <Check className="w-4 h-4 text-green-500" />
                 Export PDF
               </li>
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-green-400" />
+                <Check className="w-4 h-4 text-green-500" />
                 Exam Revision Mode
               </li>
             </ul>
@@ -127,8 +151,8 @@ const Pricing = () => {
               disabled={loadingPlan === plan.credits}
               className={`w-full py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition ${
                 plan.popular
-                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30"
-                  : "bg-white/5 border border-blue-500/30 text-blue-200 hover:bg-blue-500/10"
+                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg"
+                  : secondaryBtn
               }`}
             >
               {loadingPlan === plan.credits ? (

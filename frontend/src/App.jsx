@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import LostAndFound from "./pages/LostAndFound";
 import { useEffect } from "react";
-import { getCurrentuser } from "./servers/api";
+import { getCurrentuser, getOnlineUser } from "./servers/api";
 import { useDispatch, useSelector } from "react-redux";
 import StudyHome from "./pages/StudyHome";
 import Contact from "./pages/Contact";
@@ -32,18 +32,20 @@ import Profile from "./pages/Profile";
 import UserSellPost from "./pages/UserSellPost";
 import Chat from "./pages/Chat";
 import ChatMessageInput from "./components/ChatMessageInput";
+import { useTheme } from "./context/ThemeContext";
 
 const App = () => {
   const dispatch = useDispatch();
   const {userData} = useSelector((state)=>state.user)
+  const { isDark } = useTheme()
   console.log(userData);
   
   useEffect(() => {
-    
+    getOnlineUser();
     getCurrentuser(dispatch);
   }, [dispatch]);
   return (
-    <div className="bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 ">
+    <div className={`min-h-screen ${isDark ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950" : "bg-gradient-to-b from-white via-blue-50 to-white"} transition-colors duration-300`}>
       <Toaster position="top-center" reverseOrder={false} />
 
       <Navbar />

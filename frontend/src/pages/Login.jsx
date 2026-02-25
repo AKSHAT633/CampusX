@@ -9,10 +9,12 @@ import axios from "axios"
 import { serverUrl } from "../main"
 import { useDispatch } from "react-redux"
 import { setUserData } from "../redux/userSlice"
+import { useTheme } from "../context/ThemeContext"
 
 const Login = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const { isDark } = useTheme()
 
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -27,22 +29,20 @@ const Login = () => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  // ================= NORMAL LOGIN =================
+  /* ---------- LOGIN ---------- */
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
 
     try {
-     const res =  await axios.post(
+      const res = await axios.post(
         `${serverUrl}/api/user/login`,
         formData,
         { withCredentials: true }
       )
       dispatch(setUserData(res.data.user))
-      
       toast.success("Login successful 🎉")
       navigate("/")
-
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed")
     } finally {
@@ -50,11 +50,10 @@ const Login = () => {
     }
   }
 
-  // ================= GOOGLE LOGIN =================
+  /* ---------- GOOGLE ---------- */
   const handleGoogleLogin = async () => {
     try {
       setLoading(true)
-
       const response = await signInWithPopup(auth, provider)
       const { user } = response
 
@@ -64,66 +63,60 @@ const Login = () => {
         { withCredentials: true }
       )
       dispatch(setUserData(res.data.user))
-
       toast.success("Google login successful 🎉")
       navigate("/")
-
     } catch (error) {
-      console.error(error)
       toast.error(error.response?.data?.message || "Google login failed")
     } finally {
       setLoading(false)
     }
   }
 
-  // ================= ANIMATION =================
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-    },
-  }
+  /* ---------- THEME COLORS ---------- */
+  const pageBg = isDark
+    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950"
+    : "bg-gradient-to-br from-white via-blue-50 to-white"
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  }
+  const cardBg = isDark
+    ? "bg-white/5 border-blue-500/30"
+    : "bg-white border-slate-200"
+
+  const labelColor = isDark ? "text-slate-300" : "text-slate-700"
+
+  const inputBg = isDark
+    ? "bg-slate-900/70 border-blue-500/30 text-white placeholder:text-slate-400"
+    : "bg-white border-slate-300 text-slate-900 placeholder:text-slate-400"
+
+  const dividerBg = isDark ? "bg-slate-950" : "bg-white"
+  const dividerText = isDark ? "text-slate-400" : "text-slate-500"
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 flex items-center justify-center px-4 py-10">
+    <div className={`min-h-screen flex items-center justify-center px-4 py-10 ${pageBg}`}>
       <div className="w-full max-w-md">
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-blue-500/30"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`rounded-2xl shadow-2xl p-8 border backdrop-blur-xl ${cardBg}`}
         >
-
           {/* HEADER */}
-          <motion.div variants={itemVariants} className="text-center mb-8">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+          <div className="text-center mb-8">
+            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <span className="text-white text-xl font-bold">CS</span>
             </div>
 
-            <h1 className="text-3xl font-bold text-blue-300 mb-2">
+            <h1 className="text-3xl font-bold text-blue-500 mb-2">
               Welcome Back
             </h1>
-            <p className="text-gray-300 text-sm">
+            <p className={labelColor}>
               Login to continue to Campus Sync
             </p>
-          </motion.div>
+          </div>
 
           {/* FORM */}
           <form onSubmit={handleSubmit} className="space-y-5">
-
             {/* EMAIL */}
-            <motion.div variants={itemVariants}>
-              <label className="text-white text-sm font-semibold mb-2 block">
+            <div>
+              <label className={`text-sm font-semibold mb-2 block ${labelColor}`}>
                 Email
               </label>
               <input
@@ -131,14 +124,14 @@ const Login = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white/5 border border-blue-500/30 rounded-xl text-white"
                 placeholder="you@email.com"
+                className={`w-full px-4 py-3 rounded-xl border ${inputBg}`}
               />
-            </motion.div>
+            </div>
 
             {/* PASSWORD */}
-            <motion.div variants={itemVariants}>
-              <label className="text-white text-sm font-semibold mb-2 block">
+            <div>
+              <label className={`text-sm font-semibold mb-2 block ${labelColor}`}>
                 Password
               </label>
 
@@ -148,61 +141,63 @@ const Login = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/5 border border-blue-500/30 rounded-xl text-white pr-12"
                   placeholder="••••••••"
+                  className={`w-full px-4 py-3 rounded-xl border pr-12 ${inputBg}`}
                 />
 
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60"
+                  className={`absolute right-4 top-1/2 -translate-y-1/2 ${
+                    isDark ? "text-slate-400" : "text-slate-500"
+                  }`}
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
-            </motion.div>
+            </div>
 
-            {/* LOGIN BUTTON */}
-            <motion.button
-              variants={itemVariants}
+            {/* LOGIN */}
+            <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 rounded-xl mt-4"
+              className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold py-3 rounded-xl shadow-lg"
             >
               {loading ? "Logging in..." : "Login"}
-            </motion.button>
+            </button>
           </form>
 
           {/* DIVIDER */}
           <div className="relative my-6">
             <div className="border-t border-blue-500/20"></div>
-            <span className="absolute left-1/2 -translate-x-1/2 -top-3 bg-slate-950 px-3 text-gray-400 text-xs">
+            <span
+              className={`absolute left-1/2 -translate-x-1/2 -top-3 px-3 text-xs ${dividerText} ${dividerBg}`}
+            >
               OR CONTINUE WITH
             </span>
           </div>
 
-          {/* GOOGLE LOGIN */}
-          <motion.button
-            variants={itemVariants}
+          {/* GOOGLE */}
+          <button
             onClick={handleGoogleLogin}
             disabled={loading}
-            className="w-full border border-blue-500/30 text-white py-3 rounded-xl flex items-center justify-center gap-3"
+            className={`w-full py-3 rounded-xl flex items-center justify-center gap-3 border ${
+              isDark
+                ? "border-blue-500/30 text-white"
+                : "border-slate-300 text-slate-800 bg-white"
+            }`}
           >
-            <FaGoogle className="text-blue-400" />
+            <FaGoogle className="text-blue-500" />
             {loading ? "Connecting..." : "Continue with Google"}
-          </motion.button>
+          </button>
 
-          {/* SIGNUP LINK */}
-          <motion.p
-            variants={itemVariants}
-            className="text-center text-gray-300 text-sm mt-6"
-          >
+          {/* SIGNUP */}
+          <p className={`text-center text-sm mt-6 ${labelColor}`}>
             Don’t have an account?{" "}
-            <Link to="/register" className="text-blue-300 font-semibold">
+            <Link to="/register" className="text-blue-500 font-semibold">
               Sign Up
             </Link>
-          </motion.p>
-
+          </p>
         </motion.div>
       </div>
     </div>

@@ -21,6 +21,10 @@ export const getSocketId = (recId)=>{
 return userSocketMap[recId]
 }
 
+export const getOnlineUsersList = () => {
+  return Object.keys(userSocketMap);
+}
+
 io.on("connection", (socket) => {
   console.log("✅ New client connected:", socket.id);
 

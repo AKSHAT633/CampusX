@@ -33,6 +33,12 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:true
     },
+   theme: {         
+      type: String,
+      enum: ["light", "dark"],
+      default: "dark",
+    },
+
     notes:{
         type:[mongoose.Schema.Types.ObjectId],
         ref:"Notes",

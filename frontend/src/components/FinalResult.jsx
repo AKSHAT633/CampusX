@@ -1,89 +1,117 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Copy, Download, Zap, Star } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import { HelpCircle } from "lucide-react";
-import MermaidSetup from "./MermaidSetup";
-import RechartSetUp from "./RechartSetUp";
+import React, { useState } from "react"
+import { motion } from "framer-motion"
+import { Copy, Download, Zap, Star, HelpCircle } from "lucide-react"
+import ReactMarkdown from "react-markdown"
+import MermaidSetup from "./MermaidSetup"
+import RechartSetUp from "./RechartSetUp"
+import { useTheme } from "../context/ThemeContext"
 
 const FinalResult = ({ result }) => {
-  const [quickRevision, setQuickRevision] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const { isDark } = useTheme()
 
-  console.log(result);
+  const [quickRevision, setQuickRevision] = useState(false)
+  const [copied, setCopied] = useState(false)
 
-  if (!result) return null;
+  if (!result) return null
 
+  /* ---------- THEME ---------- */
+  const textMain = isDark ? "text-white" : "text-slate-800"
+  const textSub = isDark ? "text-blue-200/80" : "text-slate-600"
+  const card = isDark
+    ? "bg-white/5 border-blue-500/20"
+    : "bg-white border-slate-200"
+  const chip = isDark
+    ? "bg-blue-500/5 border-blue-500/20 text-blue-100"
+    : "bg-blue-50 border-blue-200 text-slate-700"
+
+  /* ---------- MARKDOWN ---------- */
   const markdownComponents = {
     h1: ({ children }) => (
-      <h1 className="text-3xl font-bold text-blue-300 mt-8 mb-4 border-b border-blue-500/30 pb-2">
+      <h1
+        className={`text-3xl font-bold mt-8 mb-4 pb-2 border-b ${
+          isDark
+            ? "text-blue-300 border-blue-500/30"
+            : "text-slate-800 border-slate-300"
+        }`}
+      >
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-2xl font-semibold text-blue-200 mt-6 mb-3">
+      <h2
+        className={`text-2xl font-semibold mt-6 mb-3 ${
+          isDark ? "text-blue-200" : "text-slate-700"
+        }`}
+      >
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl font-semibold text-blue-100 mt-5 mb-2">
+      <h3
+        className={`text-xl font-semibold mt-5 mb-2 ${
+          isDark ? "text-blue-100" : "text-slate-700"
+        }`}
+      >
         {children}
       </h3>
     ),
     p: ({ children }) => (
-      <p className="text-blue-100/90 leading-relaxed mb-3">{children}</p>
+      <p className={`${textSub} leading-relaxed mb-3`}>{children}</p>
     ),
     ul: ({ children }) => (
-      <ul className="list-disc ml-6 space-y-1 text-blue-100/90 mb-4">
+      <ul className={`list-disc ml-6 space-y-1 mb-4 ${textSub}`}>
         {children}
       </ul>
     ),
-    li: ({ children }) => <li className="marker:text-blue-400">{children}</li>,
-  };
+    li: ({ children }) => <li>{children}</li>,
+  }
 
+  /* ---------- ACTIONS ---------- */
   const handleCopy = async () => {
     const text = quickRevision
       ? result.revisionPoints?.join("\n")
-      : `${JSON.stringify(result.subTopics, null, 2)}\n\n${result.notes}`;
+      : `${JSON.stringify(result.subTopics, null, 2)}\n\n${result.notes}`
 
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    await navigator.clipboard.writeText(text)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   const handleDownload = () => {
     const text = quickRevision
       ? result.revisionPoints?.join("\n")
-      : `${JSON.stringify(result.subTopics, null, 2)}\n\n${result.notes}`;
+      : `${JSON.stringify(result.subTopics, null, 2)}\n\n${result.notes}`
 
-    const blob = new Blob([text], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
+    const blob = new Blob([text], { type: "text/plain" })
+    const url = URL.createObjectURL(blob)
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${result.topic || "notes"}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `${result.topic || "notes"}.txt`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
 
   return (
     <div className="space-y-6">
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h2 className="text-xl sm:text-2xl font-semibold text-white">
+        <h2 className={`text-xl sm:text-2xl font-semibold ${textMain}`}>
           Generated Notes
         </h2>
 
         <div className="flex flex-wrap gap-2">
-          {/* QUICK REVISION */}
+          {/* REVISION */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setQuickRevision(!quickRevision)}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm border transition ${
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm border ${
               quickRevision
                 ? "bg-blue-500/20 border-blue-400 text-blue-300"
-                : "bg-white/5 border-blue-500/20 text-blue-200 hover:bg-blue-500/10"
+                : isDark
+                ? "bg-white/5 border-blue-500/20 text-blue-200"
+                : "bg-white border-slate-300 text-slate-700"
             }`}
           >
             <Zap className="w-4 h-4" />
@@ -95,7 +123,11 @@ const FinalResult = ({ result }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleCopy}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-blue-500/20 text-blue-200 hover:bg-blue-500/10 transition text-sm"
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm border ${
+              isDark
+                ? "bg-white/5 border-blue-500/20 text-blue-200"
+                : "bg-white border-slate-300 text-slate-700"
+            }`}
           >
             <Copy className="w-4 h-4" />
             {copied ? "Copied" : "Copy"}
@@ -120,129 +152,99 @@ const FinalResult = ({ result }) => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
       >
+        {/* REVISION */}
         {quickRevision ? (
-          /* ✅ REVISION MODE */
           <ul className="space-y-2">
             {result.revisionPoints?.map((p, i) => (
-              <li
-                key={i}
-                className="bg-blue-500/5 border border-blue-500/20 rounded-lg px-3 py-2 text-blue-100"
-              >
+              <li key={i} className={`rounded-lg px-3 py-2 border ${chip}`}>
                 {p}
               </li>
             ))}
           </ul>
         ) : (
-          /* ✅ NORMAL MODE */
           <div className="space-y-8">
             {/* SUBTOPICS */}
             {result.subTopics && (
               <div>
-                <h3 className="text-lg font-semibold text-blue-300 mb-4 flex items-center gap-2">
-                  <Star className="w-4 h-4" />
+                <h3 className={`text-lg font-semibold mb-4 flex gap-2 ${textMain}`}>
+                  <Star className="w-4 h-4 text-blue-400" />
                   Priority Topics
                 </h3>
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   {Object.entries(result.subTopics).map(
                     ([priority, topics]) => (
-                      <div
-                        key={priority}
-                        className="bg-white/5 border border-blue-500/20 rounded-lg p-4"
-                      >
-                        <div className="text-blue-300 font-semibold mb-2">
+                      <div key={priority} className={`rounded-lg p-4 border ${card}`}>
+                        <div className="text-blue-400 font-semibold mb-2">
                           {priority} Priority
                         </div>
-                        <ul className="space-y-1 text-blue-100/90 text-sm">
+                        <ul className={`space-y-1 text-sm ${textSub}`}>
                           {topics.map((t, i) => (
                             <li key={i}>• {t}</li>
                           ))}
                         </ul>
                       </div>
-                    ),
+                    )
                   )}
                 </div>
               </div>
             )}
 
             {/* NOTES */}
-            <div className="prose prose-invert max-w-none">
+            <div className="prose max-w-none">
               <ReactMarkdown components={markdownComponents}>
                 {result.notes}
               </ReactMarkdown>
             </div>
-
           </div>
         )}
 
-            {result?.charts?.length > 0 && (
-              <RechartSetUp charts={result.charts} />
-            )}
+        {/* CHARTS */}
+        {result?.charts?.length > 0 && <RechartSetUp charts={result.charts} />}
 
-            <div className="space-y-4">
-              {/* HEADER */}
-              <div className="flex items-center gap-2">
-                <HelpCircle className="w-5 h-5 text-blue-400" />
-                <h3 className="text-lg font-semibold text-blue-300">
-                  Short Exam Questions
-                </h3>
-              </div>
+        {/* SHORT */}
+        <Section title="Short Exam Questions" data={result.questions.short} isDark={isDark} />
 
-              {/* LIST */}
-              <ul className="space-y-3">
-                {result.questions.short.map((q, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="bg-blue-500/5 border border-blue-500/20 rounded-lg px-4 py-3 text-blue-100"
-                  >
-                    {q}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
+        {/* LONG */}
+        <Section title="Long Exam Questions" data={result.questions.long} isDark={isDark} />
 
-            <div className="space-y-4">
-              {/* HEADER */}
-              <div className="flex items-center gap-2">
-                <HelpCircle className="w-5 h-5 text-blue-400" />
-                <h3 className="text-lg font-semibold text-blue-300">
-                  Long Exam Questions
-                </h3>
-              </div>
+        {/* DIAGRAM Q */}
+        <div className={`rounded-lg border p-3 ${card}`}>
+          <p className="text-blue-400 font-medium mb-1">Diagram question</p>
+          <ul className={textSub}>
+            <li>{result?.questions?.diagram}</li>
+          </ul>
+        </div>
 
-              {/* LIST */}
-              <ul className="space-y-3">
-                {result.questions.long.map((q, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="bg-blue-500/5 border border-blue-500/20 rounded-lg px-4 py-3 text-blue-100"
-                  >
-                    {q}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-lg bg-white/5 border border-blue-500/20 p-3">
-              <p className="text-blue-300 font-medium mb-1">Diagram question</p>
-              <ul>
-                <li>{result?.questions?.diagram}</li>
-              </ul>
-            </div>
-
-
-        {result?.diagram?.data && (
-          <MermaidSetup diagram={result?.diagram?.data} />
-        )}
+        {/* MERMAID */}
+        {result?.diagram?.data && <MermaidSetup diagram={result.diagram.data} />}
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default FinalResult;
+/* ---------- SECTION ---------- */
+const Section = ({ title, data, isDark }) => {
+  const card = isDark
+    ? "bg-blue-500/5 border-blue-500/20 text-blue-100"
+    : "bg-blue-50 border-blue-200 text-slate-700"
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-2">
+        <HelpCircle className="w-5 h-5 text-blue-400" />
+        <h3 className="text-lg font-semibold text-blue-400">{title}</h3>
+      </div>
+
+      <ul className="space-y-3">
+        {data.map((q, i) => (
+          <li key={i} className={`rounded-lg px-4 py-3 border ${card}`}>
+            {q}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export default FinalResult

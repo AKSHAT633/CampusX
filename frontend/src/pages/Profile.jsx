@@ -3,9 +3,16 @@ import { Edit, Mail, Phone, User, Camera, Trash2 } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
-import { updateProfile, deleteProfileImage, fetchMarketplaceItems, fetchItems } from "../servers/api"
+import {
+  updateProfile,
+  deleteProfileImage,
+  fetchMarketplaceItems,
+  fetchItems,
+} from "../servers/api"
+import { useTheme } from "../context/ThemeContext"
 
 const Profile = () => {
+  const { isDark } = useTheme()
   const { userData } = useSelector((state) => state.user)
   const { items: marketplaceItems } = useSelector((state) => state.marketplace)
   const { itemData } = useSelector((state) => state.item)
@@ -24,6 +31,25 @@ const Profile = () => {
     profileImage: "",
   })
 
+  /* ---------- THEME ---------- */
+  const pageBg = isDark
+    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+    : "bg-gradient-to-br from-white via-blue-50 to-white text-slate-900"
+
+  const cardBg = isDark
+    ? "bg-white/5 border-blue-500/20"
+    : "bg-white border-slate-200 shadow-lg"
+
+  const labelText = isDark ? "text-blue-300/60" : "text-slate-500"
+  const valueText = isDark ? "text-blue-100" : "text-slate-800"
+  const inputBg = isDark
+    ? "bg-slate-900/40 border-blue-500/20 text-blue-100"
+    : "bg-white border-slate-300 text-slate-900"
+
+  const statCard = isDark
+    ? "bg-slate-900/40 border-blue-500/20"
+    : "bg-slate-50 border-slate-200"
+
   /* LOAD USER */
   useEffect(() => {
     if (userData) {
@@ -33,19 +59,18 @@ const Profile = () => {
         phone: userData?.phone || "",
         profileImage: userData?.ProfileImage || "",
       })
-      // ensure marketplace and items are loaded for accurate counts
-      if (!marketplaceItems || marketplaceItems.length === 0) fetchMarketplaceItems(dispatch, { category: "all" })
+
+      if (!marketplaceItems || marketplaceItems.length === 0)
+        fetchMarketplaceItems(dispatch, { category: "all" })
       if (!itemData || itemData.length === 0) fetchItems(dispatch)
     }
   }, [userData])
 
-  /* CHANGE */
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((p) => ({ ...p, [name]: value }))
   }
 
-  /* IMAGE */
   const handleFileChange = (e) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -62,7 +87,6 @@ const Profile = () => {
     reader.readAsDataURL(file)
   }
 
-  /* SAVE */
   const handleSave = async () => {
     setIsSaving(true)
 
@@ -73,10 +97,7 @@ const Profile = () => {
       payload.append("phone", formData.phone)
       payload.append("profileImage", profileFile)
     } else {
-      payload = {
-        name: formData.name,
-        phone: formData.phone,
-      }
+      payload = { name: formData.name, phone: formData.phone }
     }
 
     const res = await updateProfile(dispatch, payload)
@@ -91,20 +112,19 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white p-6">
+    <div className={`min-h-screen p-6 ${pageBg}`}>
       <div className="max-w-2xl mx-auto">
-
         {/* HEADER */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold flex items-center gap-2">
-            <User className="w-7 h-7 text-blue-400" />
+            <User className="w-7 h-7 text-blue-500" />
             My Profile
           </h1>
 
           {!isEditing ? (
             <button
               onClick={() => setIsEditing(true)}
-              className="px-4 py-2 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-300 hover:bg-blue-500/30"
+              className="px-4 py-2 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-600 hover:bg-blue-500/30"
             >
               Edit
             </button>
@@ -112,13 +132,13 @@ const Profile = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => setIsEditing(false)}
-                className="px-4 py-2 rounded-lg bg-white/10 border border-blue-500/20"
+                className="px-4 py-2 rounded-lg border border-slate-300"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
-                className="px-4 py-2 rounded-lg bg-blue-600"
+                className="px-4 py-2 rounded-lg bg-blue-600 text-white"
               >
                 {isSaving ? "Saving..." : "Save"}
               </button>
@@ -127,8 +147,7 @@ const Profile = () => {
         </div>
 
         {/* CARD */}
-        <div className="rounded-2xl border border-blue-500/20 bg-white/5 backdrop-blur-xl p-6 space-y-6">
-
+        <div className={`rounded-2xl border p-6 space-y-6 ${cardBg}`}>
           {/* AVATAR */}
           <div className="flex flex-col items-center gap-3">
             <div
@@ -149,7 +168,7 @@ const Profile = () => {
 
               {isEditing && (
                 <div className="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full border border-blue-400">
-                  <Camera className="w-4 h-4" />
+                  <Camera className="w-4 h-4 text-white" />
                 </div>
               )}
             </div>
@@ -157,23 +176,21 @@ const Profile = () => {
             {isEditing && formData.profileImage && (
               <button
                 onClick={async () => {
-                  // if it's a newly selected local file, just clear
                   if (profileFile) {
                     setProfileFile(null)
                     setFormData((p) => ({ ...p, profileImage: "" }))
                     return
                   }
 
-                  // if it's a remote URL, call delete API
                   const url = formData.profileImage || ""
                   if (url.startsWith("http")) {
                     const res = await deleteProfileImage(url)
-                    if (res?.error) toast.error(res.message || "Delete failed")
+                    if (res?.error) toast.error(res.message)
                     else toast.success("Image removed")
                   }
                   setFormData((p) => ({ ...p, profileImage: "" }))
                 }}
-                className="text-xs text-red-400 flex items-center gap-1"
+                className="text-xs text-red-500 flex items-center gap-1"
               >
                 <Trash2 className="w-3 h-3" />
                 Remove photo
@@ -181,7 +198,6 @@ const Profile = () => {
             )}
           </div>
 
-          {/* hidden input */}
           <input
             ref={fileInputRef}
             type="file"
@@ -198,13 +214,17 @@ const Profile = () => {
             name="name"
             isEditing={isEditing}
             onChange={handleChange}
+            labelText={labelText}
+            valueText={valueText}
+            inputBg={inputBg}
           />
 
           <FieldRow
             icon={<Mail className="w-4 h-4" />}
             label="Email"
             value={formData.email}
-            isEditing={false}
+            labelText={labelText}
+            valueText={valueText}
           />
 
           <FieldRow
@@ -214,39 +234,34 @@ const Profile = () => {
             name="phone"
             isEditing={isEditing}
             onChange={handleChange}
+            labelText={labelText}
+            valueText={valueText}
+            inputBg={inputBg}
           />
 
-          {/* User stats: sell items and lost/found posts */}
+          {/* STATS */}
           <div className="grid sm:grid-cols-2 gap-4 pt-4">
-            <div className="p-3 rounded-lg bg-slate-900/40 border border-blue-500/20">
-              <p className="text-xs text-blue-300/60">Sell items</p>
-              <div className="flex items-center justify-between mt-2">
-                <div className="text-2xl font-semibold text-blue-100">
-                  {marketplaceItems?.filter((m) => m.seller?._id === userData?._id).length || 0}
-                </div>
-                <button
-                  onClick={() => navigate('/all-sell-items')}
-                  className="px-3 py-1 rounded-lg bg-blue-600 text-white text-sm"
-                >
-                  See Sell Items
-                </button>
-              </div>
-            </div>
+            <StatCard
+              title="Sell items"
+              count={
+                marketplaceItems?.filter(
+                  (m) => m.seller?._id === userData?._id
+                ).length || 0
+              }
+              onClick={() => navigate("/all-sell-items")}
+              statCard={statCard}
+            />
 
-            <div className="p-3 rounded-lg bg-slate-900/40 border border-blue-500/20">
-              <p className="text-xs text-blue-300/60">Lost/Found posts</p>
-              <div className="flex items-center justify-between mt-2">
-                <div className="text-2xl font-semibold text-blue-100">
-                  {itemData?.filter((it) => it.postedBy?._id === userData?._id).length || 0}
-                </div>
-                <button
-                  onClick={() => navigate('/all-items')}
-                  className="px-3 py-1 rounded-lg bg-blue-600 text-white text-sm"
-                >
-                  See Posts
-                </button>
-              </div>
-            </div>
+            <StatCard
+              title="Lost/Found posts"
+              count={
+                itemData?.filter(
+                  (it) => it.postedBy?._id === userData?._id
+                ).length || 0
+              }
+              onClick={() => navigate("/all-items")}
+              statCard={statCard}
+            />
           </div>
         </div>
       </div>
@@ -256,23 +271,48 @@ const Profile = () => {
 
 export default Profile
 
-
 /* FIELD */
-const FieldRow = ({ icon, label, value, name, isEditing, onChange }) => (
+const FieldRow = ({
+  icon,
+  label,
+  value,
+  name,
+  isEditing,
+  onChange,
+  labelText,
+  valueText,
+  inputBg,
+}) => (
   <div className="flex items-center gap-3">
-    <div className="text-blue-400">{icon}</div>
+    <div className="text-blue-500">{icon}</div>
     <div className="flex-1">
-      <p className="text-xs text-blue-300/50 mb-1">{label}</p>
+      <p className={`text-xs mb-1 ${labelText}`}>{label}</p>
       {isEditing && name ? (
         <input
           name={name}
           value={value}
           onChange={onChange}
-          className="w-full bg-slate-900/40 border border-blue-500/20 rounded-lg px-3 py-2 text-blue-100"
+          className={`w-full border rounded-lg px-3 py-2 ${inputBg}`}
         />
       ) : (
-        <p className="text-sm text-blue-100">{value || "N/A"}</p>
+        <p className={`text-sm ${valueText}`}>{value || "N/A"}</p>
       )}
+    </div>
+  </div>
+)
+
+/* STAT */
+const StatCard = ({ title, count, onClick, statCard }) => (
+  <div className={`p-3 rounded-lg border ${statCard}`}>
+    <p className="text-xs text-slate-500">{title}</p>
+    <div className="flex items-center justify-between mt-2">
+      <div className="text-2xl font-semibold">{count}</div>
+      <button
+        onClick={onClick}
+        className="px-3 py-1 rounded-lg bg-blue-600 text-white text-sm"
+      >
+        View
+      </button>
     </div>
   </div>
 )

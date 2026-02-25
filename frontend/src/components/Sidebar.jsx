@@ -6,8 +6,11 @@ import {
   FireExtinguisher,
   FileQuestionMark
 } from "lucide-react"
+import { useTheme } from "../context/ThemeContext"
 
 const Sidebar = ({ result }) => {
+  const { isDark } = useTheme()
+
   if (
     !result ||
     !result.subTopics ||
@@ -17,17 +20,28 @@ const Sidebar = ({ result }) => {
     return null
   }
 
+  /* THEME */
+  const textMain = isDark ? "text-blue-100" : "text-slate-800"
+  const textHead = isDark ? "text-blue-300" : "text-slate-700"
+  const textSub = isDark ? "text-blue-200" : "text-slate-600"
+  const card = isDark
+    ? "bg-white/5 border-blue-500/20"
+    : "bg-white border-slate-200 shadow-sm"
+  const badge = isDark
+    ? "bg-blue-500/20 text-blue-300"
+    : "bg-blue-100 text-blue-700"
+
   return (
-    <div className="space-y-6 text-sm text-blue-100">
+    <div className={`space-y-6 text-sm ${textMain}`}>
       {/* HEADER */}
-      <div className="flex items-center gap-2 text-blue-300 font-semibold text-base">
+      <div className={`flex items-center gap-2 font-semibold text-base ${textHead}`}>
         <Pin className="w-4 h-4" />
         Quick Exam View
       </div>
 
       {/* SUBTOPICS */}
       <section>
-        <div className="flex items-center gap-2 text-blue-200 mb-2 font-medium">
+        <div className={`flex items-center gap-2 mb-2 font-medium ${textSub}`}>
           <Star className="w-4 h-4" />
           Sub Topics (Priority)
         </div>
@@ -38,13 +52,13 @@ const Sidebar = ({ result }) => {
               key={star}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              className="rounded-lg bg-white/5 border border-blue-500/20 p-3"
+              className={`rounded-lg border p-3 ${card}`}
             >
-              <p className="text-blue-300 font-medium mb-1">
+              <p className={`font-medium mb-1 ${textHead}`}>
                 {star} Priority
               </p>
 
-              <ul className="space-y-1 list-disc list-inside text-blue-100/90">
+              <ul className="space-y-1 list-disc list-inside">
                 {topics.map((t, i) => (
                   <li key={i}>{t}</li>
                 ))}
@@ -55,27 +69,26 @@ const Sidebar = ({ result }) => {
       </section>
 
       {/* IMPORTANCE */}
-      <section className="rounded-lg bg-white/5 border border-blue-500/20 p-3">
-        <div className="flex items-center gap-2 text-blue-200 mb-2 font-medium">
+      <section className={`rounded-lg border p-3 ${card}`}>
+        <div className={`flex items-center gap-2 mb-2 font-medium ${textSub}`}>
           <FireExtinguisher className="w-4 h-4" />
           Exam Importance
         </div>
 
-        <span className="inline-block mb-3 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 font-semibold">
+        <span className={`inline-block mb-3 px-3 py-1 rounded-full font-semibold ${badge}`}>
           {result.importance}
         </span>
-      
 
-    
-        <div className="flex items-center gap-2 text-blue-200 mb-2 font-medium">
+        {/* QUESTIONS */}
+        <div className={`flex items-center gap-2 mb-2 font-medium ${textSub}`}>
           <FileQuestionMark className="w-4 h-4" />
           Important Questions
         </div>
 
         <div className="space-y-3">
           {/* SHORT */}
-          <div className="rounded-lg bg-white/5 border border-blue-500/20 p-3">
-            <p className="text-blue-300 font-medium mb-1">
+          <div className={`rounded-lg border p-3 ${card}`}>
+            <p className={`font-medium mb-1 ${textHead}`}>
               Short question
             </p>
             <ul className="list-disc list-inside space-y-1">
@@ -86,8 +99,8 @@ const Sidebar = ({ result }) => {
           </div>
 
           {/* LONG */}
-          <div className="rounded-lg bg-white/5 border border-blue-500/20 p-3">
-            <p className="text-blue-300 font-medium mb-1">
+          <div className={`rounded-lg border p-3 ${card}`}>
+            <p className={`font-medium mb-1 ${textHead}`}>
               Long question
             </p>
             <ul className="list-disc list-inside space-y-1">
@@ -96,15 +109,18 @@ const Sidebar = ({ result }) => {
               ))}
             </ul>
           </div>
-          <div className="rounded-lg bg-white/5 border border-blue-500/20 p-3">
-            <p className="text-blue-300 font-medium mb-1">
-              Diagram question
-            </p>
-            <ul>
-              <li>{result.questions.diagram}</li>
-            </ul>
-            
-          </div>
+
+          {/* DIAGRAM */}
+          {result.questions.diagram && (
+            <div className={`rounded-lg border p-3 ${card}`}>
+              <p className={`font-medium mb-1 ${textHead}`}>
+                Diagram question
+              </p>
+              <ul>
+                <li>{result.questions.diagram}</li>
+              </ul>
+            </div>
+          )}
         </div>
       </section>
     </div>

@@ -2,6 +2,7 @@ import React from "react"
 import { motion } from "framer-motion"
 import { MapPin, BookOpen, Brain } from "lucide-react"
 import { Link } from "react-router-dom"
+import { useTheme } from "../context/ThemeContext"
 
 const features = [
   {
@@ -25,6 +26,8 @@ const features = [
 ]
 
 const CampusFeatures = () => {
+  const { isDark } = useTheme()
+  
   return (
     <section className="py-24 px-6 max-w-7xl mx-auto">
 
@@ -37,19 +40,19 @@ const CampusFeatures = () => {
 >
   {/* BACKGROUND GLOW */}
   <div className="absolute inset-0 flex justify-center">
-    <div className="w-80 h-80 bg-blue-500/20 blur-[120px] rounded-full" />
+    <div className={`w-80 h-80 ${isDark ? "bg-blue-500/20" : "bg-blue-400/15"} blur-[120px] rounded-full`} />
   </div>
 
   {/* TITLE */}
   <h2 className="relative text-4xl md:text-5xl font-bold mb-6">
-    <span className="text-white">Campus</span>
-    <span className="bg-gradient-to-r from-blue-800 via-blue-600 to-indigo-700 bg-clip-text text-transparent">
+    <span className={isDark ? "text-white" : "text-slate-900"}>Campus</span>
+    <span className={`bg-clip-text text-transparent ${isDark ? "bg-gradient-to-r from-blue-800 via-blue-600 to-indigo-700" : "bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-500"}`}>
       Sync
     </span>
   </h2>
 
   {/* DESC */}
-  <p className="relative text-blue-200/90 text-lg leading-relaxed max-w-2xl mx-auto">
+  <p className={`relative ${isDark ? "text-blue-200/90" : "text-slate-600"} text-lg leading-relaxed max-w-2xl mx-auto`}>
     Find lost items, sell books, and connect with students in real time.
     Your campus utility platform for seamless academic life.
   </p>
@@ -73,13 +76,13 @@ const CampusFeatures = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.15, duration: 0.6 }}
               whileHover={{ y: -10, scale: 1.03 }}
-              className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-blue-500/40 via-indigo-500/20 to-transparent"
+              className={`group relative rounded-2xl p-[1px] ${isDark ? "bg-gradient-to-br from-blue-500/40 via-indigo-500/20 to-transparent" : "bg-gradient-to-br from-blue-400/30 via-indigo-400/15 to-transparent"}`}
             >
               {/* CARD INNER */}
-              <div className="h-full rounded-2xl bg-slate-950/90 backdrop-blur-xl border border-blue-500/10 p-8 relative overflow-hidden">
+              <div className={`h-full rounded-2xl ${isDark ? "bg-slate-950/90" : "bg-white/90"} backdrop-blur-xl ${isDark ? "border-blue-500/10" : "border-blue-300/20"} border p-8 relative overflow-hidden`}>
 
                 {/* GLOW EFFECT */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-blue-500/10 via-indigo-500/10 to-transparent" />
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${isDark ? "bg-gradient-to-br from-blue-500/10 via-indigo-500/10 to-transparent" : "bg-gradient-to-br from-blue-400/10 via-indigo-400/10 to-transparent"}`} />
 
                 {/* ICON */}
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-6 shadow-lg shadow-blue-500/40 group-hover:shadow-blue-500/60 transition">
@@ -87,19 +90,19 @@ const CampusFeatures = () => {
                 </div>
 
                 {/* TITLE */}
-                <h3 className="text-xl font-semibold text-white mb-3">
+                <h3 className={`text-xl font-semibold ${isDark ? "text-white" : "text-slate-900"} mb-3`}>
                   {f.title}
                 </h3>
 
                 {/* DESC */}
-                <p className="text-gray-300/90 mb-6 leading-relaxed">
+                <p className={`${isDark ? "text-gray-300/90" : "text-slate-600/90"} mb-6 leading-relaxed`}>
                   {f.desc}
                 </p>
 
                 {/* CTA */}
                 <Link
                   to={f.link}
-                  className="inline-flex items-center gap-2 text-blue-400 font-medium group-hover:text-blue-300 transition"
+                  className={`inline-flex items-center gap-2 ${isDark ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-700"} font-medium group-hover:text-blue-300 transition`}
                 >
                   Explore
                   <span className="group-hover:translate-x-1 transition">→</span>

@@ -1,5 +1,6 @@
 import React from "react"
 import { motion } from "framer-motion"
+import { useTheme } from "../context/ThemeContext"
 import heroImg from "../assets/ai1.png" // your illustration
 
 import { FileText, Folder, BarChart3, Download } from "lucide-react"
@@ -29,9 +30,10 @@ const features = [
 ]
 
 const HeroExam = () => {
+  const { isDark } = useTheme()
   const navigate = useNavigate();
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 text-white">
+    <section className={`relative overflow-hidden ${isDark ? 'bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 text-white' : 'bg-gradient-to-b from-white via-blue-50 to-white text-slate-900'}`}>
 
       {/* SOFT GLOW */}
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-blue-600/20 blur-[160px] rounded-full" />
@@ -56,7 +58,7 @@ const HeroExam = () => {
               in Seconds
             </h1>
 
-            <p className="text-blue-200/90 text-lg mb-8 max-w-lg">
+            <p className={`${isDark ? 'text-blue-200/90' : 'text-slate-600'} text-lg mb-8 max-w-lg`}>
               Generate exam-focused notes, diagrams, and revision-ready PDFs
               using AI — faster, cleaner and smarter.
             </p>
@@ -96,20 +98,20 @@ const HeroExam = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * i }}
                 whileHover={{ y: -8, scale: 1.03 }}
-                className="group rounded-2xl p-6 bg-gradient-to-b from-white/5 to-white/0 border border-blue-500/20 backdrop-blur-xl shadow-lg hover:shadow-blue-500/20 transition"
+                className={`group rounded-2xl p-6 ${isDark ? 'bg-gradient-to-b from-white/5 to-white/0 border border-blue-500/20' : 'bg-gradient-to-b from-slate-100/50 to-slate-50/30 border border-blue-200/40'} backdrop-blur-xl shadow-lg ${isDark ? 'hover:shadow-blue-500/20' : 'hover:shadow-blue-200/20'} transition`}
               >
                 {/* ICON */}
-                <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition">
-                  <Icon className="w-6 h-6 text-blue-400" />
+                <div className={`w-12 h-12 mb-4 rounded-xl ${isDark ? 'bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-blue-500/20' : 'bg-gradient-to-br from-blue-200/40 to-indigo-200/30 border border-blue-300/40'} flex items-center justify-center group-hover:scale-110 transition`}>
+                  <Icon className={`w-6 h-6 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
                 </div>
 
                 {/* TITLE */}
-                <h3 className="font-semibold mb-2 text-white">
+                <h3 className={`font-semibold mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                   {f.title}
                 </h3>
 
                 {/* DESC */}
-                <p className="text-sm text-gray-400 leading-relaxed">
+                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'} leading-relaxed`}>
                   {f.desc}
                 </p>
               </motion.div>
@@ -124,12 +126,12 @@ const HeroExam = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="p-6 rounded-lg bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20 backdrop-blur-xl"
+            className={`p-6 rounded-lg ${isDark ? 'bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20' : 'bg-gradient-to-br from-blue-100/30 to-indigo-100/20 border border-blue-300/30'} backdrop-blur-xl`}
           >
-            <h3 className="text-blue-300 font-semibold mb-3 text-lg flex items-center gap-2">
+            <h3 className={`${isDark ? 'text-blue-300' : 'text-blue-700'} font-semibold mb-3 text-lg flex items-center gap-2`}>
               <span className="text-xl">📝</span> How to Use
             </h3>
-            <ul className="text-blue-200/80 text-sm space-y-2 leading-relaxed">
+            <ul className={`${isDark ? 'text-blue-200/80' : 'text-blue-700/80'} text-sm space-y-2 leading-relaxed`}>
               <li>✓ Enter your topic or subject</li>
               <li>✓ Select your class level & exam type</li>
               <li>✓ Choose optional diagrams or charts</li>
@@ -143,12 +145,12 @@ const HeroExam = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="p-6 rounded-lg bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 backdrop-blur-xl"
+            className={`p-6 rounded-lg ${isDark ? 'bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20' : 'bg-gradient-to-br from-purple-100/30 to-pink-100/20 border border-purple-300/30'} backdrop-blur-xl`}
           >
-            <h3 className="text-purple-300 font-semibold mb-3 text-lg flex items-center gap-2">
+            <h3 className={`${isDark ? 'text-purple-300' : 'text-purple-700'} font-semibold mb-3 text-lg flex items-center gap-2`}>
               <span className="text-xl">✨</span> Features
             </h3>
-            <ul className="text-purple-200/80 text-sm space-y-2 leading-relaxed">
+            <ul className={`${isDark ? 'text-purple-200/80' : 'text-purple-700/80'} text-sm space-y-2 leading-relaxed`}>
               <li>✓ AI-powered content generation</li>
               <li>✓ Multiple exam types (JEE, NEET, Boards)</li>
               <li>✓ Revision mode for quick summaries</li>
@@ -162,23 +164,23 @@ const HeroExam = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="p-6 rounded-lg bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 backdrop-blur-xl"
+            className={`p-6 rounded-lg ${isDark ? 'bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20' : 'bg-gradient-to-br from-cyan-100/30 to-blue-100/20 border border-cyan-300/30'} backdrop-blur-xl`}
           >
-            <h3 className="text-cyan-300 font-semibold mb-3 text-lg flex items-center gap-2">
+            <h3 className={`${isDark ? 'text-cyan-300' : 'text-cyan-700'} font-semibold mb-3 text-lg flex items-center gap-2`}>
               <span className="text-xl">💎</span> Credits System
             </h3>
-            <div className="text-cyan-200/80 text-sm space-y-2">
+            <div className={`${isDark ? 'text-cyan-200/80' : 'text-cyan-700/80'} text-sm space-y-2`}>
               <p className="leading-relaxed">
-                <span className="font-bold text-cyan-300">10 Credits</span> = 1 Note Generation
+                <span className={`font-bold ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>10 Credits</span> = 1 Note Generation
               </p>
-              <div className="bg-cyan-500/10 rounded p-3 border border-cyan-500/20">
-                <p className="text-xs text-cyan-300 font-semibold mb-1">Example:</p>
+              <div className={`${isDark ? 'bg-cyan-500/10 border border-cyan-500/20' : 'bg-cyan-100/20 border border-cyan-300/30'} rounded p-3`}>
+                <p className={`text-xs ${isDark ? 'text-cyan-300' : 'text-cyan-700'} font-semibold mb-1`}>Example:</p>
                 <p>Generate 10 notes = 100 credits</p>
               </div>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full mt-3 py-2 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/30 transition text-sm font-medium"
+                className={`w-full mt-3 py-2 rounded-lg ${isDark ? 'bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/30' : 'bg-cyan-200/20 border border-cyan-300/40 text-cyan-700 hover:bg-cyan-200/30'} transition text-sm font-medium`}
               onClick={()=>navigate("/pricing")} >
                 💳 Buy Credits
               </motion.button>
@@ -191,9 +193,9 @@ const HeroExam = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="mt-12 p-6 rounded-lg bg-gradient-to-r from-blue-500/5 to-indigo-500/5 border border-blue-500/20 backdrop-blur-xl"
+          className={`mt-12 p-6 rounded-lg ${isDark ? 'bg-gradient-to-r from-blue-500/5 to-indigo-500/5 border border-blue-500/20' : 'bg-gradient-to-r from-blue-100/30 to-indigo-100/20 border border-blue-300/30'} backdrop-blur-xl`}
         >
-          <h3 className="text-blue-300 font-semibold mb-4 text-lg flex items-center gap-2">
+          <h3 className={`${isDark ? 'text-blue-300' : 'text-blue-700'} font-semibold mb-4 text-lg flex items-center gap-2`}>
             <span className="text-xl">💡</span> Pro Tips for Better Results
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

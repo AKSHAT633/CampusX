@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react"
 import mermaid from "mermaid"
+import { useTheme } from "../context/ThemeContext"
 
 /* ---------- CLEAN ---------- */
 const cleanMermaidChart = (diagram) => {

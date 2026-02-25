@@ -12,6 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
+import { useTheme } from "../context/ThemeContext"
 
 function RechartSetUp({ charts }) {
   if (!charts || charts.length === 0) return null

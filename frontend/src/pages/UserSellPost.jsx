@@ -8,8 +8,10 @@ import {
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Pencil, Trash2, Eye, Plus } from "lucide-react"
+import { useTheme } from "../context/ThemeContext"
 
 const UserSellPost = () => {
+  const { isDark } = useTheme()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { items } = useSelector((state) => state.marketplace)
@@ -23,6 +25,22 @@ const UserSellPost = () => {
     description: "",
   })
   const [loading, setLoading] = useState(false)
+
+  /* ---------- THEME ---------- */
+  const pageBg = isDark
+    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+    : "bg-gradient-to-br from-white via-blue-50 to-white text-slate-900"
+
+  const cardBg = isDark
+    ? "bg-white/5 border-blue-500/20"
+    : "bg-white border-slate-200 shadow-sm"
+
+  const textMuted = isDark ? "text-blue-300/70" : "text-slate-500"
+  const descText = isDark ? "text-blue-200/80" : "text-slate-600"
+
+  const inputStyle = isDark
+    ? "bg-slate-900/60 border-blue-500/20 text-white"
+    : "bg-white border-slate-300 text-slate-900"
 
   useEffect(() => {
     if (!items || items.length === 0) {
@@ -46,12 +64,7 @@ const UserSellPost = () => {
 
   const cancelEdit = () => {
     setEditingId(null)
-    setForm({
-      title: "",
-      price: "",
-      category: "",
-      description: "",
-    })
+    setForm({ title: "", price: "", category: "", description: "" })
   }
 
   const submitEdit = async (id) => {
@@ -74,7 +87,7 @@ const UserSellPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white p-6">
+    <div className={`min-h-screen p-6 ${pageBg}`}>
       <div className="max-w-6xl mx-auto">
 
         {/* HEADER */}
@@ -83,7 +96,7 @@ const UserSellPost = () => {
 
           <button
             onClick={() => navigate("/sell/add")}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 shadow"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow"
           >
             <Plus className="w-4 h-4" />
             New Item
@@ -92,8 +105,8 @@ const UserSellPost = () => {
 
         {/* EMPTY */}
         {myItems.length === 0 && (
-          <div className="text-center py-20 text-blue-300/60">
-            <p>No items listed yet</p>
+          <div className={`text-center py-20 ${textMuted}`}>
+            No items listed yet
           </div>
         )}
 
@@ -103,10 +116,10 @@ const UserSellPost = () => {
             <motion.div
               key={item._id}
               whileHover={{ y: -4 }}
-              className="rounded-2xl border border-blue-500/20 bg-white/5 overflow-hidden flex flex-col"
+              className={`rounded-2xl border overflow-hidden flex flex-col ${cardBg}`}
             >
               {/* IMAGE */}
-              <div className="h-48 bg-slate-900/50">
+              <div className={isDark ? "h-48 bg-slate-900/50" : "h-48 bg-slate-100"}>
                 {item.images?.[0] ? (
                   <img
                     src={item.images[0]}
@@ -114,7 +127,7 @@ const UserSellPost = () => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="h-full flex items-center justify-center text-blue-300/40">
+                  <div className={`h-full flex items-center justify-center ${textMuted}`}>
                     No Image
                   </div>
                 )}
@@ -128,18 +141,18 @@ const UserSellPost = () => {
                   <h3 className="font-semibold line-clamp-1">
                     {item.title}
                   </h3>
-                  <span className="text-blue-300 font-semibold">
+                  <span className="text-blue-500 font-semibold">
                     ₹{item.price}
                   </span>
                 </div>
 
                 {/* CATEGORY */}
-                <span className="text-xs text-blue-300/70 mt-1">
+                <span className={`text-xs mt-1 ${textMuted}`}>
                   {item.category}
                 </span>
 
                 {/* DESC */}
-                <p className="text-sm text-blue-200/80 mt-2 line-clamp-2 flex-1">
+                <p className={`text-sm mt-2 line-clamp-2 flex-1 ${descText}`}>
                   {item.description}
                 </p>
 
@@ -149,45 +162,36 @@ const UserSellPost = () => {
                     <input
                       value={form.title}
                       onChange={(e) =>
-                        setForm((p) => ({
-                          ...p,
-                          title: e.target.value,
-                        }))
+                        setForm((p) => ({ ...p, title: e.target.value }))
                       }
-                      className="w-full px-3 py-2 rounded bg-slate-900/60 border border-blue-500/20"
+                      className={`w-full px-3 py-2 rounded border ${inputStyle}`}
                     />
                     <input
                       value={form.price}
                       onChange={(e) =>
-                        setForm((p) => ({
-                          ...p,
-                          price: e.target.value,
-                        }))
+                        setForm((p) => ({ ...p, price: e.target.value }))
                       }
-                      className="w-full px-3 py-2 rounded bg-slate-900/60 border border-blue-500/20"
+                      className={`w-full px-3 py-2 rounded border ${inputStyle}`}
                     />
                     <textarea
                       value={form.description}
                       onChange={(e) =>
-                        setForm((p) => ({
-                          ...p,
-                          description: e.target.value,
-                        }))
+                        setForm((p) => ({ ...p, description: e.target.value }))
                       }
-                      className="w-full px-3 py-2 rounded bg-slate-900/60 border border-blue-500/20"
+                      className={`w-full px-3 py-2 rounded border ${inputStyle}`}
                     />
 
                     <div className="flex gap-2">
                       <button
                         disabled={loading}
                         onClick={() => submitEdit(item._id)}
-                        className="flex-1 py-2 rounded bg-green-600"
+                        className="flex-1 py-2 rounded bg-green-600 text-white"
                       >
                         {loading ? "Saving..." : "Save"}
                       </button>
                       <button
                         onClick={cancelEdit}
-                        className="flex-1 py-2 rounded bg-gray-600"
+                        className="flex-1 py-2 rounded bg-gray-500 text-white"
                       >
                         Cancel
                       </button>
@@ -200,7 +204,7 @@ const UserSellPost = () => {
                   <div className="flex gap-2 mt-4">
                     <button
                       onClick={() => startEdit(item)}
-                      className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-yellow-500/20 text-yellow-300 border border-yellow-500/40"
+                      className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-yellow-500/20 text-yellow-600 border border-yellow-500/40"
                     >
                       <Pencil className="w-4 h-4" />
                       Edit
@@ -208,7 +212,7 @@ const UserSellPost = () => {
 
                     <button
                       onClick={() => handleDelete(item._id)}
-                      className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-red-500/20 text-red-300 border border-red-500/40"
+                      className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-red-500/20 text-red-600 border border-red-500/40"
                     >
                       <Trash2 className="w-4 h-4" />
                       Delete
@@ -216,7 +220,7 @@ const UserSellPost = () => {
 
                     <button
                       onClick={() => navigate(`/sell/${item._id}`)}
-                      className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40"
+                      className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-blue-500/20 text-blue-600 border border-blue-500/40"
                     >
                       <Eye className="w-4 h-4" />
                       View

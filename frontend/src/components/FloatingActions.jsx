@@ -3,8 +3,11 @@ import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Plus, Package, BookOpen, ShoppingBag } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
+import { useTheme } from "../context/ThemeContext"
 
 const FloatingActions = () => {
+  
+  const { isDark } = useTheme()
   const [open, setOpen] = useState(false)
   const [sellOpen, setSellOpen] = useState(false)
   const location = useLocation()
