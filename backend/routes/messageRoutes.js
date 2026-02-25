@@ -1,6 +1,6 @@
 import express from "express";
 import upload from "../middlewares/multer.js";
-import { sendMessage, showMessage, getAllConversations, getOnlineUsers, searchUsers } from "../controllers/messageController.js";
+import { sendMessage, showMessage, getAllConversations } from "../controllers/messageController.js";
 import { isAuth } from "../middlewares/isAuth.js";
 
 
@@ -25,16 +25,6 @@ messageRouter.get(
   getAllConversations
 );
 
-messageRouter.get(
-  "/online-users",
-  isAuth,
-  getOnlineUsers
-);
 
-messageRouter.get(
-  "/search",
-  isAuth,
-  searchUsers
-);
 
 export default messageRouter;

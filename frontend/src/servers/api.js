@@ -3,6 +3,7 @@ import { serverUrl } from "../main"
 import { setUserData } from "../redux/userSlice";
 import { setItems } from "../redux/itemSlice";
 import { setClaims, setMyClaims } from "../redux/claimSlice";
+import { setOnlineUsers } from "../redux/messageSlice";
 
 
 export const getCurrentuser =async(dispatch)=>{
@@ -182,15 +183,19 @@ export const fetchMarketplaceItemById = async (id) => {
 }
 
 
-export const getOnlineUser = async()=>{
+export const getOnlineUser = async(dispatch)=>{
   try {
     const res = await axios.get(`${serverUrl}/api/user/online-users`,{
       withCredentials:true
     })
-    console.log(res);
+    dispatch(setOnlineUsers(res.data.onlineUsers || []))
+    console.log("sdfsdfsdsfsfsdfSDFSFSF:",res.data.onlineUsers);
+    // console.log("ewewewrere");
     
+    
+    return res.data
   } catch (error) {
     console.log(error);
-    
+    return { error: true, message: error.response?.data?.message || 'Fetch failed' }
   }
 }

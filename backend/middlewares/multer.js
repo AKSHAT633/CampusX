@@ -1,15 +1,9 @@
-import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "../config/cloudinary.js";
 
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "campussync_users",
-    allowed_formats: ["jpg", "png", "jpeg", "webp", "heic", "heif", "avif"],
-    resource_type: "image",
-  },
-});
+
+
+import multer from "multer";
+
+const storage = multer.memoryStorage(); // Store file in memory for Cloudinary v2
 
 const upload = multer({
   storage,
