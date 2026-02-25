@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 app.use(cookieParser());
 
 app.use(cors({
-    origin: "http://localhost:5173",   
+    origin: "https://campus-sigma-flame.vercel.app",   
     credentials: true,
     methods:["GET","POST","PUT","PATCH","DELETE","OPTIONS"]
 }));
