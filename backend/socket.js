@@ -5,14 +5,17 @@ import { Server } from "socket.io";
 const app = express();
 const server = http.createServer(app);
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://campus-sync-gamma.vercel.app",
+  "https://campus-6p6zc6860-pranshuchauhan149-gmailcoms-projects.vercel.app",
+];
+
 const io = new Server(server, {
   cors: {
-
-    origin: "https://campus-6p6zc6860-pranshuchauhan149-gmailcoms-projects.vercel.app",
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
-
-    origin: "https://campus-6p6zc6860-pranshuchauhan149-gmailcoms-projects.vercel.app",
-
+    credentials: true,
   },
 });
  const userSocketMap = {};

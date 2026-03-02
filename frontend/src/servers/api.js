@@ -1,12 +1,21 @@
 import axios from "axios"
-import { serverUrl } from "../main"
 import { setUserData } from "../redux/userSlice";
 import { setItems } from "../redux/itemSlice";
 import { setClaims, setMyClaims } from "../redux/claimSlice";
 import { setAllUser, setOnlineUsers, setSelectedUser } from "../redux/messageSlice";
 
-// Configure axios defaults for cross-origin cookies
-axios.defaults.baseURL = serverUrl;
+// Declare API URL BEFORE axios uses it (prevents TDZ issues in production bundles)
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV
+    ? "http://localhost:4000"
+    : "https://campussync-e49n.onrender.com")
+).replace(/\/$/, "");
+
+const serverUrl = API_BASE_URL;
+
+// Configure axios defaults safely for cross-origin cookies
+axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
