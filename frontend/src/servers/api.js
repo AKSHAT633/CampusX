@@ -5,6 +5,11 @@ import { setItems } from "../redux/itemSlice";
 import { setClaims, setMyClaims } from "../redux/claimSlice";
 import { setAllUser, setOnlineUsers, setSelectedUser } from "../redux/messageSlice";
 
+// Configure axios defaults for cross-origin cookies
+axios.defaults.baseURL = serverUrl;
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+
 
 export const getCurrentuser =async(dispatch)=>{
     try {
