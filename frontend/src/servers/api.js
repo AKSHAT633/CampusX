@@ -3,7 +3,7 @@ import { serverUrl } from "../main"
 import { setUserData } from "../redux/userSlice";
 import { setItems } from "../redux/itemSlice";
 import { setClaims, setMyClaims } from "../redux/claimSlice";
-import { setOnlineUsers } from "../redux/messageSlice";
+import { setAllUser, setOnlineUsers, setSelectedUser } from "../redux/messageSlice";
 
 
 export const getCurrentuser =async(dispatch)=>{
@@ -199,3 +199,29 @@ export const getOnlineUser = async(dispatch)=>{
     return { error: true, message: error.response?.data?.message || 'Fetch failed' }
   }
 }
+
+
+export const getSelectedUserInfo  = async (id, dispatch)=>{
+  try {
+    const res = await axios.get(`${serverUrl}/api/message/select-user-info/${id}`, {withCredentials:true});
+    dispatch(setSelectedUser(res.data.user));
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return { error: true, message: error.response?.data?.message || 'Fetch failed' }
+  }
+}
+
+
+export const fetchAllUsers = async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `${serverUrl}/api/message/getalluser`,
+      { withCredentials: true }
+    );
+
+    dispatch(setAllUser(res.data.users)); // ✅ correct
+  } catch (error) {
+    console.error("Fetch users error:", error);
+  }
+};

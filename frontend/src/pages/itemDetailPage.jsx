@@ -13,9 +13,11 @@ import {
   Clock,
   BadgeCheck,
   FileSearch,
+  Phone,
 } from "lucide-react"
-import { fetchItems } from "../servers/api"
+import { fetchItems, getSelectedUserInfo } from "../servers/api"
 import { useTheme } from "../context/ThemeContext"
+import { setSelectedUser } from "../redux/messageSlice"
 
 const ItemDetailPage = () => {
   const { isDark } = useTheme()
@@ -25,6 +27,7 @@ const ItemDetailPage = () => {
 
   const { itemData } = useSelector((state) => state.item)
   const { userData } = useSelector((state) => state.user)
+  
 
   useEffect(() => {
     if (!itemData || itemData.length === 0) {
@@ -61,7 +64,10 @@ const ItemDetailPage = () => {
     )}`
   }
 
-  const handleMessage = () => navigate(`/chat/${item.postedBy?._id}`)
+  const handleMessage = () => {
+    getSelectedUserInfo(item.postedBy?._id,dispatch)
+    navigate(`/chat`);
+  }
 
   return (
     <div
@@ -196,6 +202,15 @@ const ItemDetailPage = () => {
                     {item.postedBy.email}
                   </p>
                 )}
+                {item.postedBy?.phone && (
+                  <p
+                    className={
+                      isDark ? "text-xs text-blue-200/80" : "text-xs text-slate-500"
+                    }
+                  >
+                    {item.postedBy.phone}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -207,6 +222,14 @@ const ItemDetailPage = () => {
                 <div className="flex flex-wrap gap-3">
                   <ActionBtn icon={<Mail />} label="Email" onClick={handleEmail} color="blue"/>
                   <ActionBtn icon={<MessageCircle />} label="Message" onClick={handleMessage} color="indigo"/>
+                  {item.postedBy?.phone && (
+                    <ActionBtn
+                      icon={<Phone />}
+                      label="Call"
+                      onClick={() => window.location.href = `tel:${item.postedBy.phone}`}
+                      color="green"
+                    />
+                  )}
                   <ActionBtn
                     icon={<FileSearch />}
                     label="Claim This Item"

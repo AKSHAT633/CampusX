@@ -1,5 +1,6 @@
 import MarketplaceItem from "../models/MarketplaceItem.js"
-import cloudinary from "../config/cloudinary.js"
+import uploadOnCloudinary, { uploadFromBuffer } from "../config/cloudinary.js"
+import { v2 as cloudinary } from "cloudinary"
 
 const getPublicIdFromUrl = (url) => {
   if (!url) return null
@@ -40,7 +41,12 @@ export const createMarketplaceItem = async (req, res) => {
     let images = []
 
     if (req.files && req.files.length > 0) {
-      images = req.files.map((file) => file.path) // cloudinary url
+      for (const file of req.files) {
+        const uploadedUrl = await uploadFromBuffer(file.buffer, file.originalname)
+        if (uploadedUrl) {
+          images.push(uploadedUrl)
+        }
+      }
     }
 
     /* ---------- CREATE ---------- */
@@ -89,7 +95,7 @@ export const getAllMarketplaceItems = async (req, res) => {
 
     /* ---------- FETCH ITEMS ---------- */
     const items = await MarketplaceItem.find(filter)
-      .populate("seller", "name email")
+      .populate("seller", "name email phone")
       .sort({ createdAt: -1 })
       .lean()
 
@@ -112,7 +118,7 @@ export const getMarketplaceItemById = async (req, res) => {
     const { id } = req.params
 
     const item = await MarketplaceItem.findById(id)
-      .populate("seller", "name email")
+      .populate("seller", "name email phone")
       .lean()
 
     if (!item || !item.isActive) {
@@ -128,7 +134,7 @@ export const getMarketplaceItemById = async (req, res) => {
       isActive: true,
       status: "available",
     })
-      .populate("seller", "name email")
+      .populate("seller", "name email phone")
       .limit(4)
       .lean()
 
@@ -213,8 +219,12 @@ export const updateMarketplaceItem = async (req, res) => {
 
     // handle uploaded images (append)
     if (req.files && req.files.length > 0) {
-      const urls = req.files.map((f) => f.path || f.secure_url || f.url || f.filename).filter(Boolean)
-      item.images = item.images.concat(urls)
+      for (const file of req.files) {
+        const uploadedUrl = await uploadFromBuffer(file.buffer, file.originalname)
+        if (uploadedUrl) {
+          item.images.push(uploadedUrl)
+        }
+      }
     }
 
     await item.save()

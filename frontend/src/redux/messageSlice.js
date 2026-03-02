@@ -7,6 +7,8 @@ const messageSlice = createSlice({
     conversations: [],
     selectedUser: null,
     onlineUsers: [],
+    getAllUser:[],
+    socket:null,
   },
   reducers: {
     setMessages: (state, action) => {
@@ -24,6 +26,14 @@ const messageSlice = createSlice({
     setOnlineUsers: (state, action) => {
       state.onlineUsers = action.payload;
     },
+    setAllUser:(state,action)=>{
+      state.getAllUser =action.payload;
+    },
+    setSocket:(state,action)=>{
+      state.socket = action.payload
+    }
+    
+
   },
 });
 
@@ -33,6 +43,8 @@ export const {
   setConversations,
   setSelectedUser,
   setOnlineUsers,
+  setAllUser,
+  setSocket
 } = messageSlice.actions;
 
 export default messageSlice.reducer;

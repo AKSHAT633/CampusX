@@ -195,25 +195,25 @@ const HeroExam = () => {
           transition={{ delay: 0.5 }}
           className={`mt-12 p-6 rounded-lg ${isDark ? 'bg-gradient-to-r from-blue-500/5 to-indigo-500/5 border border-blue-500/20' : 'bg-gradient-to-r from-blue-100/30 to-indigo-100/20 border border-blue-300/30'} backdrop-blur-xl`}
         >
-          <h3 className={`${isDark ? 'text-blue-300' : 'text-blue-700'} font-semibold mb-4 text-lg flex items-center gap-2`}>
+          <h3 className={`${isDark ? 'text-blue-700' : 'text-blue-700'} font-semibold mb-4 text-lg flex items-center gap-2`}>
             <span className="text-xl">💡</span> Pro Tips for Better Results
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex gap-3 p-3 rounded-lg bg-white/5">
-              <span className="text-cyan-400 font-bold">1.</span>
-              <p className="text-blue-200/80 text-sm">Be specific with topics - "Photosynthesis Process in Plants" works better than just "Plants"</p>
+              <span className="text-cyan-800 font-bold">1.</span>
+              <p className="text-blue-700 text-sm">Be specific with topics - "Photosynthesis Process in Plants" works better than just "Plants"</p>
             </div>
             <div className="flex gap-3 p-3 rounded-lg bg-white/5">
-              <span className="text-cyan-400 font-bold">2.</span>
-              <p className="text-blue-200/80 text-sm">Use Revision Mode for quick summaries before exams</p>
+              <span className="text-cyan-800 font-bold">2.</span>
+              <p className="text-blue-700 text-sm">Use Revision Mode for quick summaries before exams</p>
             </div>
             <div className="flex gap-3 p-3 rounded-lg bg-white/5">
-              <span className="text-cyan-400 font-bold">3.</span>
-              <p className="text-blue-200/80 text-sm">Enable Diagrams & Charts for better visual understanding</p>
+              <span className="text-cyan-800 font-bold">3.</span>
+              <p className="text-blue-700 text-sm">Enable Diagrams & Charts for better visual understanding</p>
             </div>
             <div className="flex gap-3 p-3 rounded-lg bg-white/5">
-              <span className="text-cyan-400 font-bold">4.</span>
-              <p className="text-blue-200/80 text-sm">Save all generated notes for future reference and revision</p>
+              <span className="text-cyan-800 font-bold">4.</span>
+              <p className="text-blue-700 text-sm">Save all generated notes for future reference and revision</p>
             </div>
           </div>
         </motion.div>

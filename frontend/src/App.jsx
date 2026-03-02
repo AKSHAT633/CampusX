@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import LostAndFound from "./pages/LostAndFound";
 import { useEffect } from "react";
-import { getCurrentuser, getOnlineUser } from "./servers/api";
+import { fetchAllUsers, getCurrentuser } from "./servers/api";
 import { useDispatch, useSelector } from "react-redux";
 import StudyHome from "./pages/StudyHome";
 import Contact from "./pages/Contact";
@@ -31,8 +31,10 @@ import MarketItemDetailPage from "./pages/MarketItemDetailPage";
 import Profile from "./pages/Profile";
 import UserSellPost from "./pages/UserSellPost";
 import Chat from "./pages/Chat";
-
 import { useTheme } from "./context/ThemeContext";
+import { io } from "socket.io-client";
+import { serverUrl } from "./main";
+import { setOnlineUsers } from "./redux/messageSlice";
 
 
 const App = () => {
@@ -43,7 +45,31 @@ const App = () => {
   
   useEffect(() => {
     getCurrentuser(dispatch);
+    fetchAllUsers(dispatch);
   }, [dispatch]);
+
+
+  useEffect(() => {
+    if (!userData?._id) return; // don't connect until we have a userId
+
+    const socketio = io(serverUrl, {
+      query: {
+        userId: userData._id,
+      },
+    });
+
+    socketio.on("connect", () => {
+      console.log("Connected:", socketio.id);
+    });
+
+    socketio.on("getOnlineUsers", (users) => {
+      dispatch(setOnlineUsers(users));
+    });
+
+    return () => {
+      socketio.disconnect(); // cleanup
+    };
+  }, [userData?._id, dispatch]);
 
   return (
    

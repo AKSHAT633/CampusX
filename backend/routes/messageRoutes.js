@@ -1,6 +1,6 @@
 import express from "express";
 import upload from "../middlewares/multer.js";
-import { sendMessage, showMessage, getAllConversations } from "../controllers/messageController.js";
+import { getSelectedUserInformation, sendMessage, getMessage, getConversations, getAllUsers } from "../controllers/messageController.js";
 import { isAuth } from "../middlewares/isAuth.js";
 
 
@@ -16,15 +16,13 @@ messageRouter.post(
 messageRouter.get(
   "/get/:receiverId",
   isAuth,
-  showMessage
+  getMessage
 );
 
-messageRouter.get(
-  "/conversations",
-  isAuth,
-  getAllConversations
-);
+messageRouter.get("/getalluser",isAuth,getAllUsers);
 
+messageRouter.get("/select-user-info/:id", isAuth, getSelectedUserInformation);
 
+messageRouter.get("/conversations", isAuth, getConversations);
 
 export default messageRouter;

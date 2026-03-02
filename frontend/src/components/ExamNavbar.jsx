@@ -42,7 +42,7 @@ const ExamNavbar = () => {
 
   return (
     <header
-      className={`relative w-full h-16 px-6 flex items-center justify-end border-b ${navBg}`}
+      className={`relative w-full h-16 px-6 flex items-center justify-end`}
     >
       <div className="flex items-center gap-6">
         {/* LOGO + NAME */}
@@ -66,9 +66,14 @@ const ExamNavbar = () => {
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ repeat: Infinity, duration: 3 }}
           >
-            <Diamond className="w-5 h-5 text-cyan-500" />
+            
           </motion.div>
-
+ <motion.button
+        
+            onClick={() => setOpen((p) => !p)}
+            className="ml-1 flex gap-1 items-center justify-center border-blue-500 border-1 p-4 rounded-xl"
+          >
+            <Diamond className="w-5 h-5 text-cyan-500" />
           {/* NUMBER */}
           <span className={`font-semibold text-sm ${creditsText}`}>
             {userData?.credits}
@@ -76,11 +81,7 @@ const ExamNavbar = () => {
           </span>
 
           {/* PLUS */}
-          <motion.button
-            whileHover={{ rotate: 90 }}
-            onClick={() => setOpen((p) => !p)}
-            className="ml-1"
-          >
+         
             <Plus className="w-4 h-4 text-blue-500" />
           </motion.button>
 

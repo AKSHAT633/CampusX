@@ -1,7 +1,9 @@
 import Item from "../models/Item.js";
 import User from "../models/User.Models.js";
 import ClaimedModel from "../models/claimed.models.js";
-import cloudinary from "../config/cloudinary.js";
+import uploadOnCloudinary, { uploadFromBuffer } from "../config/cloudinary.js";
+import fs from "fs";
+import { v2 as cloudinary } from "cloudinary";
 
 const getPublicIdFromUrl = (url) => {
   if (!url) return null
@@ -36,7 +38,10 @@ export const createItem = async (req, res) => {
 
     const images = [];
     if (req.file) {
-      images.push(req.file.path); // cloudinary / multer path
+      const uploadedUrl = await uploadFromBuffer(req.file.buffer, req.file.originalname);
+      if (uploadedUrl) {
+        images.push(uploadedUrl);
+      }
     }
 
     const item = await Item.create({
@@ -78,8 +83,8 @@ export const updateItem = async (req, res) => {
     if (date) item.date = new Date(date)
 
     if (req.file) {
-      const url = req.file.path || req.file.secure_url || req.file.url || req.file.filename
-      if (url) item.images.push(url)
+      const uploadedUrl = await uploadFromBuffer(req.file.buffer, req.file.originalname)
+      if (uploadedUrl) item.images.push(uploadedUrl)
     }
 
     await item.save()
@@ -122,7 +127,7 @@ export const deleteItem = async (req, res) => {
 export const getAllItems = async (req, res) => {
   try {
     const items = await Item.find()
-      .populate("postedBy", "name email ProfileImage") // adjust fields if needed
+      .populate("postedBy", "name email phone ProfileImage") // adjust fields if needed
       .sort({ createdAt: -1 });
 
     res.status(200).json({

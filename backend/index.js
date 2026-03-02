@@ -9,8 +9,9 @@ import CreditRouter from "./routes/creditsRoutes.js";
 import { stripeWebhook } from "./controllers/credits.controllers.js";
 import itemRouter from "./routes/itemRoutes.js";
 import marketplaceRouter from "./routes/MarketRoues.js";
-import messageRouter from './routes/messageRoutes.js';
+
 import { app, server } from './socket.js';
+import messageRouter from './routes/messageRoutes.js';
 
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true, limit: "5mb" }));
@@ -38,7 +39,8 @@ app.use("/api/notes",notesRouter);
 app.use("/api/credits",CreditRouter);
 app.use("/api/item",itemRouter);
 app.use("/api/marketplace",marketplaceRouter);
-app.use("/api/user",messageRouter)
+app.use("/api/message",messageRouter);
+
 
 server.listen(PORT , ()=>{
     connectDb();

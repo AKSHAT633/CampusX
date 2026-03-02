@@ -12,15 +12,20 @@ import {
   ShoppingBag,
   Info,
   Package,
+  MessageCircle,
+  Phone,
 } from "lucide-react"
-import { fetchMarketplaceItemById } from "../servers/api"
+import { fetchMarketplaceItemById, getSelectedUserInfo } from "../servers/api"
 import toast from "react-hot-toast"
 import { useTheme } from "../context/ThemeContext"
+import { useSelector, useDispatch } from "react-redux"
 
 const MarketItemDetailPage = () => {
   const { isDark } = useTheme()
   const { id } = useParams()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { userData } = useSelector((state) => state.user)
 
   const [item, setItem] = useState(null)
   const [relatedItems, setRelatedItems] = useState([])
@@ -33,6 +38,8 @@ const MarketItemDetailPage = () => {
         setLoading(true)
         const data = await fetchMarketplaceItemById(id)
         setItem(data.item)
+        console.log("marketitem->",item);
+        
         setRelatedItems(data.relatedItems || [])
       } catch {
         toast.error("Failed to load item")
@@ -216,16 +223,46 @@ const MarketItemDetailPage = () => {
                   <Mail className="w-4 h-4"/>
                   {item.seller?.email}
                 </div>
+                {item.seller?.phone && (
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4"/>
+                    {item.seller.phone}
+                  </div>
+                )}
               </div>
 
-              {item.status === "available" && (
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full mt-4 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg"
-                >
-                  Contact Seller
-                </motion.button>
+              {item.status === "available" && userData?._id !== item.seller?._id && (
+                <div className="mt-4 space-y-3">
+                  <h4 className="font-medium text-sm">Contact Seller</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <ContactBtn
+                      icon={<MessageCircle />}
+                      label="Message"
+                      onClick={() => {
+                        getSelectedUserInfo(item.seller?._id, dispatch)
+                        navigate('/chat')
+                      }}
+                      color="indigo"
+                    />
+                    <ContactBtn
+                      icon={<Mail />}
+                      label="Email"
+                      onClick={() => {
+                        const subject = `Interested in: ${item.title}`
+                        window.location.href = `mailto:${item.seller?.email}?subject=${encodeURIComponent(subject)}`
+                      }}
+                      color="blue"
+                    />
+                    {item.seller?.phone && (
+                      <ContactBtn
+                        icon={<Phone />}
+                        label="Call"
+                        onClick={() => window.location.href = `tel:${item.seller.phone}`}
+                        color="green"
+                      />
+                    )}
+                  </div>
+                </div>
               )}
             </div>
           </div>
@@ -291,3 +328,23 @@ const InfoItem = ({ icon, label, value, isDark }) => (
     </div>
   </div>
 )
+
+/* ---------- CONTACT BUTTON ---------- */
+const ContactBtn = ({ icon, label, onClick, color }) => {
+  const colors = {
+    blue: "bg-blue-500 hover:bg-blue-600",
+    indigo: "bg-indigo-600 hover:bg-indigo-700",
+    green: "bg-green-600 hover:bg-green-700",
+  }
+  return (
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-medium shadow ${colors[color]}`}
+    >
+      {React.cloneElement(icon, { className: "w-4 h-4" })}
+      {label}
+    </motion.button>
+  )
+}

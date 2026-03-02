@@ -1,48 +1,33 @@
-
 import http from "http";
 import express from "express";
 import { Server } from "socket.io";
 
-
 const app = express();
-
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://campus-sigma-flame.vercel.app",
+    origin: ["http://localhost:5173", "https://campus-sigma-flame.vercel.app"],
     methods: ["GET", "POST"],
   },
 });
-
-const userSocketMap = {};
-
-export const getSocketId = (recId)=>{
-return userSocketMap[recId]
-}
-
-export const getOnlineUsersList = () => {
-  return Object.keys(userSocketMap);
+ const userSocketMap = {};
+export const getReciverSocketId = (receiverId)=>{
+  return userSocketMap[receiverId]
 }
 
 io.on("connection", (socket) => {
-  console.log("✅ New client connected:", socket.id);
-
   const userId = socket.handshake.query.userId;
-  if (userId && userId !== "undefined") {
+  if (userId !== undefined) {
     userSocketMap[userId] = socket.id;
   }
 
-
-
-  io.emit("getOnlineUser", Object.keys(userSocketMap));
+  io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
   socket.on("disconnect", () => {
-    console.log("❌ Client disconnected:", socket.id);
     delete userSocketMap[userId];
-    io.emit("getOnlineUser", Object.keys(userSocketMap));
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
 });
 
-export { io, server, app };
-
+export { app, server, io };

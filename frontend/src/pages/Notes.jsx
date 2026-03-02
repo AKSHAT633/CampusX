@@ -7,8 +7,10 @@ import { useSelector } from "react-redux"
 import Sidebar from "../components/Sidebar"
 import FinalResult from "../components/FinalResult"
 import { useTheme } from "../context/ThemeContext"
+import { useNavigate } from "react-router-dom"
 
 const Notes = () => {
+  const navigate = useNavigate();
   const { isDark } = useTheme()
   const [open, setOpen] = useState(false)
   const popupRef = useRef(null)
@@ -60,7 +62,7 @@ const Notes = () => {
 
           {/* RIGHT */}
           <div className="flex items-center gap-4">
-            <motion.button
+            <motion.button onClick={()=>navigate("/notes/history")}
               whileHover={{ y: -2 }}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm ${
                 isDark
@@ -68,7 +70,7 @@ const Notes = () => {
                   : "bg-white border-slate-200 text-slate-700 shadow-sm"
               }`}
             >
-              <FileText className="w-4 h-4" />
+              <FileText className="w-4 h-4"  />
               Your Notes
             </motion.button>
 
@@ -108,7 +110,7 @@ const Notes = () => {
                       Generate AI notes, diagrams & PDFs.
                     </p>
 
-                    <button className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+                    <button onClick={()=>navigate("/pricing")} className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
                       Buy More Credits
                     </button>
                   </motion.div>

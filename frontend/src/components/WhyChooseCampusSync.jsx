@@ -105,7 +105,7 @@ const WhyChooseCampusSync = () => {
               >
                 {/* HOVER GLOW */}
                 <div
-                  className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${
+                  className={`absolute inset-0 opacity-0 group-hover:opacity-40 transition duration-500 ${
                     isDark
                       ? "bg-gradient-to-br from-blue-500/10 via-indigo-500/10 to-transparent"
                       : "bg-gradient-to-br from-blue-100 via-indigo-100 to-transparent"

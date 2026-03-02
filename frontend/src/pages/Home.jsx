@@ -6,7 +6,7 @@ import WhyChooseCampusSync from '../components/WhyChooseCampusSync'
 import HowItWorks from '../components/HowItWorks'
 import Testimonials from '../components/Testimonials'
 import JoinCTA from '../components/JoinCTA'
-import FloatingActions from '../components/FloatingActions'
+
 
 const Home = () => {
   const { isDark } = useTheme()
