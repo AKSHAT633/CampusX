@@ -36,6 +36,7 @@ import { io } from "socket.io-client";
 import { serverUrl } from "./main";
 import { setOnlineUsers } from "./redux/messageSlice";
 import AIInterviewPage from "./pages/AIInterviewPage";
+import SellLostAndFoundPostedItem from "./pages/SellLostAndFoundPostedItem";
 
 
 const App = () => {
@@ -113,7 +114,7 @@ const App = () => {
         <Route path="/sell/add" element={<AddSellItem/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/all-sell-items" element={<UserSellPost/>} />
-        <Route path="/all-items" element={<UserSellPost/>} />
+        <Route path="/all-lost-found-items" element={<SellLostAndFoundPostedItem/>} />
         <Route path="/chat" element={<Chat/>} />
         <Route path="/ai-interview" element={<AIInterviewPage/>} />
 

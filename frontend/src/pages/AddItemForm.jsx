@@ -5,6 +5,7 @@ import axios from "axios"
 import { serverUrl } from "../main"
 import toast from "react-hot-toast"
 import { useTheme } from "../context/ThemeContext"
+import { useNavigate } from "react-router-dom"
 
 /* ---------- TOGGLE ---------- */
 const ToggleBtn = ({ active, label, color, onClick, isDark }) => {
@@ -64,6 +65,7 @@ const Input = ({ label, value, onChange, placeholder, icon, required, type = "te
 
 const AddItemForm = ({ loading, setLoading }) => {
   const { isDark } = useTheme()
+  const navigate = useNavigate()
 
   const [localLoading, setLocalLoading] = useState(false)
   const isLoading = loading ?? localLoading
@@ -142,6 +144,7 @@ const AddItemForm = ({ loading, setLoading }) => {
 
       toast.success("Item posted successfully 🎉")
       resetForm()
+      navigate("/lost-found")
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to post item")
     } finally {
@@ -176,16 +179,6 @@ const AddItemForm = ({ loading, setLoading }) => {
         <ToggleBtn active={type === "lost"} label="Lost Item" color="red" onClick={() => setType("lost")} isDark={isDark} />
         <ToggleBtn active={type === "found"} label="Found Item" color="green" onClick={() => setType("found")} isDark={isDark} />
       </div>
-
-      {/* LOADING */}
-      {isLoading && (
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm rounded-2xl flex items-center justify-center z-10">
-          <div className="text-center">
-            <Loader2 className="w-12 h-12 text-blue-400 animate-spin mx-auto mb-3" />
-            <p className="text-white font-semibold">Posting your item...</p>
-          </div>
-        </div>
-      )}
 
       {/* TITLE */}
       <Input label="Item Title" value={title} onChange={setTitle} placeholder="e.g. Black Backpack" required isDark={isDark} />

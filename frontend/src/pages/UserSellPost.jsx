@@ -43,13 +43,11 @@ const UserSellPost = () => {
     : "bg-white border-slate-300 text-slate-900"
 
   useEffect(() => {
-    if (!items || items?.length === 0) {
-      fetchMarketplaceItems(dispatch, { category: "all" })
-    }
+    fetchMarketplaceItems(dispatch, { category: "all", status: "all", search: "" })
   }, [dispatch])
 
   const myItems = (items || []).filter(
-    (i) => i?.seller?._id === userData?._id
+    (i) => i?.seller?._id === userData?._id && i?.isActive !== false
   )
 
   const startEdit = (item) => {
