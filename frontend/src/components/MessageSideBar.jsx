@@ -61,7 +61,7 @@ const MessageSideBar = () => {
 
   return (
     <div
-      className={`h-full rounded-lg w-screen md:w-80 flex flex-col border-r shadow-lg ${
+      className={`h-[710px] rounded-lg w-screen md:w-80 flex flex-col border-r shadow-lg ${
         isDark
           ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 border-blue-500/20 shadow-black/30"
           : "bg-white border-blue-200 shadow-blue-100"

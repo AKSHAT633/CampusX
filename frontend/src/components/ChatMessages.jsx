@@ -8,9 +8,11 @@ import { setMessages, setSelectedUser } from "../redux/messageSlice";
 import { fetchMessages, fetchConversationUsers } from "../servers/api";
 import SenderMessage from "./SenderMessage";
 import ReceiverMessage from "./ReceiverMessage";
+import { useTheme } from "../context/ThemeContext";
 
 const ChatMessages = () => {
   const dispatch = useDispatch();
+  const { isDark } = useTheme();
 
   const { userData } = useSelector((state) => state.user);
   const { selectedUser, messages = [], onlineUsers = [], socket } = useSelector(
@@ -133,13 +135,20 @@ const ChatMessages = () => {
     });
   };
 
- 
   return (
-    <div className="lg:w-[70vw] w-full h-[100dvh] flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+    <div className={`w-full h-[700px] lg:h-[85vh] flex flex-col border rounded-lg overflow-hidden shadow-lg ${
+      isDark 
+        ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 border-blue-500/20" 
+        : "bg-white border-blue-200"
+    }`}>
       {selectedUser ? (
         <>
           {/* ================= HEADER ================= */}
-          <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-500 to-indigo-600">
+          <div className={`flex-shrink-0 flex items-center justify-between px-3 lg:px-4 py-3 border-b ${
+            isDark 
+              ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 border-blue-500/20" 
+              : "bg-gradient-to-r from-blue-500 to-indigo-600 border-blue-200"
+          }`}>
             <div className="flex items-center gap-3">
               {/* Back button mobile */}
               <button
@@ -184,7 +193,11 @@ const ChatMessages = () => {
           </div>
 
           {/* ================= MESSAGES ================= */}
-          <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900/50 space-y-3">
+          <div ref={messagesContainerRef} className={`flex-1 overflow-y-auto p-3 lg:p-4 space-y-3 ${
+            isDark 
+              ? "bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" 
+              : "bg-gradient-to-b from-gray-50 to-blue-50/30"
+          }`}>
             {messages.map((msg) => {
               const isSender =
                 msg?.sender?._id === userData?._id ||
@@ -215,7 +228,11 @@ const ChatMessages = () => {
           </div>
 
           {/* ================= INPUT ================= */}
-          <div className="flex-shrink-0 p-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+          <div className={`flex-shrink-0 p-2 lg:p-3 border-t ${
+            isDark 
+              ? "bg-slate-950 border-blue-500/20" 
+              : "bg-white border-blue-200"
+          }`}>
             <div className="relative">
               {/* Emoji Picker */}
               {showPicker && (
@@ -224,7 +241,7 @@ const ChatMessages = () => {
                     width={300}
                     height={400}
                     onEmojiClick={onEmojiClick}
-                    theme="auto"
+                    theme={isDark ? "dark" : "light"}
                   />
                 </div>
               )}
@@ -263,9 +280,13 @@ const ChatMessages = () => {
                   onClick={() =>
                     setShowPicker((prev) => !prev)
                   }
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+                  className={`p-2 rounded-lg transition ${
+                    isDark 
+                      ? "hover:bg-blue-500/20 text-blue-400" 
+                      : "hover:bg-blue-100 text-blue-600"
+                  }`}
                 >
-                  <Smile className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                  <Smile className="w-5 h-5" />
                 </button>
 
                 {/* File input */}
@@ -283,9 +304,13 @@ const ChatMessages = () => {
                   onClick={() =>
                     imageRef.current?.click()
                   }
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+                  className={`p-2 rounded-lg transition ${
+                    isDark 
+                      ? "hover:bg-blue-500/20 text-blue-400" 
+                      : "hover:bg-blue-100 text-blue-600"
+                  }`}
                 >
-                  <Image className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                  <Image className="w-5 h-5" />
                 </button>
 
                 {/* Text */}
@@ -296,13 +321,18 @@ const ChatMessages = () => {
                     setInput(e.target.value)
                   }
                   placeholder="Type a message..."
-                  className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-sm outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-100"
+                  className={`flex-1 px-3 lg:px-4 py-2 rounded-lg text-sm outline-none transition ${
+                    isDark 
+                      ? "bg-slate-900 border border-blue-500/20 text-blue-100 placeholder-blue-400/50 focus:ring-2 focus:ring-blue-500" 
+                      : "bg-blue-50 border border-blue-200 text-blue-900 placeholder-blue-400 focus:ring-2 focus:ring-blue-500"
+                  }`}
                 />
 
                 {/* Send */}
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg flex items-center gap-2"
+                  disabled={!input.trim() && !backendImage}
+                  className="px-3 lg:px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg flex items-center gap-2 hover:from-blue-600 hover:to-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -313,16 +343,26 @@ const ChatMessages = () => {
       ) : (
         /* NO USER */
         <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 flex items-center justify-center mb-4">
-            <MessageCircle className="w-10 h-10 text-blue-500 dark:text-blue-400" />
+          <div className={`w-16 lg:w-20 h-16 lg:h-20 rounded-full flex items-center justify-center mb-4 ${
+            isDark 
+              ? "bg-gradient-to-br from-blue-900/30 to-indigo-900/30" 
+              : "bg-gradient-to-br from-blue-100 to-indigo-100"
+          }`}>
+            <MessageCircle className={`w-8 lg:w-10 h-8 lg:h-10 ${
+              isDark ? "text-blue-400" : "text-blue-500"
+            }`} />
           </div>
 
-          <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h3 className={`text-lg lg:text-xl font-semibold mb-2 ${
+            isDark ? "text-blue-100" : "text-blue-900"
+          }`}>
             Select a conversation
           </h3>
 
-          <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm">
-            Choose a user from the sidebar to start chattingsdfdsfsdfsfsfsdfsfsdfsdfsfsdfs
+          <p className={`text-xs lg:text-sm max-w-sm ${
+            isDark ? "text-blue-300/70" : "text-blue-600/70"
+          }`}>
+            Choose a user from the sidebar to start chatting
           </p>
         </div>
       )}
