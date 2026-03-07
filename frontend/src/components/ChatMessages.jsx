@@ -82,8 +82,29 @@ const ChatMessages = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setFrontendImage(URL.createObjectURL(file));
-    setBackendImage(file);
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select a valid image file");
+      return;
+    }
+
+    // Validate file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Image size must be less than 10MB");
+      return;
+    }
+
+    try {
+      const objectUrl = URL.createObjectURL(file);
+      setFrontendImage(objectUrl);
+      setBackendImage(file);
+
+      // Cleanup function to revoke URL when image is cleared
+      return () => URL.revokeObjectURL(objectUrl);
+    } catch (error) {
+      console.error("Error creating image preview:", error);
+      toast.error("Failed to create image preview");
+    }
   };
 
   /* ================= SEND MESSAGE ================= */
@@ -295,6 +316,7 @@ const ChatMessages = () => {
                   hidden
                   ref={imageRef}
                   accept="image/*"
+                  capture="environment"
                   onChange={handleImage}
                 />
 

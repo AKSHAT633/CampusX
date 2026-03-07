@@ -75,16 +75,31 @@ const Profile = () => {
     const file = e.target.files?.[0]
     if (!file) return
 
+    // Validate file type
     if (!file.type.startsWith("image/")) {
       toast.error("Select image file")
       return
     }
 
+    // Validate file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Image size must be less than 10MB")
+      return
+    }
+
     setProfileFile(file)
-    const reader = new FileReader()
-    reader.onload = () =>
-      setFormData((p) => ({ ...p, profileImage: reader.result }))
-    reader.readAsDataURL(file)
+
+    // Create preview using URL.createObjectURL
+    try {
+      const objectUrl = URL.createObjectURL(file)
+      setFormData((p) => ({ ...p, profileImage: objectUrl }))
+
+      // Cleanup function to revoke URL when component unmounts or new file is selected
+      return () => URL.revokeObjectURL(objectUrl)
+    } catch (error) {
+      console.error("Error creating preview:", error)
+      toast.error("Failed to create image preview")
+    }
   }
 
   const handleSave = async () => {
@@ -202,6 +217,7 @@ const Profile = () => {
             ref={fileInputRef}
             type="file"
             accept="image/*"
+            capture="environment"
             onChange={handleFileChange}
             className="hidden"
           />

@@ -41,8 +41,32 @@ const ClaimItemForm = ({ item: itemProp }) => {
 
   const handleImage = (file) => {
     if (!file) return
+
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select a valid image file")
+      return
+    }
+
+    // Validate file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Image size must be less than 10MB")
+      return
+    }
+
     setForm((p) => ({ ...p, itemImage: file }))
-    setPreview(URL.createObjectURL(file))
+
+    // Create preview using URL.createObjectURL
+    try {
+      const objectUrl = URL.createObjectURL(file)
+      setPreview(objectUrl)
+
+      // Cleanup function to revoke URL when component unmounts or new file is selected
+      return () => URL.revokeObjectURL(objectUrl)
+    } catch (error) {
+      console.error("Error creating preview:", error)
+      toast.error("Failed to create image preview")
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -188,8 +212,9 @@ const ClaimItemForm = ({ item: itemProp }) => {
             <input
               type="file"
               accept="image/*"
+              capture="environment"
               className="hidden"
-              onChange={(e) => handleImage(e.target.files[0])}
+              onChange={(e) => handleImage(e.target.files?.[0])}
             />
           </label>
 

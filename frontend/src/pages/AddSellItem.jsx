@@ -56,9 +56,42 @@ const AddSellItem = () => {
 
   /* ---------- IMAGE ---------- */
   const handleImages = (files) => {
-    const arr = Array.from(files)
-    setImages(arr)
-    setPreviews(arr.map((f) => URL.createObjectURL(f)))
+    if (!files || files.length === 0) return
+
+    const fileArray = Array.from(files)
+
+    // Validate all files
+    const validFiles = fileArray.filter((file) => {
+      // Check file type
+      if (!file.type.startsWith("image/")) {
+        toast.error(`${file.name} is not a valid image file`)
+        return false
+      }
+
+      // Check file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error(`${file.name} is too large (max 10MB)`)
+        return false
+      }
+
+      return true
+    })
+
+    if (validFiles.length === 0) return
+
+    setImages(validFiles)
+
+    // Create previews with error handling
+    try {
+      const previewUrls = validFiles.map((f) => {
+        const url = URL.createObjectURL(f)
+        return url
+      })
+      setPreviews(previewUrls)
+    } catch (error) {
+      console.error("Error creating image previews:", error)
+      toast.error("Failed to create image previews")
+    }
   }
 
   /* ---------- SUBMIT ---------- */
@@ -203,8 +236,7 @@ const AddSellItem = () => {
               <input
                 type="file"
                 multiple
-                accept="image/*"
-                className="hidden"
+                accept="image/*"                capture="environment"                className="hidden"
                 onChange={(e) => handleImages(e.target.files)}
               />
             </label>
