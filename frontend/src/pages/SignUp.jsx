@@ -120,21 +120,21 @@ const SignUp = () => {
   }
 
   return (
-    <div className={`min-h-screen flex items-center justify-center px-4 py-10 ${pageBg}`}>
+    <div className={`min-h-screen flex items-center justify-center px-4 py-8 sm:py-10 ${pageBg}`}>
       <div className="w-full max-w-md">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={`backdrop-blur-xl rounded-2xl p-8 border ${cardBg}`}
+          className={`backdrop-blur-xl rounded-2xl p-6 sm:p-8 border ${cardBg}`}
         >
           {/* HEADER */}
-          <motion.div variants={itemVariants} className="text-center mb-8">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-xl font-bold">CS</span>
+          <motion.div variants={itemVariants} className="text-center mb-6 sm:mb-8">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <span className="text-white text-lg sm:text-xl font-bold">CS</span>
             </div>
 
-            <h1 className="text-3xl font-bold mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-2">
               Join Campus Sync
             </h1>
             <p className={`text-sm ${subText}`}>

@@ -43,13 +43,13 @@ const UserSellPost = () => {
     : "bg-white border-slate-300 text-slate-900"
 
   useEffect(() => {
-    if (!items || items.length === 0) {
+    if (!items || items?.length === 0) {
       fetchMarketplaceItems(dispatch, { category: "all" })
     }
   }, [dispatch])
 
   const myItems = (items || []).filter(
-    (i) => i.seller?._id === userData?._id
+    (i) => i?.seller?._id === userData?._id
   )
 
   const startEdit = (item) => {
@@ -139,25 +139,25 @@ const UserSellPost = () => {
                 {/* TITLE + PRICE */}
                 <div className="flex items-start justify-between">
                   <h3 className="font-semibold line-clamp-1">
-                    {item.title}
+                    {item?.title}
                   </h3>
                   <span className="text-blue-500 font-semibold">
-                    ₹{item.price}
+                    ₹{item?.price}
                   </span>
                 </div>
 
                 {/* CATEGORY */}
                 <span className={`text-xs mt-1 ${textMuted}`}>
-                  {item.category}
+                  {item?.category}
                 </span>
 
                 {/* DESC */}
                 <p className={`text-sm mt-2 line-clamp-2 flex-1 ${descText}`}>
-                  {item.description}
+                  {item?.description}
                 </p>
 
                 {/* EDIT MODE */}
-                {editingId === item._id && (
+                {editingId === item?._id && (
                   <div className="mt-3 space-y-2">
                     <input
                       value={form.title}
@@ -184,7 +184,7 @@ const UserSellPost = () => {
                     <div className="flex gap-2">
                       <button
                         disabled={loading}
-                        onClick={() => submitEdit(item._id)}
+                        onClick={() => submitEdit(item?._id)}
                         className="flex-1 py-2 rounded bg-green-600 text-white"
                       >
                         {loading ? "Saving..." : "Save"}
@@ -200,7 +200,7 @@ const UserSellPost = () => {
                 )}
 
                 {/* ACTIONS */}
-                {editingId !== item._id && (
+                {editingId !== item?._id && (
                   <div className="flex gap-2 mt-4">
                     <button
                       onClick={() => startEdit(item)}
@@ -211,7 +211,7 @@ const UserSellPost = () => {
                     </button>
 
                     <button
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete(item?._id)}
                       className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-red-500/20 text-red-600 border border-red-500/40"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -219,7 +219,7 @@ const UserSellPost = () => {
                     </button>
 
                     <button
-                      onClick={() => navigate(`/sell/${item._id}`)}
+                      onClick={() => navigate(`/sell/${item?._id}`)}
                       className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-blue-500/20 text-blue-600 border border-blue-500/40"
                     >
                       <Eye className="w-4 h-4" />

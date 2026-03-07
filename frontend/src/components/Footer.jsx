@@ -24,9 +24,9 @@ const Footer = () => {
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 py-16">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         {/* GRID */}
-        <div className="grid md:grid-cols-4 gap-12">
+        <div className="grid gap-8 sm:gap-10 md:gap-12 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
 
           {/* BRAND */}
           <div>
@@ -124,13 +124,13 @@ const Footer = () => {
 
         {/* BOTTOM */}
         <div
-          className={`mt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm ${
+          className={`mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm ${
             isDark ? "text-gray-400" : "text-slate-500"
           }`}
         >
           <div>© {new Date().getFullYear()} CampusSync. All rights reserved.</div>
 
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             <FooterLink to="/about" label="About" isDark={isDark} />
             <FooterLink to="/privacy" label="Privacy" isDark={isDark} />
             <FooterLink to="/terms" label="Terms" isDark={isDark} />

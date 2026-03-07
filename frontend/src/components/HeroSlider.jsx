@@ -40,7 +40,7 @@ const HeroSlider = () => {
   const prev = slides[prevIndex]
 
   return (
-    <div className="relative w-full lg:h-[100vh] h-[70vh] overflow-hidden ">
+    <div className="relative w-full h-[60vh] sm:h-[70vh] lg:h-[100vh] overflow-hidden ">
 
       {/* PREVIOUS IMAGE */}
       <motion.img
@@ -66,7 +66,7 @@ const HeroSlider = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-blue-950/50 to-transparent" />
 
       {/* TEXT */}
-      <div className="relative z-10 h-full flex items-center px-10 md:px-20">
+      <div className="relative z-10 h-full flex items-center px-4 sm:px-10 md:px-20">
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 40 }}
@@ -74,15 +74,15 @@ const HeroSlider = () => {
           transition={{ duration: 0.6 }}
           className="max-w-xl"
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-4">
             {current.title}
           </h1>
 
-          <p className="text-blue-200 text-lg md:text-xl mb-6">
+          <p className="text-blue-200 text-base sm:text-lg md:text-xl mb-4 md:mb-6">
             {current.subtitle}
           </p>
 
-          <button className="bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-3 rounded-xl text-white font-semibold shadow-lg hover:scale-105 transition">
+          <button className="bg-gradient-to-r from-blue-500 to-indigo-600 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl text-white text-sm sm:text-base font-semibold shadow-lg hover:scale-105 transition">
             Explore Now
           </button>
         </motion.div>

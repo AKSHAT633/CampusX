@@ -91,29 +91,29 @@ const Login = () => {
   const dividerText = isDark ? "text-slate-400" : "text-slate-500"
 
   return (
-    <div className={`min-h-screen flex items-center justify-center px-4 py-10 ${pageBg}`}>
+    <div className={`min-h-screen flex items-center justify-center px-4 py-8 sm:py-10 ${pageBg}`}>
       <div className="w-full max-w-md">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`rounded-2xl shadow-2xl p-8 border backdrop-blur-xl ${cardBg}`}
+          className={`rounded-2xl shadow-2xl p-6 sm:p-8 border backdrop-blur-xl ${cardBg}`}
         >
           {/* HEADER */}
-          <div className="text-center mb-8">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-xl font-bold">CS</span>
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <span className="text-white text-lg sm:text-xl font-bold">CS</span>
             </div>
 
-            <h1 className="text-3xl font-bold text-blue-500 mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-blue-500 mb-2">
               Welcome Back
             </h1>
-            <p className={labelColor}>
+            <p className={`${labelColor} text-sm sm:text-base`}>
               Login to continue to Campus Sync
             </p>
           </div>
 
           {/* FORM */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             {/* EMAIL */}
             <div>
               <label className={`text-sm font-semibold mb-2 block ${labelColor}`}>

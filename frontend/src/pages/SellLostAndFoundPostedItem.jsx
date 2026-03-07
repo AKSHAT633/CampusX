@@ -37,21 +37,21 @@ const SellLostAndFoundPostedItem = () => {
     : "bg-white border-slate-300 text-slate-900"
 
   useEffect(() => {
-    if (!itemData || itemData.length === 0) fetchItems(dispatch)
+    if (!itemData || itemData?.length === 0) fetchItems(dispatch)
   }, [dispatch])
 
   const myItems = (itemData || []).filter(
-    (i) => i.postedBy?._id === userData?._id
+    (i) => i?.postedBy?._id === userData?._id
   )
 
   const startEdit = (it) => {
-    setEditingId(it._id)
+    setEditingId(it?._id)
     setForm({
-      title: it.title || "",
-      category: it.category || "",
-      description: it.description || "",
-      location: it.location || "",
-      date: it.date
+      title: it?.title || "",
+      category: it?.category || "",
+      description: it?.description || "",
+      location: it?.location || "",
+      date: it?.date
         ? new Date(it.date).toISOString().slice(0, 10)
         : "",
     })
@@ -119,10 +119,10 @@ const SellLostAndFoundPostedItem = () => {
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="font-semibold text-lg">
-                    {it.title}
+                    {it?.title}
                   </h3>
                   <div className={`text-sm ${subText}`}>
-                    {it.category} • {it.location}
+                    {it?.category} • {it?.location}
                   </div>
                 </div>
 
@@ -135,14 +135,14 @@ const SellLostAndFoundPostedItem = () => {
                   </button>
 
                   <button
-                    onClick={() => handleDelete(it._id)}
+                    onClick={() => handleDelete(it?._id)}
                     className="px-3 py-1 rounded-lg bg-red-600 text-white"
                   >
                     Delete
                   </button>
 
                   <button
-                    onClick={() => navigate(`/item/${it._id}`)}
+                    onClick={() => navigate(`/item/${it?._id}`)}
                     className="px-3 py-1 rounded-lg bg-blue-600 text-white"
                   >
                     View
@@ -151,11 +151,11 @@ const SellLostAndFoundPostedItem = () => {
               </div>
 
               <p className={`text-sm mt-3 ${subText}`}>
-                {it.description}
+                {it?.description}
               </p>
 
               {/* EDIT FORM */}
-              {editingId === it._id && (
+              {editingId === it?._id && (
                 <div className="mt-4 space-y-2">
                   <input
                     value={form.title}
@@ -220,7 +220,7 @@ const SellLostAndFoundPostedItem = () => {
                   <div className="flex gap-2 pt-1">
                     <button
                       disabled={loading}
-                      onClick={() => submitEdit(it._id)}
+                      onClick={() => submitEdit(it?._id)}
                       className="px-3 py-2 rounded-lg bg-green-600 text-white"
                     >
                       {loading ? "Saving..." : "Save"}

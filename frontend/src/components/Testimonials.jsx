@@ -29,34 +29,34 @@ const testimonials = [
 const Testimonials = () => {
   const { isDark } = useTheme()
   return (
-    <section className="py-28 px-6 max-w-7xl mx-auto">
+    <section className="py-12 sm:py-16 md:py-28 px-4 sm:px-6 max-w-7xl mx-auto">
 
       {/* HEADER */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative text-center max-w-3xl mx-auto mb-20"
+        className="relative text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20"
       >
         {/* GLOW */}
         <div className="absolute inset-0 flex justify-center">
-          <div className={`w-96 h-96 ${isDark ? "bg-blue-500/20" : "bg-blue-400/15"} blur-[140px] rounded-full`} />
+          <div className={`w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 ${isDark ? "bg-blue-500/20" : "bg-blue-400/15"} blur-[140px] rounded-full`} />
         </div>
 
-        <h2 className="relative text-4xl md:text-5xl font-bold mb-6">
+        <h2 className="relative text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
           <span className={isDark ? "text-white" : "text-slate-900"}>What Students </span>
           <span className={`bg-clip-text text-transparent ${isDark ? "bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400" : "bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500"}`}>
             Say
           </span>
         </h2>
 
-        <p className={`relative ${isDark ? "text-gray-200" : "text-slate-600"} text-lg`}>
+        <p className={`relative ${isDark ? "text-gray-200" : "text-slate-600"} text-base sm:text-lg px-4`}>
           Real students, real recoveries — CampusSync makes campus life easier.
         </p>
       </motion.div>
 
       {/* CARDS */}
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {testimonials.map((t, i) => (
           <motion.div
             key={t.name}

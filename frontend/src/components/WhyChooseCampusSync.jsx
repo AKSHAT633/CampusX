@@ -31,7 +31,7 @@ const WhyChooseCampusSync = () => {
 
   return (
     <section
-      className={`py-28 px-6 max-w-7xl mx-auto ${
+      className={`py-12 sm:py-16 md:py-28 px-4 sm:px-6 max-w-7xl mx-auto ${
         isDark ? "bg-transparent" : "bg-white"
       }`}
     >
@@ -40,19 +40,19 @@ const WhyChooseCampusSync = () => {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative text-center max-w-3xl mx-auto mb-20"
+        className="relative text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20"
       >
         {/* GLOW */}
         <div className="absolute inset-0 flex justify-center">
           <div
-            className={`w-96 h-96 blur-[140px] rounded-full ${
+            className={`w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 blur-[140px] rounded-full ${
               isDark ? "bg-blue-500/20" : "bg-blue-400/20"
             }`}
           />
         </div>
 
         <h2
-          className={`relative text-4xl md:text-5xl font-bold mb-6 ${
+          className={`relative text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 ${
             isDark ? "text-white" : "text-slate-900"
           }`}
         >
@@ -64,7 +64,7 @@ const WhyChooseCampusSync = () => {
         </h2>
 
         <p
-          className={`relative text-lg leading-relaxed ${
+          className={`relative text-base sm:text-lg leading-relaxed px-4 ${
             isDark ? "text-blue-200/90" : "text-slate-600"
           }`}
         >
@@ -72,13 +72,13 @@ const WhyChooseCampusSync = () => {
           life easier and more connected.
         </p>
 
-        <div className="mt-8 flex justify-center">
-          <div className="h-[2px] w-28 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full" />
+        <div className="mt-6 sm:mt-8 flex justify-center">
+          <div className="h-[2px] w-20 sm:w-28 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full" />
         </div>
       </motion.div>
 
       {/* FEATURES GRID */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((f, i) => {
           const Icon = f.icon;
 

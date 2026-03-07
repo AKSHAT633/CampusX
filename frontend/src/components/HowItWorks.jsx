@@ -47,7 +47,7 @@ const HowItWorks = () => {
 
   return (
     <section
-      className={`py-28 px-6 max-w-7xl mx-auto ${
+      className={`py-12 sm:py-16 md:py-28 px-4 sm:px-6 max-w-7xl mx-auto ${
         isDark ? "bg-transparent" : "bg-white"
       }`}
     >
@@ -56,19 +56,19 @@ const HowItWorks = () => {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative text-center max-w-3xl mx-auto mb-20"
+        className="relative text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20"
       >
         {/* GLOW */}
         <div className="absolute inset-0 flex justify-center">
           <div
-            className={`w-96 h-96 blur-[140px] rounded-full ${
+            className={`w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 blur-[140px] rounded-full ${
               isDark ? "bg-blue-500/20" : "bg-blue-400/20"
             }`}
           />
         </div>
 
         <h2
-          className={`relative text-4xl md:text-5xl font-bold mb-6 ${
+          className={`relative text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 ${
             isDark ? "text-white" : "text-slate-900"
           }`}
         >
@@ -79,7 +79,7 @@ const HowItWorks = () => {
         </h2>
 
         <p
-          className={`relative text-lg ${
+          className={`relative text-base sm:text-lg px-4 ${
             isDark ? "text-gray-200" : "text-slate-600"
           }`}
         >
@@ -89,7 +89,7 @@ const HowItWorks = () => {
       </motion.div>
 
       {/* STEPS */}
-      <div className="relative grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="relative grid gap-8 sm:gap-10 md:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {/* CONNECTING LINE */}
         <div
           className={`hidden lg:block absolute top-10 left-0 right-0 h-[2px] ${

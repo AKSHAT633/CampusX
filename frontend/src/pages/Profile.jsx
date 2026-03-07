@@ -112,19 +112,19 @@ const Profile = () => {
   }
 
   return (
-    <div className={`min-h-screen p-6 ${pageBg}`}>
+    <div className={`min-h-screen p-4 sm:p-6 ${pageBg}`}>
       <div className="max-w-2xl mx-auto">
         {/* HEADER */}
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold flex items-center gap-2">
-            <User className="w-7 h-7 text-blue-500" />
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-2">
+            <User className="w-6 h-6 sm:w-7 sm:h-7 text-blue-500" />
             My Profile
           </h1>
 
           {!isEditing ? (
             <button
               onClick={() => setIsEditing(true)}
-              className="px-4 py-2 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-600 hover:bg-blue-500/30"
+              className="px-4 py-2 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-600 hover:bg-blue-500/30 text-sm"
             >
               Edit
             </button>
@@ -132,13 +132,13 @@ const Profile = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => setIsEditing(false)}
-                className="px-4 py-2 rounded-lg border border-slate-300"
+                className="px-3 sm:px-4 py-2 rounded-lg border border-slate-300 text-sm"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
-                className="px-4 py-2 rounded-lg bg-blue-600 text-white"
+                className="px-3 sm:px-4 py-2 rounded-lg bg-blue-600 text-white text-sm"
               >
                 {isSaving ? "Saving..." : "Save"}
               </button>
@@ -147,7 +147,7 @@ const Profile = () => {
         </div>
 
         {/* CARD */}
-        <div className={`rounded-2xl border p-6 space-y-6 ${cardBg}`}>
+        <div className={`rounded-2xl border p-4 sm:p-6 space-y-5 sm:space-y-6 ${cardBg}`}>
           {/* AVATAR */}
           <div className="flex flex-col items-center gap-3">
             <div
@@ -240,7 +240,7 @@ const Profile = () => {
           />
 
           {/* STATS */}
-          <div className="grid sm:grid-cols-2 gap-4 pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
             <StatCard
               title="Sell items"
               count={

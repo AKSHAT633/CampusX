@@ -11,7 +11,7 @@ import {
   GraduationCap,
   MessageCircle,
   Sun,
-  Moon, Package, ShoppingBag, AlertCircle 
+  Moon, Package, ShoppingBag, AlertCircle, Briefcase 
 } from "lucide-react";
 
 import logo from "../assets/logo.png";
@@ -56,6 +56,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const profileRef = useRef(null);
+  const notiRef = useRef(null);
   const [noti, setNoti] = useState(false);
   const [currentNot, setCurrentNoti] = useState("new Lost item");
   const { items, loading } = useSelector((state) => state.marketplace)
@@ -93,6 +94,9 @@ const Navbar = () => {
       if (profileRef.current && !profileRef.current.contains(e.target)) {
         setShowProfile(false);
       }
+      if (notiRef.current && !notiRef.current.contains(e.target)) {
+        setNoti(false);
+      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -103,6 +107,7 @@ const Navbar = () => {
     { name: "Lost & Found", path: "/lost-found", icon: MapPin },
     { name: "MarketPlace", path: "/market", icon: BookOpen },
     { name: "AI Notes", path: "/study-material", icon: GraduationCap },
+    { name: "AI Interview", path: "/ai-interview", icon: Briefcase },
     { name: "Chat", path: "/chat", icon: MessageCircle },
   ];
 
@@ -181,19 +186,21 @@ const Navbar = () => {
           {/* RIGHT */}
           <div className="flex items-center gap-2">
             {/* THEME */}
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-lg ${hoverBg}`}
-            >
-              {isDark ? (
-                <Sun className={`w-5 h-5 ${iconColor}`} />
-              ) : (
-                <Moon className={`w-5 h-5 ${iconColor}`} />
-              )}
-            </button>
+            {userData && (
+              <button
+                onClick={toggleTheme}
+                className={`p-2 rounded-lg ${hoverBg}`}
+              >
+                {isDark ? (
+                  <Sun className={`w-5 h-5 ${iconColor}`} />
+                ) : (
+                  <Moon className={`w-5 h-5 ${iconColor}`} />
+                )}
+              </button>
+            )}
 
             {/* NOTIFICATION */}
-            <div className="relative">
+            <div className="relative" ref={notiRef}>
               <button 
                 onClick={() => setNoti(!noti)}
                 className={`relative p-2 rounded-lg ${hoverBg}`}
@@ -205,11 +212,13 @@ const Navbar = () => {
           {noti && (
   <div
     className="
-      absolute right-0 top-12
-      lg:w-[380px] w-[300px]
+      fixed sm:absolute 
+      left-4 right-4 top-20 sm:left-auto sm:right-0 sm:top-12
+      w-auto sm:w-[340px] lg:w-[380px] sm:max-w-md
       rounded-xl border shadow-xl overflow-hidden
       bg-white border-gray-200
       dark:bg-gray-900 dark:border-gray-700
+      z-50 max-h-[80vh] overflow-y-auto
     "
   >
     {/* Header */}
@@ -368,9 +377,9 @@ const Navbar = () => {
                   onClick={() => setShowProfile(!showProfile)}
                   className="w-9 h-9 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold"
                 >
-                  {userData.profileImage ? (
+                  {userData.ProfileImage ? (
                     <img
-                      src={userData.profileImage}
+                      src={userData.ProfileImage}
                       alt="profile"
                       className="w-full h-full object-cover"
                     />
@@ -389,6 +398,7 @@ const Navbar = () => {
                     >
                       <Link
                         to="/profile"
+                        onClick={() => setShowProfile(false)}
                         className={`block px-4 py-2 text-sm ${dropdownHover}`}
                       >
                         Profile
@@ -396,6 +406,7 @@ const Navbar = () => {
 
                       <Link
                         to="/item/myclaim"
+                        onClick={() => setShowProfile(false)}
                         className={`block px-4 py-2 text-sm ${dropdownHover}`}
                       >
                         My Claims
@@ -403,6 +414,7 @@ const Navbar = () => {
 
                       <Link
                         to="/item/claim-request"
+                        onClick={() => setShowProfile(false)}
                         className={`block px-4 py-2 text-sm ${dropdownHover}`}
                       >
                         Claim Requests
@@ -410,13 +422,17 @@ const Navbar = () => {
 
                       <Link
                         to="/notes/history"
+                        onClick={() => setShowProfile(false)}
                         className={`block px-4 py-2 text-sm ${dropdownHover}`}
                       >
                         Notes History
                       </Link>
 
                       <button
-                        onClick={handleLogout}
+                        onClick={() => {
+                          setShowProfile(false)
+                          handleLogout()
+                        }}
                         className="w-full text-left px-4 py-2 text-sm bg-red-500/10 text-red-500 hover:bg-red-500/20 border-t border-red-500/20"
                       >
                         Logout

@@ -35,6 +35,7 @@ import { useTheme } from "./context/ThemeContext";
 import { io } from "socket.io-client";
 import { serverUrl } from "./main";
 import { setOnlineUsers } from "./redux/messageSlice";
+import AIInterviewPage from "./pages/AIInterviewPage";
 
 
 const App = () => {
@@ -114,6 +115,8 @@ const App = () => {
         <Route path="/all-sell-items" element={<UserSellPost/>} />
         <Route path="/all-items" element={<UserSellPost/>} />
         <Route path="/chat" element={<Chat/>} />
+        <Route path="/ai-interview" element={<AIInterviewPage/>} />
+
        
       </Routes>
  <FloatingActions />

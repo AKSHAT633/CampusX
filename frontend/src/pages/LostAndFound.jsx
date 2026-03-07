@@ -51,45 +51,47 @@ const LostAndFound = () => {
       }`}
     >
       {/* HEADER */}
-      <div className="max-w-7xl mx-auto mb-8 flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">
-            Campus <span className="text-blue-500">Lost & Found</span>
-          </h1>
-          <p className={isDark ? "text-blue-200/80" : "text-slate-600"}>
-            Browse lost and found items across campus
-          </p>
-        </div>
+      <div className="max-w-7xl mx-auto mb-8">
+        <div className="flex flex-col gap-4 mb-4">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold mb-2">
+              Campus <span className="text-blue-500">Lost & Found</span>
+            </h1>
+            <p className={isDark ? "text-blue-200/80 text-sm" : "text-slate-600 text-sm"}>
+              Browse lost and found items across campus
+            </p>
+          </div>
 
-        <div className="flex items-center gap-3">
-          <input
-            type="search"
-            placeholder="Search items, descriptions or users"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={`px-3 py-2 rounded-lg border ${
-              isDark
-                ? "bg-slate-900 border-blue-500/20 text-blue-200"
-                : "bg-white border-slate-300 text-slate-700"
-            }`}
-          />
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <input
+              type="search"
+              placeholder="Search items, descriptions or users"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={`flex-1 px-3 py-2 rounded-lg border text-sm ${
+                isDark
+                  ? "bg-slate-900 border-blue-500/20 text-blue-200"
+                  : "bg-white border-slate-300 text-slate-700"
+              }`}
+            />
 
-          <button
-            onClick={() => navigate("/lost-found/add")}
-            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium shadow"
-          >
-            + Add Lost/Found Item
-          </button>
+            <button
+              onClick={() => navigate("/lost-found/add")}
+              className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium shadow text-sm whitespace-nowrap"
+            >
+              + Add Item
+            </button>
+          </div>
         </div>
       </div>
 
       {/* FILTERS */}
-      <div className="max-w-7xl mx-auto flex flex-wrap gap-3 mb-8">
+      <div className="max-w-7xl mx-auto flex flex-wrap gap-2 sm:gap-3 mb-8">
         {["all", "lost", "found"].map((t) => (
           <button
             key={t}
             onClick={() => setFilterType(t)}
-            className={`px-4 py-1.5 rounded-lg border text-sm transition ${
+            className={`px-3 sm:px-4 py-1.5 rounded-lg border text-xs sm:text-sm transition ${
               filterType === t
                 ? "bg-blue-500/20 border-blue-400 text-blue-500"
                 : isDark
@@ -104,7 +106,7 @@ const LostAndFound = () => {
         <select
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
-          className={`px-3 py-1.5 rounded-lg border ${
+          className={`px-3 py-1.5 rounded-lg border text-xs sm:text-sm ${
             isDark
               ? "bg-slate-900 border-blue-500/20 text-blue-200"
               : "bg-white border-slate-300 text-slate-700"
@@ -125,7 +127,7 @@ const LostAndFound = () => {
       </div>
 
       {/* ITEMS GRID */}
-      <div className="max-w-7xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="max-w-7xl mx-auto grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {filteredItems.map((item, i) => {
           const isOwner = item.postedBy?._id === userData?._id
 
