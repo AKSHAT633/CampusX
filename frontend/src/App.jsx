@@ -21,7 +21,7 @@ import Pricing from "./pages/Priceing";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
 import FloatingActions from "./components/FloatingActions";
-import ItemDetailPage from "./pages/ItemDetailPage";
+import ItemDetailPage from "./pages/itemDetailPage";
 import ClaimItemForm from "./pages/ClaimItemForm";
 import ClaimRequestPages from "./pages/ClaimRequestPages";
 import MyClaim from "./pages/MyClaim";
