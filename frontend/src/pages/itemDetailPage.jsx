@@ -15,7 +15,7 @@ import {
   FileSearch,
   Phone,
 } from "lucide-react"
-import { fetchItems, getSelectedUserInfo } from "../servers/api"
+import { fetchItems } from "../servers/api"
 import { useTheme } from "../context/ThemeContext"
 import { setSelectedUser } from "../redux/messageSlice"
 
@@ -65,8 +65,14 @@ const ItemDetailPage = () => {
   }
 
   const handleMessage = () => {
-    getSelectedUserInfo(item.postedBy?._id,dispatch)
-    navigate(`/chat`);
+    dispatch(
+      setSelectedUser({
+        _id: item?.postedBy?._id,
+        name: item?.postedBy?.name || "User",
+        profileImage: item?.postedBy?.profileImage || item?.postedBy?.ProfileImage || "",
+      })
+    )
+    navigate(`/chat`)
   }
 
   return (

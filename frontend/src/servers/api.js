@@ -2,7 +2,7 @@ import axios from "axios"
 import { setUserData } from "../redux/userSlice";
 import { setItems } from "../redux/itemSlice";
 import { setClaims, setMyClaims } from "../redux/claimSlice";
-import { setAllUser, setOnlineUsers, setSelectedUser } from "../redux/messageSlice";
+
 
 // Declare API URL BEFORE axios uses it (prevents TDZ issues in production bundles)
 const API_BASE_URL = (
@@ -204,46 +204,81 @@ export const fetchMarketplaceItemById = async (id) => {
   }
 }
 
-
-export const getOnlineUser = async(dispatch)=>{
+export const fetchMessages = async (receiverId, dispatch) => {
   try {
-    const res = await axios.get(`${serverUrl}/api/user/online-users`,{
-      withCredentials:true
+    if (!receiverId) {
+      return []
+    }
+
+    const res = await axios.get(`${serverUrl}/api/message/get/${receiverId}`, {
+      withCredentials: true,
     })
-    dispatch(setOnlineUsers(res.data.onlineUsers || []))
-    console.log("sdfsdfsdsfsfsdfSDFSFSF:",res.data.onlineUsers);
-    // console.log("ewewewrere");
-    
-    
-    return res.data
+
+    const messages = res?.data?.messages || []
+
+    if (dispatch) {
+      const { setMessages } = await import("../redux/messageSlice")
+      dispatch(setMessages(messages))
+    }
+
+    return messages
   } catch (error) {
-    console.log(error);
-    return { error: true, message: error.response?.data?.message || 'Fetch failed' }
+    console.error("Fetch messages failed", error)
+    if (dispatch) {
+      const { setMessages } = await import("../redux/messageSlice")
+      dispatch(setMessages([]))
+    }
+    return []
   }
 }
 
-
-export const getSelectedUserInfo  = async (id, dispatch)=>{
+export const fetchConversationUsers = async (dispatch) => {
   try {
-    const res = await axios.get(`${serverUrl}/api/message/select-user-info/${id}`, {withCredentials:true});
-    dispatch(setSelectedUser(res.data.user));
-    return res.data;
+    const res = await axios.get(`${serverUrl}/api/message/conversations`, {
+      withCredentials: true,
+    })
+
+    const users = res?.data?.conversationUsers || []
+
+    if (dispatch) {
+      const { setConversationUsers } = await import("../redux/messageSlice")
+      dispatch(setConversationUsers(users))
+    }
+
+    return users
   } catch (error) {
-    console.log(error);
-    return { error: true, message: error.response?.data?.message || 'Fetch failed' }
+    console.error("Fetch conversations failed", error)
+    if (dispatch) {
+      const { setConversationUsers } = await import("../redux/messageSlice")
+      dispatch(setConversationUsers([]))
+    }
+    return []
   }
 }
-
 
 export const fetchAllUsers = async (dispatch) => {
   try {
-    const res = await axios.get(
-      `${serverUrl}/api/message/getalluser`,
-      { withCredentials: true }
-    );
+    const res = await axios.get(`${serverUrl}/api/message/allusers`, {
+      withCredentials: true,
+    })
 
-    dispatch(setAllUser(res.data.users)); // ✅ correct
+    const users = res?.data?.users || []
+
+    if (dispatch) {
+      const { setAllUsers } = await import("../redux/messageSlice")
+      dispatch(setAllUsers(users))
+    }
+
+    return users
   } catch (error) {
-    console.error("Fetch users error:", error);
+    console.error("Fetch all users failed", error)
+    if (dispatch) {
+      const { setAllUsers } = await import("../redux/messageSlice")
+      dispatch(setAllUsers([]))
+    }
+    return []
   }
-};
+}
+
+// Backward compatible alias (typo-safe)
+export const fatchMessage = fetchMessages

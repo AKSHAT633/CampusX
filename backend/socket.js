@@ -6,6 +6,7 @@ const app = express();
 const server = http.createServer(app);
 
 const allowedOrigins = [
+  process.env.CLIENT_URL,
   "http://localhost:5173",
   "https://campus-sync-gamma.vercel.app",
   "https://campus-6p6zc6860-pranshuchauhan149-gmailcoms-projects.vercel.app",

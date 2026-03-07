@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import LostAndFound from "./pages/LostAndFound";
 import { useEffect } from "react";
-import { fetchAllUsers, getCurrentuser } from "./servers/api";
+import {  getCurrentuser } from "./servers/api";
 import { useDispatch, useSelector } from "react-redux";
 import StudyHome from "./pages/StudyHome";
 import Contact from "./pages/Contact";
@@ -21,7 +21,7 @@ import Pricing from "./pages/Priceing";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
 import FloatingActions from "./components/FloatingActions";
-import ItemDetailPage from "./pages/itemDetailPage";
+import ItemDetailPage from "./pages/ItemDetailPage";
 import ClaimItemForm from "./pages/ClaimItemForm";
 import ClaimRequestPages from "./pages/ClaimRequestPages";
 import MyClaim from "./pages/MyClaim";
@@ -34,7 +34,8 @@ import Chat from "./pages/Chat";
 import { useTheme } from "./context/ThemeContext";
 import { io } from "socket.io-client";
 import { serverUrl } from "./main";
-import { setOnlineUsers } from "./redux/messageSlice";
+import { setOnlineUsers, setSocket } from "./redux/messageSlice";
+
 import AIInterviewPage from "./pages/AIInterviewPage";
 import SellLostAndFoundPostedItem from "./pages/SellLostAndFoundPostedItem";
 
@@ -47,8 +48,9 @@ const App = () => {
   
   useEffect(() => {
     getCurrentuser(dispatch);
-    fetchAllUsers(dispatch);
   }, [dispatch]);
+
+
 
 
   useEffect(() => {
@@ -64,12 +66,15 @@ const App = () => {
       console.log("Connected:", socketio.id);
     });
 
+    dispatch(setSocket(socketio));
+
     socketio.on("getOnlineUsers", (users) => {
       dispatch(setOnlineUsers(users));
     });
 
     return () => {
       socketio.disconnect(); // cleanup
+      dispatch(setSocket(null));
     };
   }, [userData?._id, dispatch]);
 

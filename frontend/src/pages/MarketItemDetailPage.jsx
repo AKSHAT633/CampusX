@@ -15,10 +15,11 @@ import {
   MessageCircle,
   Phone,
 } from "lucide-react"
-import { fetchMarketplaceItemById, getSelectedUserInfo } from "../servers/api"
+import { fetchMarketplaceItemById } from "../servers/api"
 import toast from "react-hot-toast"
 import { useTheme } from "../context/ThemeContext"
 import { useSelector, useDispatch } from "react-redux"
+import { setSelectedUser } from "../redux/messageSlice"
 
 const MarketItemDetailPage = () => {
   const { isDark } = useTheme()
@@ -239,7 +240,13 @@ const MarketItemDetailPage = () => {
                       icon={<MessageCircle />}
                       label="Message"
                       onClick={() => {
-                        getSelectedUserInfo(item.seller?._id, dispatch)
+                        dispatch(
+                          setSelectedUser({
+                            _id: item?.seller?._id,
+                            name: item?.seller?.name || "User",
+                            profileImage: item?.seller?.profileImage || item?.seller?.ProfileImage || "",
+                          })
+                        )
                         navigate('/chat')
                       }}
                       color="indigo"

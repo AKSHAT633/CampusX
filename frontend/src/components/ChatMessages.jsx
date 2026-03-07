@@ -5,13 +5,15 @@ import EmojiPicker from "emoji-picker-react";
 import axios from "axios";
 import { serverUrl } from "../main";
 import { setMessages, setSelectedUser } from "../redux/messageSlice";
-import { io } from "socket.io-client";
+import { fetchMessages, fetchConversationUsers } from "../servers/api";
+import SenderMessage from "./SenderMessage";
+import ReceiverMessage from "./ReceiverMessage";
 
 const ChatMessages = () => {
   const dispatch = useDispatch();
 
   const { userData } = useSelector((state) => state.user);
-  const { selectedUser, messages = [], onlineUsers = [] } = useSelector(
+  const { selectedUser, messages = [], onlineUsers = [], socket } = useSelector(
     (state) => state.message
   );
 
@@ -22,9 +24,56 @@ const ChatMessages = () => {
 
   const imageRef = useRef(null);
   const endRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
   const firstLetter = selectedUser?.name?.charAt(0)?.toUpperCase() || "U";
   const isOnline = onlineUsers?.includes(selectedUser?._id);
+
+  useEffect(() => {
+    if (!selectedUser?._id) {
+      dispatch(setMessages([]));
+      return;
+    }
+
+    fetchMessages(selectedUser._id, dispatch);
+  }, [selectedUser?._id, dispatch]);
+
+  /* ================= SOCKET EVENTS ================= */
+  useEffect(() => {
+    if (!socket || !selectedUser?._id) return;
+
+    const handleNewMessage = (newMessage) => {
+      // Compare IDs properly - convert to string for consistency
+      const senderId = newMessage?.sender?._id?.toString() || newMessage?.sender?.toString();
+      const receiverId = newMessage?.receiver?._id?.toString() || newMessage?.receiver?.toString();
+      const selectedUserId = selectedUser?._id?.toString();
+      const currentUserId = userData?._id?.toString();
+
+      // Add message if it's from or to the selected user
+      if (
+        (senderId === selectedUserId || receiverId === selectedUserId) &&
+        (senderId === currentUserId || receiverId === currentUserId)
+      ) {
+        // Check if message already exists to avoid duplicates
+        if (!messages.some((msg) => msg?._id?.toString() === newMessage?._id?.toString())) {
+          dispatch(setMessages([...messages, newMessage]));
+        }
+      }
+    };
+
+    socket.on("newMessage", handleNewMessage);
+
+    return () => {
+      socket.off("newMessage", handleNewMessage);
+    };
+  }, [socket, selectedUser?._id, userData?._id, messages, dispatch]);
+
+  /* ================= AUTO SCROLL TO BOTTOM ================= */
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   /* ================= IMAGE ================= */
   const handleImage = (e) => {
@@ -51,10 +100,14 @@ const ChatMessages = () => {
         { withCredentials: true }
       );
 
-      const newMessage = res?.data?.data;
+      // Handle response - backend returns message directly
+      const newMessage = res?.data;
 
-      if (newMessage) {
+      if (newMessage?._id) {
+        // Add new message to messages array
         dispatch(setMessages([...messages, newMessage]));
+        // Refresh conversation list
+        fetchConversationUsers(dispatch);
       }
 
       setInput("");
@@ -63,7 +116,7 @@ const ChatMessages = () => {
 
       if (imageRef.current) imageRef.current.value = "";
     } catch (err) {
-      console.error("Send message error:", err);
+      console.error("Send message error:", err?.response?.data || err.message);
     }
   };
 
@@ -72,56 +125,15 @@ const ChatMessages = () => {
     setInput((prev) => prev + (emojiData?.emoji ?? ""));
   };
 
-  /* ================= AUTO SCROLL ================= */
-  useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  /* ================= SOCKET LISTENER FOR REAL-TIME MESSAGES ================= */
-  useEffect(() => {
-    if (!userData?._id || !selectedUser?._id) return;
-
-    const socket = io(serverUrl, {
-      query: {
-        userId: userData._id,
-      },
+  const formatMessageTime = (dateValue) => {
+    if (!dateValue) return "";
+    return new Date(dateValue).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
     });
+  };
 
-    socket.on("newMessage", (newMessage) => {
-      // Check if the message is for the currently selected conversation
-      const isFromSelectedUser = 
-        newMessage.sender._id === selectedUser._id || newMessage.sender === selectedUser._id;
-
-      if (isFromSelectedUser) {
-        dispatch(setMessages([...messages, newMessage]));
-      }
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [userData?._id, selectedUser?._id, dispatch, messages]);
-
-  /* ================= FETCH MESSAGES ================= */
-  useEffect(() => {
-    if (!selectedUser?._id) return;
-
-    const fetchMessages = async () => {
-      try {
-        const res = await axios.get(
-          `${serverUrl}/api/message/get/${selectedUser._id}`,
-          { withCredentials: true }
-        );
-
-        dispatch(setMessages(res.data.data || []));
-      } catch (err) {
-        console.error("Fetch messages error:", err);
-      }
-    };
-
-    fetchMessages();
-  }, [selectedUser?._id, dispatch]);
-
+ 
   return (
     <div className="lg:w-[70vw] w-full h-[100dvh] flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
       {selectedUser ? (
@@ -150,7 +162,6 @@ const ChatMessages = () => {
                     {firstLetter}
                   </div>
                 )}
-
                 {isOnline && (
                   <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
                 )}
@@ -173,41 +184,30 @@ const ChatMessages = () => {
           </div>
 
           {/* ================= MESSAGES ================= */}
-          <div className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900/50 space-y-3">
+          <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900/50 space-y-3">
             {messages.map((msg) => {
               const isSender =
                 msg?.sender?._id === userData?._id ||
                 msg?.sender === userData?._id;
 
-              return (
-                <div
-                  key={msg._id}
-                  className={`flex ${
-                    isSender ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div
-                    className={`max-w-[70%] rounded-2xl px-4 py-2 ${
-                      isSender
-                        ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white"
-                        : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700"
-                    }`}
-                  >
-                    {msg.image && (
-                      <img
-                        src={msg.image}
-                        alt="message"
-                        className="rounded-lg mb-2 max-h-60 object-cover"
-                      />
-                    )}
+              if (isSender) {
+                return (
+                  <SenderMessage
+                    key={msg?._id}
+                    image={msg?.image}
+                    message={msg?.message}
+                    time={formatMessageTime(msg?.createdAt)}
+                  />
+                );
+              }
 
-                    {msg.message && (
-                      <p className="text-sm break-words">
-                        {msg.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
+              return (
+                <ReceiverMessage
+                  key={msg?._id}
+                  image={msg?.image}
+                  message={msg?.message}
+                  time={formatMessageTime(msg?.createdAt)}
+                />
               );
             })}
 
@@ -322,7 +322,7 @@ const ChatMessages = () => {
           </h3>
 
           <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm">
-            Choose a user from the sidebar to start chatting
+            Choose a user from the sidebar to start chattingsdfdsfsdfsfsfsdfsfsdfsdfsfsdfs
           </p>
         </div>
       )}
