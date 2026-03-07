@@ -1,7 +1,7 @@
 import express from "express"
 import { createMarketplaceItem, getAllMarketplaceItems, getMarketplaceItemById, deleteMarketplaceItem, updateMarketplaceItem } from "../controllers/MarketPlace.js"
 import { isAuth } from "../middlewares/isAuth.js"
-import upload from "../middlewares/multer.js"
+import { upload } from "../middlewares/multer.js"
 
 const router = express.Router()
 

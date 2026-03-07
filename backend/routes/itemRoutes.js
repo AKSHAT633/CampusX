@@ -2,7 +2,7 @@ import express from "express";
 
 
 import { createClaimRequest, createItem, getAllItems, getClaimRequests, updateClaimScore, getMyClaims, updateItem, deleteItem } from "../controllers/ItemControllers.js";
-import upload from "../middlewares/multer.js";
+import { upload } from "../middlewares/multer.js";
 import { isAuth } from "../middlewares/isAuth.js";
 
 const itemRouter = express.Router();

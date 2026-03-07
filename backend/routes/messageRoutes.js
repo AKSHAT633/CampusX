@@ -1,5 +1,5 @@
 import express from "express";
-import upload from "../middlewares/multer.js";
+import { upload } from "../middlewares/multer.js";
 import { getSelectedUserInformation, sendMessage, getMessage, getConversations, getAllUsers } from "../controllers/messageController.js";
 import { isAuth } from "../middlewares/isAuth.js";
 

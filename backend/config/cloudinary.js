@@ -1,68 +1,71 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-import dotenv from "dotenv";
 import path from "path";
-import os from "os";
+import dotenv from "dotenv";
 
 dotenv.config();
 
+// Ensure public directory exists
+const publicDir = path.join(process.cwd(), "public");
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir, { recursive: true });
+  console.log("Created /public directory for multer temp storage");
+}
+
+// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-// Upload from file path (for multer disk storage)
-const uploadOnCloudinary = async (filepath) => {
-  if (!filepath) return null;
-
+/**
+ * Upload file to Cloudinary from file path
+ * @param {string} filePath - Path to the file to upload
+ * @returns {Promise<string>} - Returns secure_url of uploaded file
+ * @throws {Error} - Throws error if upload fails
+ */
+const uploadOnCloudinary = async (filePath) => {
   try {
-    const uploadResult = await cloudinary.uploader.upload(filepath, {
-      resource_type: "auto",
-    });
-
-    // Clean up local file after successful upload
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
-    }
-
-    return uploadResult?.secure_url;
-  } catch (error) {
-    // Clean up local file on error
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
-    }
-    console.error("Cloudinary upload error:", error);
-    return null;
-  }
-};
-
-// Upload from buffer (for multer memory storage)
-export const uploadFromBuffer = async (buffer, filename) => {
-  if (!buffer) return null;
-
-  try {
-    const tempFilePath = path.join(os.tmpdir(), filename);
+    console.log("[UPLOAD] Starting upload for:", filePath);
     
-    // Write buffer to temp file
-    fs.writeFileSync(tempFilePath, buffer);
-
-    // Upload to Cloudinary
-    const uploadResult = await cloudinary.uploader.upload(tempFilePath, {
-      resource_type: "auto",
-      filename_override: filename,
-    });
-
-    // Clean up temp file
-    if (fs.existsSync(tempFilePath)) {
-      fs.unlinkSync(tempFilePath);
+    if (!filePath) {
+      throw new Error("File path is required");
     }
 
-    return uploadResult?.secure_url;
+    if (!fs.existsSync(filePath)) {
+      throw new Error(`File not found at path: ${filePath}`);
+    }
+
+    console.log("[UPLOAD] File validated, uploading to Cloudinary...");
+    
+    const uploadResult = await cloudinary.uploader.upload(filePath, {
+      resource_type: "auto",
+    });
+
+    console.log("[UPLOAD] Success! URL:", uploadResult.secure_url);
+
+    // Delete temp file after successful upload
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+      console.log("[UPLOAD] Temp file deleted:", filePath);
+    }
+
+    return uploadResult.secure_url;
   } catch (error) {
-    console.error("Buffer upload error:", error);
-    return null;
+    console.error("[UPLOAD] Cloudinary upload error:", error.message);
+    // Delete temp file even on error
+    try {
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+        console.log("[UPLOAD] Temp file deleted on error:", filePath);
+      }
+    } catch (deleteError) {
+      console.error("[UPLOAD] Error deleting temp file:", deleteError.message);
+    }
+    throw error;
   }
 };
 
 export default uploadOnCloudinary;
+export { cloudinary };

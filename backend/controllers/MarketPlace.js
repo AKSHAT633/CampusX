@@ -1,22 +1,5 @@
 import MarketplaceItem from "../models/MarketplaceItem.js"
-import uploadOnCloudinary, { uploadFromBuffer } from "../config/cloudinary.js"
-import { v2 as cloudinary } from "cloudinary"
-
-const getPublicIdFromUrl = (url) => {
-  if (!url) return null
-  const uploadIndex = url.indexOf('/upload/')
-  let publicId = url
-  if (uploadIndex !== -1) {
-    publicId = url.substring(uploadIndex + '/upload/'.length)
-    // remove version prefix like v12345/
-    publicId = publicId.replace(/^v[0-9]+\//, '')
-    // remove extension
-    publicId = publicId.replace(/\.[^/.]+$/, '')
-  } else {
-    publicId = publicId.replace(/\.[^/.]+$/, '')
-  }
-  return publicId
-}
+import uploadOnCloudinary from "../config/cloudinary.js"
 
 export const createMarketplaceItem = async (req, res) => {
   try {
@@ -37,19 +20,22 @@ export const createMarketplaceItem = async (req, res) => {
       })
     }
 
-    /* ---------- IMAGES ---------- */
     let images = []
 
     if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        const uploadedUrl = await uploadFromBuffer(file.buffer, file.originalname)
-        if (uploadedUrl) {
-          images.push(uploadedUrl)
+      try {
+        for (const file of req.files) {
+          const uploadedUrl = await uploadOnCloudinary(file.path);
+          if (uploadedUrl) {
+            images.push(uploadedUrl)
+          }
         }
+      } catch (uploadError) {
+        console.error("Upload error:", uploadError);
+        return res.status(400).json({ message: "Failed to upload images" });
       }
     }
 
-    /* ---------- CREATE ---------- */
     const item = await MarketplaceItem.create({
       title,
       description,
@@ -73,12 +59,12 @@ export const createMarketplaceItem = async (req, res) => {
   }
 }
 
+
 /* ---------- GET ALL ITEMS ---------- */
 export const getAllMarketplaceItems = async (req, res) => {
   try {
     const { category, status, search } = req.query
 
-    /* ---------- BUILD FILTER ---------- */
     let filter = { isActive: true }
 
     if (category && category !== "all") {
@@ -93,7 +79,6 @@ export const getAllMarketplaceItems = async (req, res) => {
       filter.$text = { $search: search }
     }
 
-    /* ---------- FETCH ITEMS ---------- */
     const items = await MarketplaceItem.find(filter)
       .populate("seller", "name email phone")
       .sort({ createdAt: -1 })
@@ -112,6 +97,7 @@ export const getAllMarketplaceItems = async (req, res) => {
   }
 }
 
+
 /* ---------- GET SINGLE ITEM ---------- */
 export const getMarketplaceItemById = async (req, res) => {
   try {
@@ -127,7 +113,6 @@ export const getMarketplaceItemById = async (req, res) => {
       })
     }
 
-    /* ---------- GET RELATED ITEMS ---------- */
     const relatedItems = await MarketplaceItem.find({
       category: item.category,
       _id: { $ne: item._id },
@@ -151,6 +136,7 @@ export const getMarketplaceItemById = async (req, res) => {
   }
 }
 
+
 export const deleteMarketplaceItem = async (req, res) => {
   try {
     const { id } = req.params
@@ -163,19 +149,6 @@ export const deleteMarketplaceItem = async (req, res) => {
       return res.status(403).json({ message: 'Not allowed' })
     }
 
-    // attempt to delete images from cloudinary
-    if (Array.isArray(item.images) && item.images.length > 0) {
-      for (const img of item.images) {
-        try {
-          const publicId = getPublicIdFromUrl(img)
-          if (publicId) await cloudinary.uploader.destroy(publicId, { resource_type: 'image' })
-        } catch (err) {
-          console.error('Cloudinary delete error for', img, err)
-        }
-      }
-    }
-
-    // remove document via model to avoid issues with document API differences
     await MarketplaceItem.findByIdAndDelete(id)
 
     return res.status(200).json({ message: 'Item deleted' })
@@ -184,6 +157,7 @@ export const deleteMarketplaceItem = async (req, res) => {
     return res.status(500).json({ message: 'Failed to delete item' })
   }
 }
+
 
 export const updateMarketplaceItem = async (req, res) => {
   try {
@@ -217,13 +191,17 @@ export const updateMarketplaceItem = async (req, res) => {
     if (typeof status === 'string') item.status = status
     if (typeof isActive !== 'undefined') item.isActive = isActive
 
-    // handle uploaded images (append)
     if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        const uploadedUrl = await uploadFromBuffer(file.buffer, file.originalname)
-        if (uploadedUrl) {
-          item.images.push(uploadedUrl)
+      try {
+        for (const file of req.files) {
+          const uploadedUrl = await uploadOnCloudinary(file.path);
+          if (uploadedUrl) {
+            item.images.push(uploadedUrl)
+          }
         }
+      } catch (uploadError) {
+        console.error("Upload error:", uploadError);
+        return res.status(400).json({ message: "Failed to upload images" });
       }
     }
 

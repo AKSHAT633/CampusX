@@ -17,7 +17,7 @@ const serverUrl = API_BASE_URL;
 // Configure axios defaults safely for cross-origin cookies
 axios.defaults.baseURL = API_BASE_URL;
 axios.defaults.withCredentials = true;
-axios.defaults.headers.common['Content-Type'] = 'application/json';
+// NOTE: Don't set Content-Type here - let browser auto-set it for FormData uploads
 
 
 export const getCurrentuser =async(dispatch)=>{
@@ -37,14 +37,22 @@ export const getCurrentuser =async(dispatch)=>{
 export const updateProfile = async (dispatch, payload) => {
   try {
     const isFormData = typeof FormData !== "undefined" && payload instanceof FormData
-    const config = { withCredentials: true }
-    if (!isFormData) {
-      config.headers = { "Content-Type": "application/json" }
+    const config = { 
+      withCredentials: true,
+      headers: {}
     }
+    
+    // For FormData, DON'T set Content-Type - browser will auto-set with boundary
+    // For JSON, explicitly set Content-Type
+    if (!isFormData) {
+      config.headers['Content-Type'] = 'application/json'
+    }
+    
     const res = await axios.put(`${serverUrl}/api/user/profile`, payload, config)
     dispatch(setUserData(res.data.user));
     return res.data;
   } catch (error) {
+    console.error('Update profile error:', error);
     return {
       error: true,
       message: error.response?.data?.message || "Update failed",

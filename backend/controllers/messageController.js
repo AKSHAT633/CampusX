@@ -3,7 +3,7 @@ import Message from "../models/message.model.js";
 import UserModel from "../models/User.Models.js";
 import { getReciverSocketId, io } from "../socket.js";
 import mongoose from "mongoose";
-import uploadOnCloudinary, { uploadFromBuffer } from "../config/cloudinary.js";
+import uploadOnCloudinary from "../config/cloudinary.js";
 
 export const sendMessage = async (req, res) => {
   try {
@@ -21,7 +21,12 @@ export const sendMessage = async (req, res) => {
 
     let image = "";
     if (req.file) {
-      image = await uploadFromBuffer(req.file.buffer, req.file.originalname);
+      try {
+        image = await uploadOnCloudinary(req.file.path);
+      } catch (uploadError) {
+        console.error("Upload error:", uploadError);
+        return res.status(400).json({ success: false, msg: "Failed to upload image" });
+      }
     }
 
     const senderId = new mongoose.Types.ObjectId(sender);

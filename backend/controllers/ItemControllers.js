@@ -1,26 +1,13 @@
 import Item from "../models/Item.js";
 import User from "../models/User.Models.js";
 import ClaimedModel from "../models/claimed.models.js";
-import uploadOnCloudinary, { uploadFromBuffer } from "../config/cloudinary.js";
-import fs from "fs";
-import { v2 as cloudinary } from "cloudinary";
-
-const getPublicIdFromUrl = (url) => {
-  if (!url) return null
-  const uploadIndex = url.indexOf('/upload/')
-  let publicId = url
-  if (uploadIndex !== -1) {
-    publicId = url.substring(uploadIndex + '/upload/'.length)
-    publicId = publicId.replace(/^v[0-9]+\//, '')
-    publicId = publicId.replace(/\.[^/.]+$/, '')
-  } else {
-    publicId = publicId.replace(/\.[^/.]+$/, '')
-  }
-  return publicId
-}
+import uploadOnCloudinary from "../config/cloudinary.js";
 
 export const createItem = async (req, res) => {
   try {
+    console.log("[CREATE_ITEM] Request received");
+    console.log("[CREATE_ITEM] req.file:", req.file ? { fieldname: req.file.fieldname, originalname: req.file.originalname, path: req.file.path, size: req.file.size } : "No file");
+    
     const {
       title,
       description,
@@ -31,6 +18,7 @@ export const createItem = async (req, res) => {
     } = req.body;
 
     if (!title || !description || !category || !type || !location || !date) {
+      console.log("[CREATE_ITEM] Missing required fields");
       return res.status(400).json({
         message: "All fields are required",
       });
@@ -38,9 +26,16 @@ export const createItem = async (req, res) => {
 
     const images = [];
     if (req.file) {
-      const uploadedUrl = await uploadFromBuffer(req.file.buffer, req.file.originalname);
-      if (uploadedUrl) {
-        images.push(uploadedUrl);
+      try {
+        console.log("[CREATE_ITEM] Starting image upload...");
+        const uploadedUrl = await uploadOnCloudinary(req.file.path);
+        if (uploadedUrl) {
+          images.push(uploadedUrl);
+          console.log("[CREATE_ITEM] Image uploaded successfully:", uploadedUrl);
+        }
+      } catch (uploadError) {
+        console.error("[CREATE_ITEM] Upload error:", uploadError.message);
+        return res.status(400).json({ message: "Failed to upload image", error: uploadError.message });
       }
     }
 
@@ -55,13 +50,14 @@ export const createItem = async (req, res) => {
       postedBy: req.userId,
     });
 
+    console.log("[CREATE_ITEM] Item created:", item._id);
     res.status(201).json({
       message: "Item posted successfully",
       item,
     });
   } catch (error) {
-    console.error("Create Item Error:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error("[CREATE_ITEM] Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
@@ -83,8 +79,13 @@ export const updateItem = async (req, res) => {
     if (date) item.date = new Date(date)
 
     if (req.file) {
-      const uploadedUrl = await uploadFromBuffer(req.file.buffer, req.file.originalname)
-      if (uploadedUrl) item.images.push(uploadedUrl)
+      try {
+        const uploadedUrl = await uploadOnCloudinary(req.file.path);
+        if (uploadedUrl) item.images.push(uploadedUrl);
+      } catch (uploadError) {
+        console.error("Upload error:", uploadError);
+        return res.status(400).json({ message: "Failed to upload image" });
+      }
     }
 
     await item.save()
@@ -104,19 +105,8 @@ export const deleteItem = async (req, res) => {
     if (!item) return res.status(404).json({ message: 'Item not found' })
     if (String(item.postedBy) !== String(userId)) return res.status(403).json({ message: 'Not allowed' })
 
-    // delete images from cloudinary if present
-    if (Array.isArray(item.images) && item.images.length > 0) {
-      for (const img of item.images) {
-        try {
-          const publicId = getPublicIdFromUrl(img)
-          if (publicId) await cloudinary.uploader.destroy(publicId, { resource_type: 'image' })
-        } catch (err) {
-          console.error('Cloudinary delete error for', img, err)
-        }
-      }
-    }
-
     await Item.findByIdAndDelete(id)
+
     return res.status(200).json({ message: 'Item deleted' })
   } catch (error) {
     console.error('Delete item error:', error)
@@ -127,7 +117,7 @@ export const deleteItem = async (req, res) => {
 export const getAllItems = async (req, res) => {
   try {
     const items = await Item.find()
-      .populate("postedBy", "name email phone ProfileImage") // adjust fields if needed
+      .populate("postedBy", "name email phone ProfileImage")
       .sort({ createdAt: -1 });
 
     res.status(200).json({
@@ -236,6 +226,7 @@ export const updateClaimScore = async (req, res) => {
     } else {
       claim.rejectReason = "";
     }
+
     await claim.save();
 
     return res.status(200).json({
