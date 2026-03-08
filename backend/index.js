@@ -13,6 +13,10 @@ import marketplaceRouter from "./routes/MarketRoues.js";
 import { app, server } from './socket.js';
 import messageRouter from './routes/messageRoutes.js';
 
+// IMPORTANT: Stripe webhook must use raw body and be declared
+// before express.json()/urlencoded() middleware.
+app.post("/api/credits/webhook", express.raw({ type: "application/json" }), stripeWebhook)
+
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true, limit: "5mb" }));
 app.use(cookieParser());
@@ -35,11 +39,6 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
-
-app.post("/api/credits/webhook",express.raw({type:"application/json"}),
-stripeWebhook)
-
-
 
 app.get("/",(req,res)=>{
     res.send("server is running... ")

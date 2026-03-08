@@ -94,15 +94,26 @@ export const createCreditsOrder = async (req, res) => {
 
 export const stripeWebhook = async (req, res) => {
   const sig = req.headers["stripe-signature"]
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
   let event
 
   try {
+    if (!webhookSecret) {
+      console.error("❌ STRIPE_WEBHOOK_SECRET is missing")
+      return res.status(500).send("Webhook secret missing")
+    }
+
+    if (!sig) {
+      console.error("❌ Missing stripe-signature header")
+      return res.status(400).send("Missing signature")
+    }
+
     const stripe = getStripeClient()
     event = stripe.webhooks.constructEvent(
       req.body, // raw body
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET
+      webhookSecret
     )
   } catch (error) {
     console.log("❌ Webhook signature error:", error.message)
@@ -112,6 +123,12 @@ export const stripeWebhook = async (req, res) => {
   // ✅ handle checkout success
   if (event.type === "checkout.session.completed") {
     const session = event.data.object
+
+    // Only add credits when payment is actually paid
+    if (session.payment_status !== "paid") {
+      console.log("⚠️ Checkout completed but payment not paid yet:", session.id)
+      return res.status(200).json({ received: true })
+    }
 
     const userId = session.metadata?.userId
     const creditsToAdd = Number(session.metadata?.credits)
