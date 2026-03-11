@@ -12,7 +12,7 @@ const userSlice = createSlice({
         },
         updateCreadits:(state,action)=>{
             if(state.userData){
-                state.userData.credtis = action.payload
+                state.userData.credits = action.payload
             }
         }
     }

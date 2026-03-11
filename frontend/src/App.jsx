@@ -35,9 +35,11 @@ import { useTheme } from "./context/ThemeContext";
 import { io } from "socket.io-client";
 import { serverUrl } from "./main";
 import { setOnlineUsers, setSocket } from "./redux/messageSlice";
-
-import AIInterviewPage from "./pages/AIInterviewPage";
 import SellLostAndFoundPostedItem from "./pages/SellLostAndFoundPostedItem";
+import AiInterviewHome from "./pages/AiInterviewPages/AiInterviewHome";
+import InterviewPage from "./pages/AiInterviewPages/InterviewPage";
+import InterviewHistory from "./pages/AiInterviewPages/InterviewHistory";
+import InterviewReport from "./pages/AiInterviewPages/InterviewReport";
 
 
 const App = () => {
@@ -80,7 +82,7 @@ const App = () => {
 
   return (
    
-      <div className={`min-h-screen ${isDark ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950" : "bg-gradient-to-b from-white via-blue-50 to-white"} transition-colors duration-300`}>
+      <div className={`min-h-screen ${isDark ? "bg-linear-to-b from-slate-950 via-blue-950 to-slate-950" : "bg-linear-to-b from-white via-blue-50 to-white"} transition-colors duration-300`}>
         <Toaster position="top-center" reverseOrder={false} />
 
         <Navbar />
@@ -121,7 +123,10 @@ const App = () => {
         <Route path="/all-sell-items" element={<UserSellPost/>} />
         <Route path="/all-lost-found-items" element={<SellLostAndFoundPostedItem/>} />
         <Route path="/chat" element={<Chat/>} />
-        <Route path="/ai-interview" element={<AIInterviewPage/>} />
+        <Route path="/ai-interview" element={<AiInterviewHome/>} />
+        <Route path="/ai-interview/start" element={<InterviewPage/>} />
+        <Route path="/ai-interview/history" element={<InterviewHistory/>} />
+        <Route path="/ai-interview/report/:interviewId" element={<InterviewReport/>} />
 
        
       </Routes>

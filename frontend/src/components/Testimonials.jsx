@@ -23,6 +23,13 @@ const testimonials = [
     quote:
       "The chat feature made coordinating pickup so smooth. Highly recommend.",
     initial: "M"
+  },
+  {
+    name: "Arjun P.",
+    role: "3rd Year, IT",
+    quote:
+      "AI Interview mode helped me practice technical + HR rounds with instant feedback before placements.",
+    initial: "A"
   }
 ]
 
@@ -51,12 +58,12 @@ const Testimonials = () => {
         </h2>
 
         <p className={`relative ${isDark ? "text-gray-200" : "text-slate-600"} text-base sm:text-lg px-4`}>
-          Real students, real recoveries — CampusSync makes campus life easier.
+          Real students, real results — from lost-item recovery to AI Notes and AI Interview prep.
         </p>
       </motion.div>
 
       {/* CARDS */}
-      <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
         {testimonials.map((t, i) => (
           <motion.div
             key={t.name}

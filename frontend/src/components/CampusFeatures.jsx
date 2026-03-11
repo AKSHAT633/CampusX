@@ -1,6 +1,6 @@
 import React from "react"
 import { motion } from "framer-motion"
-import { MapPin, BookOpen, Brain } from "lucide-react"
+import { MapPin, BookOpen, Brain, Briefcase } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useTheme } from "../context/ThemeContext"
 
@@ -15,13 +15,19 @@ const features = [
     title: "Browse Books & Items",
     desc: "Explore books, gadgets, and daily-use items shared by fellow students in your campus marketplace.",
     icon: BookOpen,
-    link: "/books"
+    link: "/market"
   },
   {
     title: "AI Study · Take Notes",
     desc: "Create intelligent notes, organize study material, and enhance learning with AI-powered tools.",
     icon: Brain,
-    link: "/notes"
+    link: "/note"
+  },
+  {
+    title: "AI Interview Practice",
+    desc: "Practice HR and technical interviews with AI, timed rounds, and instant performance insights.",
+    icon: Briefcase,
+    link: "/ai-interview"
   }
 ]
 
@@ -46,7 +52,7 @@ const CampusFeatures = () => {
   {/* TITLE */}
   <h2 className="relative text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
     <span className={isDark ? "text-white" : "text-slate-900"}>Campus</span>
-    <span className={`bg-clip-text text-transparent ${isDark ? "bg-gradient-to-r from-blue-800 via-blue-600 to-indigo-700" : "bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-500"}`}>
+    <span className={`bg-clip-text text-transparent ${isDark ? "bg-linear-to-r from-blue-800 via-blue-600 to-indigo-700" : "bg-linear-to-r from-blue-600 via-blue-500 to-indigo-500"}`}>
       Sync
     </span>
   </h2>
@@ -59,13 +65,13 @@ const CampusFeatures = () => {
 
   {/* ACCENT LINE */}
   <div className="mt-6 sm:mt-8 flex justify-center">
-    <div className="h-[2px] w-20 sm:w-28 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full" />
+    <div className="h-0.5 w-20 sm:w-28 bg-linear-to-r from-transparent via-blue-500 to-transparent rounded-full" />
   </div>
 </motion.div>
 
 
       {/* CARDS */}
-      <div className="grid gap-6 sm:gap-8 md:gap-10 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:gap-8 md:gap-10 md:grid-cols-2 lg:grid-cols-4">
         {features.map((f, i) => {
           const Icon = f.icon
 
@@ -76,16 +82,16 @@ const CampusFeatures = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.15, duration: 0.6 }}
               whileHover={{ y: -10, scale: 1.03 }}
-              className={`group relative rounded-2xl p-[1px] ${isDark ? "bg-gradient-to-br from-blue-500/40 via-indigo-500/20 to-transparent" : "bg-gradient-to-br from-blue-400/30 via-indigo-400/15 to-transparent"}`}
+              className={`group relative rounded-2xl p-px ${isDark ? "bg-linear-to-br from-blue-500/40 via-indigo-500/20 to-transparent" : "bg-linear-to-br from-blue-400/30 via-indigo-400/15 to-transparent"}`}
             >
               {/* CARD INNER */}
               <div className={`h-full rounded-2xl ${isDark ? "bg-slate-950/90" : "bg-white/90"} backdrop-blur-xl ${isDark ? "border-blue-500/10" : "border-blue-300/20"} border p-6 sm:p-8 relative overflow-hidden`}>
 
                 {/* GLOW EFFECT */}
-                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${isDark ? "bg-gradient-to-br from-blue-500/10 via-indigo-500/10 to-transparent" : "bg-gradient-to-br from-blue-400/10 via-indigo-400/10 to-transparent"}`} />
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${isDark ? "bg-linear-to-br from-blue-500/10 via-indigo-500/10 to-transparent" : "bg-linear-to-br from-blue-400/10 via-indigo-400/10 to-transparent"}`} />
 
                 {/* ICON */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-5 sm:mb-6 shadow-lg shadow-blue-500/40 group-hover:shadow-blue-500/60 transition">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-5 sm:mb-6 shadow-lg shadow-blue-500/40 group-hover:shadow-blue-500/60 transition">
                   <Icon className="text-white" size={22} />
                 </div>
 

@@ -278,6 +278,20 @@ const Profile = () => {
               onClick={() => navigate("/all-lost-found-items")}
               statCard={statCard}
             />
+
+            <StatCard
+              title="Interview Practice"
+              count={"AI"}
+              onClick={() => navigate("/ai-interview/start")}
+              statCard={statCard}
+            />
+
+            <StatCard
+              title="Interview History"
+              count={"View"}
+              onClick={() => navigate("/ai-interview/history")}
+              statCard={statCard}
+            />
           </div>
         </div>
       </div>

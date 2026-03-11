@@ -12,6 +12,7 @@ import marketplaceRouter from "./routes/MarketRoues.js";
 
 import { app, server } from './socket.js';
 import messageRouter from './routes/messageRoutes.js';
+import interviewRouter from './routes/interviewRoute.js';
 
 // IMPORTANT: Stripe webhook must use raw body and be declared
 // before express.json()/urlencoded() middleware.
@@ -52,6 +53,7 @@ app.use("/api/credits",CreditRouter);
 app.use("/api/item",itemRouter);
 app.use("/api/marketplace",marketplaceRouter);
 app.use("/api/message",messageRouter);
+app.use("/api/interview",interviewRouter)
 
 
 server.listen(PORT , ()=>{

@@ -133,8 +133,8 @@ const Navbar = () => {
       animate={{ y: 0 }}
       className={`sticky top-0 z-50 backdrop-blur-xl transition-colors ${
         isDark
-          ? "bg-gradient-to-r from-slate-950/95 via-blue-950/95 to-slate-950/95 border-b border-blue-500/30"
-          : "bg-gradient-to-r from-white/95 via-blue-50/95 to-white/95 border-b border-blue-200/40"
+          ? "bg-linear-to-r from-slate-950/95 via-blue-950/95 to-slate-950/95 border-b border-blue-500/30"
+          : "bg-linear-to-r from-white/95 via-blue-50/95 to-white/95 border-b border-blue-200/40"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -144,7 +144,7 @@ const Navbar = () => {
             <img src={logo} alt="CampusSync" className="w-10 h-10" />
             <span className="text-lg md:text-xl font-bold">
               <span className={logoMain}>Campus</span>
-              <span className="bg-gradient-to-r from-blue-500 via-blue-400 to-indigo-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-blue-500 via-blue-400 to-indigo-500 bg-clip-text text-transparent">
                 Sync
               </span>
             </span>
@@ -174,7 +174,7 @@ const Navbar = () => {
                   {item.name}
 
                   <span
-                    className={`absolute left-0 -bottom-1 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-500 transition-all ${
+                    className={`absolute left-0 -bottom-1 h-0.5 bg-linear-to-r from-blue-400 to-indigo-500 transition-all ${
                       isActive ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   />
@@ -214,7 +214,7 @@ const Navbar = () => {
     className="
       fixed sm:absolute 
       left-4 right-4 top-20 sm:left-auto sm:right-0 sm:top-12
-      w-auto sm:w-[340px] lg:w-[380px] sm:max-w-md
+      w-auto sm:w-85 lg:w-95 sm:max-w-md
       rounded-xl border shadow-xl overflow-hidden
       bg-white border-gray-200
       dark:bg-gray-900 dark:border-gray-700
@@ -255,7 +255,7 @@ const Navbar = () => {
     </div>
 
     {/* Content */}
-    <div className="max-h-[320px] overflow-y-auto">
+    <div className="max-h-80 overflow-y-auto">
       {currentNot === "new Lost item" && (
         <div className="divide-y divide-gray-200 dark:divide-gray-700">
           {itemData && itemData.length > 0 ? (
@@ -266,7 +266,7 @@ const Navbar = () => {
                 onClick={() => setNoti(false)}
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-linear-to-br from-green-400 to-green-600 flex items-center justify-center shrink-0">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -297,7 +297,7 @@ const Navbar = () => {
                 onClick={() => setNoti(false)}
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-linear-to-br from-blue-400 to-blue-600 flex items-center justify-center shrink-0">
                   <Package className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -328,7 +328,7 @@ const Navbar = () => {
                 onClick={() => setNoti(false)}
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-linear-to-br from-orange-400 to-orange-600 flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -375,7 +375,7 @@ const Navbar = () => {
               <div className="relative" ref={profileRef}>
                 <button
                   onClick={() => setShowProfile(!showProfile)}
-                  className="w-9 h-9 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold"
+                  className="w-9 h-9 rounded-full overflow-hidden bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold"
                 >
                   {userData.ProfileImage ? (
                     <img
@@ -428,6 +428,14 @@ const Navbar = () => {
                         Notes History
                       </Link>
 
+                      <Link
+                        to="/ai-interview/history"
+                        onClick={() => setShowProfile(false)}
+                        className={`block px-4 py-2 text-sm ${dropdownHover}`}
+                      >
+                        Interview History
+                      </Link>
+
                       <button
                         onClick={() => {
                           setShowProfile(false)
@@ -444,7 +452,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/register"
-                className="px-4 py-2 text-sm font-medium rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:scale-105 transition"
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 text-white hover:scale-105 transition"
               >
                 Sign Up
               </Link>
@@ -493,6 +501,51 @@ const Navbar = () => {
                   </Link>
                 );
               })}
+
+              {userData && (
+                <>
+                  <div className={`pt-3 mt-3 border-t ${isDark ? "border-blue-500/20" : "border-blue-200/40"}`} />
+
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center gap-2 ${
+                      isDark
+                        ? "text-gray-300 hover:text-blue-300"
+                        : "text-gray-600 hover:text-blue-600"
+                    }`}
+                  >
+                    <Home size={16} />
+                    Profile
+                  </Link>
+
+                  <Link
+                    to="/notes/history"
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center gap-2 ${
+                      isDark
+                        ? "text-gray-300 hover:text-blue-300"
+                        : "text-gray-600 hover:text-blue-600"
+                    }`}
+                  >
+                    <BookOpen size={16} />
+                    Notes History
+                  </Link>
+
+                  <Link
+                    to="/ai-interview/history"
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center gap-2 ${
+                      isDark
+                        ? "text-gray-300 hover:text-blue-300"
+                        : "text-gray-600 hover:text-blue-600"
+                    }`}
+                  >
+                    <Briefcase size={16} />
+                    Interview History
+                  </Link>
+                </>
+              )}
             </div>
           </motion.div>
         )}

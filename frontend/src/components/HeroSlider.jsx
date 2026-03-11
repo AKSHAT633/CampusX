@@ -1,29 +1,42 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 
 import image1 from "../assets/LostAndFound.jpg"
 import image2 from "../assets/Book.jpg"
 import image3 from "../assets/Study.jpg"
+import image4 from "../assets/AiImage.png"
 
 const slides = [
   {
     image: image1,
     title: "Connect Campus Lost & Found",
-    subtitle: "Report, search, and recover lost items across your campus instantly"
+    subtitle: "Report, search, and recover lost items across your campus instantly",
+    path: "/lost-found"
   },
   {
     image: image2,
     title: "Campus Marketplace",
-    subtitle: "Buy, sell, and exchange books and daily-use items with students"
+    subtitle: "Buy, sell, and exchange books and daily-use items with students",
+    path: "/market"
   },
   {
     image: image3,
     title: "AI Smart Notes",
-    subtitle: "Create, organize, and access intelligent study notes anytime"
+    subtitle: "Create, organize, and access intelligent study notes anytime",
+    path: "/note"
+  }
+  ,
+  {
+    image: image4,
+    title: "AI Mock Interview",
+    subtitle: "Practice role-based interviews and get instant AI feedback",
+    path: "/ai-interview"
   }
 ]
 
 const HeroSlider = () => {
+  const navigate = useNavigate()
   const [index, setIndex] = useState(0)
   const [prevIndex, setPrevIndex] = useState(0)
 
@@ -40,7 +53,7 @@ const HeroSlider = () => {
   const prev = slides[prevIndex]
 
   return (
-    <div className="relative w-full lg:h-[100vh] h-[70vh] overflow-hidden ">
+    <div className="relative w-full lg:h-screen h-[70vh] overflow-hidden ">
 
       {/* PREVIOUS IMAGE */}
       <motion.img
@@ -63,7 +76,7 @@ const HeroSlider = () => {
       />
 
       {/* OVERLAY */}
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-blue-950/50 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-slate-950/80 via-blue-950/50 to-transparent" />
 
       {/* TEXT */}
       <div className="relative z-10 h-full flex items-center px-10 md:px-20">
@@ -82,7 +95,10 @@ const HeroSlider = () => {
             {current.subtitle}
           </p>
 
-          <button className="bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-3 rounded-xl text-white font-semibold shadow-lg hover:scale-105 transition">
+          <button
+            onClick={() => navigate(current.path)}
+            className="bg-linear-to-r from-blue-500 to-indigo-600 px-6 py-3 rounded-xl text-white font-semibold shadow-lg hover:scale-105 transition"
+          >
             Explore Now
           </button>
         </motion.div>

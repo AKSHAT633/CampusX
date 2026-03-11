@@ -20,8 +20,8 @@ const features = [
     icon: MessageCircle,
   },
   {
-    title: "AI-powered Learning",
-    desc: "Personalized study suggestions, topic summaries and smart note generation to help you learn faster.",
+    title: "AI Notes & Interview Prep",
+    desc: "Generate smart AI notes with topic summaries and practice AI interviews with role-based questions, timed rounds, and instant feedback.",
     icon: Brain,
   },
 ];

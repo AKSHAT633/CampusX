@@ -11,14 +11,14 @@ const Footer = () => {
     <footer
       className={`relative overflow-hidden transition-colors duration-300 ${
         isDark
-          ? "border-t border-blue-500/20 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white"
-          : "border-t border-slate-200 bg-gradient-to-br from-white via-blue-50 to-white text-slate-900"
+          ? "border-t border-blue-500/20 bg-linear-to-br from-slate-950 via-blue-950 to-slate-900 text-white"
+          : "border-t border-slate-200 bg-linear-to-br from-white via-blue-50 to-white text-slate-900"
       }`}
     >
       {/* GLOW */}
       <div className="absolute inset-0 flex justify-center">
         <div
-          className={`w-[500px] h-[500px] blur-[160px] rounded-full ${
+          className={`w-125 h-125 blur-[160px] rounded-full ${
             isDark ? "bg-blue-600/20" : "bg-blue-400/15"
           }`}
         />
@@ -58,7 +58,9 @@ const Footer = () => {
             links={[
               { to: "/", label: "Home" },
               { to: "/lost-found", label: "Lost & Found" },
-              { to: "/books", label: "Marketplace" },
+              { to: "/market", label: "Marketplace" },
+              { to: "/ai-interview", label: "AI Interview" },
+              { to: "/ai-interview/history", label: "Interview History" },
               { to: "/chat", label: "Chat" },
             ]}
           />
@@ -71,6 +73,7 @@ const Footer = () => {
               { label: "Smart Matching" },
               { label: "Book Trading" },
               { label: "AI Notes" },
+              { label: "AI Interview Practice" },
               { label: "Real-time Chat" },
             ]}
           />
@@ -117,8 +120,8 @@ const Footer = () => {
         <div
           className={`mt-12 h-px ${
             isDark
-              ? "bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"
-              : "bg-gradient-to-r from-transparent via-slate-300 to-transparent"
+              ? "bg-linear-to-r from-transparent via-blue-500/30 to-transparent"
+              : "bg-linear-to-r from-transparent via-slate-300 to-transparent"
           }`}
         />
 

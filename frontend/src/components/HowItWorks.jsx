@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
-import { Upload, BellRing, MessageCircle, Brain } from "lucide-react";
+import { Upload, BellRing, MessageCircle, Brain, Briefcase } from "lucide-react";
 
 const steps = [
   {
@@ -39,6 +39,15 @@ const steps = [
     glow: "bg-pink-500/20",
     border: "border-pink-500/40",
     iconColor: "text-pink-400",
+  },
+  {
+    title: "AI Interview Practice",
+    desc: "Practice HR and technical rounds with role-based AI questions, timed sessions, and instant feedback.",
+    icon: Briefcase,
+    gradient: "from-cyan-500 to-blue-500",
+    glow: "bg-cyan-500/20",
+    border: "border-cyan-500/40",
+    iconColor: "text-cyan-400",
   },
 ];
 
@@ -83,13 +92,13 @@ const HowItWorks = () => {
             isDark ? "text-gray-200" : "text-slate-600"
           }`}
         >
-          Simple steps to recover lost items, trade books, and enhance learning
-          with AI.
+          Simple steps to recover lost items, trade books, create AI notes, and
+          practice AI interviews.
         </p>
       </motion.div>
 
       {/* STEPS */}
-      <div className="relative grid gap-8 sm:gap-10 md:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="relative grid gap-8 sm:gap-10 md:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
         {/* CONNECTING LINE */}
         <div
           className={`hidden lg:block absolute top-10 left-0 right-0 h-[2px] ${
