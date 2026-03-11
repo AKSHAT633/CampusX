@@ -14,7 +14,7 @@ export const ThemeProvider = ({ children }) => {
   const theme = userData?.theme || "dark";
 
   // ✅ boolean dark state
-  const [isDark, setIsDark] = useState(theme === "dark");
+  const [isDark, setIsDark] = useState(theme === "light");
 
   // sync boolean with theme
   useEffect(() => {
