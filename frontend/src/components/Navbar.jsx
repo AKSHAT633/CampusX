@@ -452,7 +452,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/register"
-                className="px-4 py-2 text-sm font-medium rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 text-white hover:scale-105 transition"
+                className="hidden sm:inline-flex px-4 py-2 text-sm font-medium rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 text-white hover:scale-105 transition"
               >
                 Sign Up
               </Link>
@@ -543,6 +543,32 @@ const Navbar = () => {
                   >
                     <Briefcase size={16} />
                     Interview History
+                  </Link>
+                </>
+              )}
+
+              {!userData && (
+                <>
+                  <div className={`pt-3 mt-3 border-t ${isDark ? "border-blue-500/20" : "border-blue-200/40"}`} />
+
+                  <Link
+                    to="/register"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 text-white transition"
+                  >
+                    Sign Up
+                  </Link>
+
+                  <Link
+                    to="/login"
+                    onClick={() => setIsOpen(false)}
+                    className={`w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border transition ${
+                      isDark
+                        ? "border-blue-500/30 text-gray-200 hover:bg-slate-800"
+                        : "border-blue-200 text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    Login
                   </Link>
                 </>
               )}

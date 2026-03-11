@@ -84,11 +84,11 @@ const CampusFeatures = () => {
               whileHover={{ y: -10, scale: 1.03 }}
               className={`group relative rounded-2xl p-px ${isDark ? "bg-linear-to-br from-blue-500/40 via-indigo-500/20 to-transparent" : "bg-linear-to-br from-blue-400/30 via-indigo-400/15 to-transparent"}`}
             >
-              {/* CARD INNER */}
+              {/* CARD INNER dsadasdads*/}
               <div className={`h-full rounded-2xl ${isDark ? "bg-slate-950/90" : "bg-white/90"} backdrop-blur-xl ${isDark ? "border-blue-500/10" : "border-blue-300/20"} border p-6 sm:p-8 relative overflow-hidden`}>
 
                 {/* GLOW EFFECT */}
-                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${isDark ? "bg-linear-to-br from-blue-500/10 via-indigo-500/10 to-transparent" : "bg-linear-to-br from-blue-400/10 via-indigo-400/10 to-transparent"}`} />
+                <div className={`pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${isDark ? "bg-linear-to-br from-blue-500/10 via-indigo-500/10 to-transparent" : "bg-linear-to-br from-blue-400/10 via-indigo-400/10 to-transparent"}`} />
 
                 {/* ICON */}
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-5 sm:mb-6 shadow-lg shadow-blue-500/40 group-hover:shadow-blue-500/60 transition">
@@ -105,7 +105,7 @@ const CampusFeatures = () => {
                   {f.desc}
                 </p>
 
-                {/* CTA */}
+                {/* CTA sdfsdss*/}
                 <Link
                   to={f.link}
                   className={`inline-flex items-center gap-2 ${isDark ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-700"} font-medium group-hover:text-blue-300 transition`}
