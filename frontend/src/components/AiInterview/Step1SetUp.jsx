@@ -264,7 +264,7 @@ const Step1SetUp = ({ onStart }) => {
                 <option value="">Select Mode</option>
                 <option value="technical">Technical</option>
                 <option value="hr">HR Interview</option>
-                <option value="mixed">Mixed</option>
+               
               </select>
             </div>
 
