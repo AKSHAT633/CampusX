@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import image1 from "../assets/LostAndFound.jpg"
 import image2 from "../assets/Book.jpg"
 import image3 from "../assets/Study.jpg"
-import image4 from "../assets/AiImage.png"
+import image4 from "../assets/aiImage.png"
 
 const slides = [
   {
