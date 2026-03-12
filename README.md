@@ -118,42 +118,6 @@ CampusSync integrates AI features to enhance the platform:
 * Vercel (Frontend)
 * Node server (Backend)
 
----
-
-# ⚙️ Installation
-
-Clone the repository
-
-```
-git clone https://github.com/yourusername/campussync.git
-```
-
-Go to project folder
-
-```
-cd campussync
-```
-
-Install dependencies
-
-```
-npm install
-```
-
-Run frontend
-
-```
-npm run dev
-```
-
-Run backend
-
-```
-npm start
-```
-
----
-
 # 📂 Project Structure
 
 ```
