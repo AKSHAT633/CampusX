@@ -1,6 +1,6 @@
 # 🚀 CampusSync
 
-**CampusSync** is a modern **MERN-based campus platform** designed to simplify campus life by combining multiple useful services into one powerful system.
+**CampusSync** is a modern **MERN-based campus platform** designed to simplify campus life by combining multiple useful services into one powerful system..
 
 The platform provides **Lost & Found management, a student marketplace, AI-powered study tools, and an AI interview practice system**. CampusSync helps students connect, trade, learn, and prepare for careers using modern web technologies and artificial intelligence.
 
