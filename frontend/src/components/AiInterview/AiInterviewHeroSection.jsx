@@ -13,10 +13,10 @@ const AiInterviewHeroSection = () => {
   const { isDark } = useTheme()
 
   const titleColor = isDark ? "text-white" : "text-slate-900"
-  const textColor = isDark ? "text-blue-200/80" : "text-slate-600"
+  const textColor = isDark ? "text-rose-200/80" : "text-slate-600"
 
   const cardStyle = isDark
-    ? "bg-white/5 border-blue-500/20"
+    ? "bg-white/5 border-rose-500/20"
     : "bg-white border-slate-200 shadow-sm"
 
   return (
@@ -35,7 +35,7 @@ const AiInterviewHeroSection = () => {
             className={`text-4xl md:text-5xl font-bold leading-tight ${titleColor}`}
           >
             Practice Interviews with{" "}
-            <span className="bg-linear-to-r from-blue-500 via-cyan-400 to-indigo-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-rose-500 via-cyan-400 to-orange-500 bg-clip-text text-transparent">
               AI
             </span>
           </motion.h1>
@@ -63,7 +63,7 @@ const AiInterviewHeroSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate("/ai-interview/start")}
-              className="flex-1 md:flex-none px-6 py-3 rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 text-white font-medium shadow-lg whitespace-nowrap"
+              className="flex-1 md:flex-none px-6 py-3 rounded-lg bg-linear-to-r from-rose-500 to-orange-600 text-white font-medium shadow-lg whitespace-nowrap"
             >
               Start Interview
             </motion.button>

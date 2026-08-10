@@ -31,15 +31,15 @@ const SignUp = () => {
 
   /* ---------- THEME ---------- */
   const pageBg = isDark
-    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950"
-    : "bg-gradient-to-br from-white via-blue-50 to-white"
+    ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950"
+    : "bg-gradient-to-br from-white via-emerald-50 to-white"
 
   const cardBg = isDark
-    ? "bg-white/5 border-blue-500/30 text-white"
+    ? "bg-white/5 border-rose-500/30 text-white"
     : "bg-white border-slate-200 text-slate-900 shadow-xl"
 
   const inputBg = isDark
-    ? "bg-slate-900/60 border-blue-500/30 text-white placeholder:text-blue-200/40"
+    ? "bg-slate-900/60 border-rose-500/30 text-white placeholder:text-rose-200/40"
     : "bg-white border-slate-300 text-slate-900 placeholder:text-slate-400"
 
   const labelText = isDark ? "text-white" : "text-slate-700"
@@ -130,7 +130,7 @@ const SignUp = () => {
         >
           {/* HEADER */}
           <motion.div variants={itemVariants} className="text-center mb-6 sm:mb-8">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-rose-400 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
               <span className="text-white text-lg sm:text-xl font-bold">CS</span>
             </div>
 
@@ -225,7 +225,7 @@ const SignUp = () => {
             <motion.button
               variants={itemVariants}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 rounded-xl mt-4"
+              className="w-full bg-gradient-to-r from-rose-500 to-orange-600 text-white font-bold py-3 rounded-xl mt-4"
             >
               {loading ? "Creating..." : "Create Account"}
             </motion.button>
@@ -233,7 +233,7 @@ const SignUp = () => {
 
           {/* DIVIDER */}
           <div className="relative my-6">
-            <div className={`border-t ${isDark ? "border-blue-500/20" : "border-slate-300"}`} />
+            <div className={`border-t ${isDark ? "border-rose-500/20" : "border-slate-300"}`} />
             <span
               className={`absolute left-1/2 -translate-x-1/2 -top-3 px-3 text-xs ${
                 isDark
@@ -252,11 +252,11 @@ const SignUp = () => {
             disabled={loading}
             className={`w-full border rounded-xl py-3 flex items-center justify-center gap-3 ${
               isDark
-                ? "border-blue-500/30 text-white"
+                ? "border-rose-500/30 text-white"
                 : "border-slate-300 text-slate-700"
             }`}
           >
-            <FaGoogle className="text-blue-400" />
+            <FaGoogle className="text-rose-400" />
             {loading ? "Connecting..." : "Continue with Google"}
           </motion.button>
 
@@ -266,7 +266,7 @@ const SignUp = () => {
             className={`text-center text-sm mt-6 ${subText}`}
           >
             Already a member?{" "}
-            <Link to="/login" className="text-blue-500 font-semibold">
+            <Link to="/login" className="text-rose-500 font-semibold">
               Login
             </Link>
           </motion.p>

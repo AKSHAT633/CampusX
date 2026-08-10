@@ -17,13 +17,13 @@ const About = () => {
   /* ---------- COLORS ---------- */
 
   const pageBg = isDark
-    ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 text-white"
-    : "bg-gradient-to-b from-white via-blue-50 to-white text-slate-900"
+    ? "bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 text-white"
+    : "bg-gradient-to-b from-white via-emerald-50 to-white text-slate-900"
 
-  const glow = isDark ? "bg-blue-600/20" : "bg-blue-400/20"
+  const glow = isDark ? "bg-emerald-600/20" : "bg-emerald-400/20"
 
   const cardBg = isDark
-    ? "bg-white/5 border-blue-500/20"
+    ? "bg-white/5 border-rose-500/20"
     : "bg-white border-slate-200"
 
   const heading = isDark ? "text-white" : "text-slate-900"
@@ -46,13 +46,13 @@ const About = () => {
         >
           <h1 className={`text-4xl md:text-5xl font-bold mb-6 ${heading}`}>
             Lost & Found{" "}
-            <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-rose-500 via-cyan-500 to-orange-500 bg-clip-text text-transparent">
               System
             </span>
           </h1>
 
           <p className={`text-lg leading-relaxed ${subText}`}>
-            CampusSync's Lost & Found helps students quickly recover lost items
+            CampusX's Lost & Found helps students quickly recover lost items
             and return found items to their rightful owners through a smart,
             secure claim verification process.
           </p>
@@ -101,8 +101,8 @@ const About = () => {
                   whileHover={{ y: -6, scale: 1.03 }}
                   className={`p-6 rounded-xl backdrop-blur-xl border ${cardBg}`}
                 >
-                  <Icon className="text-blue-500 mb-3 w-8 h-8" />
-                  <div className="text-xs text-blue-500 mb-1">{item.step}</div>
+                  <Icon className="text-emerald-500 mb-3 w-8 h-8" />
+                  <div className="text-xs text-emerald-500 mb-1">{item.step}</div>
                   <h3 className={`font-semibold mb-2 text-lg ${heading}`}>
                     {item.title}
                   </h3>
@@ -123,7 +123,7 @@ const About = () => {
         >
           <div>
             <h2 className={`text-3xl font-semibold mb-4 flex items-center gap-2 ${heading}`}>
-              <Sparkles className="text-blue-500" />
+              <Sparkles className="text-emerald-500" />
               Smart Verification
             </h2>
 
@@ -146,7 +146,7 @@ const About = () => {
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-blue-500 mt-1">🔒</span>
+                <span className="text-rose-500 mt-1">🔒</span>
                 <span>
                   <strong>One-time scoring:</strong> Poster can only submit score once
                 </span>
@@ -155,7 +155,7 @@ const About = () => {
           </div>
 
           <div className={`p-8 rounded-2xl backdrop-blur-xl border ${cardBg}`}>
-            <h3 className="font-semibold mb-4 text-blue-500">
+            <h3 className="font-semibold mb-4 text-emerald-500">
               What Claimants Provide:
             </h3>
             <ul className={`space-y-2 text-sm ${paragraph}`}>
@@ -165,7 +165,7 @@ const About = () => {
               <li>• Supporting image/proof (optional)</li>
             </ul>
 
-            <h3 className="font-semibold mb-4 mt-6 text-blue-500">
+            <h3 className="font-semibold mb-4 mt-6 text-emerald-500">
               What Posters Review:
             </h3>
             <ul className={`space-y-2 text-sm ${paragraph}`}>
@@ -211,7 +211,7 @@ const About = () => {
                   whileHover={{ y: -6, scale: 1.03 }}
                   className={`p-6 rounded-xl backdrop-blur-xl border ${cardBg}`}
                 >
-                  <Icon className="text-blue-500 mb-3 w-8 h-8" />
+                  <Icon className="text-emerald-500 mb-3 w-8 h-8" />
                   <h3 className={`font-semibold mb-2 ${heading}`}>
                     {v.title}
                   </h3>
@@ -229,7 +229,7 @@ const About = () => {
           className="space-y-6"
         >
           <h2 className={`text-3xl font-semibold flex items-center gap-2 ${heading}`}>
-            <Shield className="text-blue-500" />
+            <Shield className="text-emerald-500" />
             Privacy & Safety
           </h2>
 
@@ -257,7 +257,7 @@ const About = () => {
           className="space-y-6"
         >
           <h2 className={`text-3xl font-semibold flex items-center gap-2 ${heading}`}>
-            <FileText className="text-blue-500" />
+            <FileText className="text-emerald-500" />
             Terms of Use
           </h2>
 

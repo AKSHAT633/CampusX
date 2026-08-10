@@ -9,17 +9,17 @@ const PaymentFailed = () => {
 
   /* ---------- THEME ---------- */
   const pageBg = isDark
-    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+    ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
     : "bg-gradient-to-br from-white via-red-50 to-white text-slate-900"
 
   const cardBg = isDark
     ? "bg-gradient-to-br from-white/5 via-red-500/5 to-white/5 border-red-500/30"
     : "bg-white border-red-200 shadow-xl"
 
-  const messageColor = isDark ? "text-blue-200/80" : "text-slate-600"
+  const messageColor = isDark ? "text-rose-200/80" : "text-slate-600"
 
   const secondaryBtn = isDark
-    ? "bg-white/5 border-blue-500/30 text-blue-200 hover:bg-blue-500/10"
+    ? "bg-white/5 border-rose-500/30 text-rose-200 hover:bg-rose-500/10"
     : "bg-white border-slate-300 text-slate-700 hover:bg-slate-100"
 
   return (
@@ -64,7 +64,7 @@ const PaymentFailed = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 to-orange-600 text-white font-semibold shadow-lg flex items-center justify-center gap-2"
             >
               Try Again
               <CreditCard className="w-4 h-4" />

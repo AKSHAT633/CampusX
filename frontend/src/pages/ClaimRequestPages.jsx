@@ -83,7 +83,7 @@ const ClaimRequestPages = () => {
     <div
       className={`min-h-screen p-6 ${
         isDark
-          ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 text-white"
+          ? "bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 text-white"
           : "bg-slate-50 text-slate-900"
       }`}
     >
@@ -91,21 +91,21 @@ const ClaimRequestPages = () => {
         {/* HEADER */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold">
-            Claim <span className="text-blue-500">Requests</span>
+            Claim <span className="text-rose-500">Requests</span>
           </h1>
-          <p className={isDark ? "text-blue-200/80 text-sm" : "text-slate-600 text-sm"}>
+          <p className={isDark ? "text-rose-200/80 text-sm" : "text-slate-600 text-sm"}>
             Review requests for items you posted
           </p>
         </div>
 
         {loading && (
-          <div className={isDark ? "text-blue-200/70" : "text-slate-500"}>
+          <div className={isDark ? "text-rose-200/70" : "text-slate-500"}>
             Loading requests...
           </div>
         )}
 
         {!loading && claims.length === 0 && (
-          <div className={isDark ? "text-blue-300/70" : "text-slate-500"}>
+          <div className={isDark ? "text-rose-300/70" : "text-slate-500"}>
             No claim requests yet.
           </div>
         )}
@@ -118,7 +118,7 @@ const ClaimRequestPages = () => {
               animate={{ opacity: 1, y: 0 }}
               className={`rounded-2xl border p-5 ${
                 isDark
-                  ? "border-blue-500/20 bg-white/5"
+                  ? "border-rose-500/20 bg-white/5"
                   : "border-slate-200 bg-white shadow-sm"
               }`}
             >
@@ -128,7 +128,7 @@ const ClaimRequestPages = () => {
                   <h2 className="text-lg font-semibold">
                     {claim.item?.title || "Item"}
                   </h2>
-                  <p className={isDark ? "text-blue-200/70 text-sm" : "text-slate-500 text-sm"}>
+                  <p className={isDark ? "text-rose-200/70 text-sm" : "text-slate-500 text-sm"}>
                     {claim.item?.category} • {claim.item?.location}
                   </p>
                 </div>
@@ -152,15 +152,15 @@ const ClaimRequestPages = () => {
                 <div
                   className={`rounded-xl border p-4 ${
                     isDark
-                      ? "border-blue-500/20 bg-slate-900/40"
+                      ? "border-rose-500/20 bg-slate-900/40"
                       : "border-slate-200 bg-slate-50"
                   }`}
                 >
-                  <h3 className={isDark ? "text-blue-200 text-sm font-semibold mb-3" : "text-slate-700 text-sm font-semibold mb-3"}>
+                  <h3 className={isDark ? "text-rose-200 text-sm font-semibold mb-3" : "text-slate-700 text-sm font-semibold mb-3"}>
                     Your Posted Item Info
                   </h3>
 
-                  <div className={isDark ? "space-y-2 text-sm text-blue-100/90" : "space-y-2 text-sm text-slate-700"}>
+                  <div className={isDark ? "space-y-2 text-sm text-rose-100/90" : "space-y-2 text-sm text-slate-700"}>
                     <div className="flex items-center gap-2">
                       <MapPin className="w-4 h-4" />
                       {claim.item?.location || "-"}
@@ -179,7 +179,7 @@ const ClaimRequestPages = () => {
                         src={claim.item.images[0]}
                         alt="item"
                         className={`mt-2 max-h-36 rounded-lg border object-cover ${
-                          isDark ? "border-blue-500/20" : "border-slate-200"
+                          isDark ? "border-rose-500/20" : "border-slate-200"
                         }`}
                       />
                     )}
@@ -190,15 +190,15 @@ const ClaimRequestPages = () => {
                 <div
                   className={`rounded-xl border p-4 ${
                     isDark
-                      ? "border-blue-500/20 bg-slate-900/40"
+                      ? "border-rose-500/20 bg-slate-900/40"
                       : "border-slate-200 bg-slate-50"
                   }`}
                 >
-                  <h3 className={isDark ? "text-blue-200 text-sm font-semibold mb-3" : "text-slate-700 text-sm font-semibold mb-3"}>
+                  <h3 className={isDark ? "text-rose-200 text-sm font-semibold mb-3" : "text-slate-700 text-sm font-semibold mb-3"}>
                     Claimant Info
                   </h3>
 
-                  <div className={isDark ? "space-y-2 text-sm text-blue-100/90" : "space-y-2 text-sm text-slate-700"}>
+                  <div className={isDark ? "space-y-2 text-sm text-rose-100/90" : "space-y-2 text-sm text-slate-700"}>
                     <div className="flex items-center gap-2">
                       <User className="w-4 h-4" />
                       {claim.claimant?.name || "User"}
@@ -221,7 +221,7 @@ const ClaimRequestPages = () => {
                         src={claim.itemImage}
                         alt="claim"
                         className={`mt-2 max-h-36 rounded-lg border object-cover ${
-                          isDark ? "border-blue-500/20" : "border-slate-200"
+                          isDark ? "border-rose-500/20" : "border-slate-200"
                         }`}
                       />
                     )}
@@ -230,7 +230,7 @@ const ClaimRequestPages = () => {
               </div>
 
               {/* META */}
-              <div className={isDark ? "mt-4 flex flex-wrap gap-4 text-xs text-blue-200/70" : "mt-4 flex flex-wrap gap-4 text-xs text-slate-500"}>
+              <div className={isDark ? "mt-4 flex flex-wrap gap-4 text-xs text-rose-200/70" : "mt-4 flex flex-wrap gap-4 text-xs text-slate-500"}>
                 Requested: {new Date(claim.createdAt).toLocaleDateString()}
                 {claim.score !== null && ` • Score: ${claim.score}`}
               </div>
@@ -248,7 +248,7 @@ const ClaimRequestPages = () => {
                     disabled={claim.status !== "pending"}
                     className={`w-40 px-3 py-2 rounded-lg border ${
                       isDark
-                        ? "bg-slate-900 border-blue-500/20 text-white"
+                        ? "bg-slate-900 border-rose-500/20 text-white"
                         : "bg-white border-slate-300 text-slate-800"
                     }`}
                   />
@@ -264,7 +264,7 @@ const ClaimRequestPages = () => {
                         }
                         className={`flex-1 min-w-[220px] px-3 py-2 rounded-lg border ${
                           isDark
-                            ? "bg-slate-900 border-blue-500/20 text-white"
+                            ? "bg-slate-900 border-rose-500/20 text-white"
                             : "bg-white border-slate-300 text-slate-800"
                         }`}
                       />
@@ -273,13 +273,13 @@ const ClaimRequestPages = () => {
                   <button
                     onClick={() => handleSaveScore(claim._id)}
                     disabled={claim.status !== "pending"}
-                    className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm disabled:opacity-50"
+                    className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-sm disabled:opacity-50"
                   >
                     Save Score
                   </button>
                 </div>
 
-                <div className={isDark ? "text-xs text-blue-200/70" : "text-xs text-slate-500"}>
+                <div className={isDark ? "text-xs text-rose-200/70" : "text-xs text-slate-500"}>
                   Score ≥60 → Approved • Score &lt;60 → Rejected
                 </div>
               </div>

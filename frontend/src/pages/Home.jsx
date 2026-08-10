@@ -12,7 +12,7 @@ const Home = () => {
   const { isDark } = useTheme()
   return (
    
-         <div className={`min-h-screen ${isDark ? 'bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900' : 'bg-gradient-to-br from-white via-blue-50 to-white'}`}>
+         <div className={`min-h-screen ${isDark ? 'bg-gradient-to-br from-slate-950 via-rose-950 to-slate-900' : 'bg-gradient-to-br from-white via-emerald-50 to-white'}`}>
 
 
       <HeroSlider />

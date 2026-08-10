@@ -47,24 +47,24 @@ const Pricing = () => {
 
   /* ---------- THEME ---------- */
   const pageBg = isDark
-    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
-    : "bg-gradient-to-br from-white via-blue-50 to-white text-slate-900"
+    ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
+    : "bg-gradient-to-br from-white via-emerald-50 to-white text-slate-900"
 
-  const headerText = isDark ? "text-blue-200/80" : "text-slate-600"
+  const headerText = isDark ? "text-rose-200/80" : "text-slate-600"
   const errorText = isDark ? "text-red-300" : "text-red-600"
 
   const cardBase = isDark
-    ? "bg-white/5 border-blue-500/20"
+    ? "bg-white/5 border-rose-500/20"
     : "bg-white border-slate-200 shadow-lg"
 
   const popularCard = isDark
-    ? "bg-gradient-to-br from-blue-500/15 to-indigo-500/10 border-blue-400/50"
-    : "bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-300 shadow-xl"
+    ? "bg-gradient-to-br from-rose-500/15 to-orange-500/10 border-rose-400/50"
+    : "bg-gradient-to-br from-rose-50 to-orange-50 border-rose-300 shadow-xl"
 
-  const featureText = isDark ? "text-blue-100/90" : "text-slate-600"
+  const featureText = isDark ? "text-rose-100/90" : "text-slate-600"
 
   const secondaryBtn = isDark
-    ? "bg-white/5 border-blue-500/30 text-blue-200 hover:bg-blue-500/10"
+    ? "bg-white/5 border-rose-500/30 text-rose-200 hover:bg-rose-500/10"
     : "bg-white border-slate-300 text-slate-700 hover:bg-slate-100"
 
   return (
@@ -72,7 +72,7 @@ const Pricing = () => {
       {/* HEADER */}
       <div className="text-center max-w-3xl mx-auto mb-14">
         <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-          Buy <span className="text-blue-500">Credits</span>
+          Buy <span className="text-rose-500">Credits</span>
         </h1>
         <p className={headerText}>
           Generate AI notes, diagrams, charts & PDFs using credits.
@@ -101,14 +101,14 @@ const Pricing = () => {
           >
             {/* POPULAR */}
             {plan.popular && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs bg-blue-500 text-white shadow">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs bg-rose-500 text-white shadow">
                 Most Popular
               </div>
             )}
 
             {/* ICON */}
             <div className="flex justify-center mb-4">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-600/20 border border-blue-400/40">
+              <div className="p-3 rounded-xl bg-gradient-to-br from-rose-500/30 to-orange-600/20 border border-rose-400/40">
                 <Diamond className="w-6 h-6 text-cyan-400" />
               </div>
             </div>
@@ -151,7 +151,7 @@ const Pricing = () => {
               disabled={loadingPlan === plan.credits}
               className={`w-full py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition ${
                 plan.popular
-                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-rose-500 to-orange-600 text-white shadow-lg"
                   : secondaryBtn
               }`}
             >

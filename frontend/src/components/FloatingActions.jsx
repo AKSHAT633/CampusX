@@ -44,7 +44,7 @@ const FloatingActions = () => {
         onClick={() => setOpen(!open)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/40 flex items-center justify-center"
+        className="w-14 h-14 rounded-full bg-gradient-to-br from-rose-500 to-orange-600 text-white shadow-lg shadow-rose-500/40 flex items-center justify-center"
       >
         <motion.div animate={{ rotate: open ? 45 : 0 }}>
           <Plus size={26} />

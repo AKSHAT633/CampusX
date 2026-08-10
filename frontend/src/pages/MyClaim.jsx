@@ -29,7 +29,7 @@ const MyClaim = () => {
     <div
       className={`min-h-screen p-6 ${
         isDark
-          ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 text-white"
+          ? "bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 text-white"
           : "bg-slate-50 text-slate-900"
       }`}
     >
@@ -37,16 +37,16 @@ const MyClaim = () => {
         {/* HEADER */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold">
-            My <span className="text-blue-500">Claims</span>
+            My <span className="text-rose-500">Claims</span>
           </h1>
-          <p className={isDark ? "text-blue-200/80 text-sm" : "text-slate-600 text-sm"}>
+          <p className={isDark ? "text-rose-200/80 text-sm" : "text-slate-600 text-sm"}>
             Track the status of items you claimed
           </p>
         </div>
 
         {/* EMPTY */}
         {myClaimData.length === 0 ? (
-          <div className={isDark ? "text-blue-300/70" : "text-slate-500"}>
+          <div className={isDark ? "text-rose-300/70" : "text-slate-500"}>
             No claims submitted yet.
           </div>
         ) : (
@@ -58,7 +58,7 @@ const MyClaim = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className={`rounded-2xl border p-5 ${
                   isDark
-                    ? "border-blue-500/20 bg-white/5"
+                    ? "border-rose-500/20 bg-white/5"
                     : "border-slate-200 bg-white shadow-sm"
                 }`}
               >
@@ -69,7 +69,7 @@ const MyClaim = () => {
                       {claim.item?.title || "Item"}
                     </h2>
 
-                    <p className={isDark ? "text-blue-200/70 text-sm" : "text-slate-500 text-sm"}>
+                    <p className={isDark ? "text-rose-200/70 text-sm" : "text-slate-500 text-sm"}>
                       {claim.item?.category} • {claim.item?.location}
                     </p>
 
@@ -118,7 +118,7 @@ const MyClaim = () => {
                         src={claim.item.images[0]}
                         alt="item"
                         className={`mt-2 max-h-36 rounded-lg border ${
-                          isDark ? "border-blue-500/20" : "border-slate-200"
+                          isDark ? "border-rose-500/20" : "border-slate-200"
                         }`}
                       />
                     )}
@@ -185,7 +185,7 @@ const MyClaim = () => {
                         src={claim.itemImage}
                         alt="claim"
                         className={`mt-2 max-h-36 rounded-lg border ${
-                          isDark ? "border-blue-500/20" : "border-slate-200"
+                          isDark ? "border-rose-500/20" : "border-slate-200"
                         }`}
                       />
                     )}
@@ -196,7 +196,7 @@ const MyClaim = () => {
                 <div
                   className={
                     isDark
-                      ? "mt-4 flex gap-4 text-xs text-blue-200/70"
+                      ? "mt-4 flex gap-4 text-xs text-rose-200/70"
                       : "mt-4 flex gap-4 text-xs text-slate-500"
                   }
                 >
@@ -219,14 +219,14 @@ const InfoPanel = ({ title, children, isDark }) => (
   <div
     className={`rounded-xl border p-4 ${
       isDark
-        ? "border-blue-500/20 bg-slate-900/40"
+        ? "border-rose-500/20 bg-slate-900/40"
         : "border-slate-200 bg-slate-50"
     }`}
   >
     <h3
       className={
         isDark
-          ? "text-blue-200 text-sm font-semibold mb-3"
+          ? "text-rose-200 text-sm font-semibold mb-3"
           : "text-slate-700 text-sm font-semibold mb-3"
       }
     >
@@ -235,7 +235,7 @@ const InfoPanel = ({ title, children, isDark }) => (
     <div
       className={
         isDark
-          ? "space-y-2 text-sm text-blue-100/90"
+          ? "space-y-2 text-sm text-rose-100/90"
           : "space-y-2 text-sm text-slate-700"
       }
     >
@@ -257,9 +257,9 @@ const ActionBtn = ({ icon, label, onClick, href, color }) => {
   const base =
     "px-3 py-2 rounded-lg text-white text-sm flex items-center gap-2"
   const colors = {
-    blue: "bg-blue-600 hover:bg-blue-500",
-    emerald: "bg-emerald-600 hover:bg-emerald-500",
-    indigo: "bg-indigo-600 hover:bg-indigo-500",
+    blue: "bg-rose-600 hover:bg-rose-500",
+    emerald: "bg-rose-600 hover:bg-rose-500",
+    indigo: "bg-orange-600 hover:bg-orange-500",
   }
 
   if (href)

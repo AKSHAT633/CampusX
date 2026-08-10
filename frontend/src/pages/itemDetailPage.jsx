@@ -42,7 +42,7 @@ const ItemDetailPage = () => {
       <div
         className={`min-h-screen p-6 ${
           isDark
-            ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+            ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
             : "bg-slate-50 text-slate-900"
         }`}
       >
@@ -79,7 +79,7 @@ const ItemDetailPage = () => {
     <div
       className={`min-h-screen p-6 ${
         isDark
-          ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+          ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
           : "bg-slate-50 text-slate-900"
       }`}
     >
@@ -90,7 +90,7 @@ const ItemDetailPage = () => {
           onClick={() => navigate(-1)}
           className={
             isDark
-              ? "inline-flex items-center gap-2 text-blue-300 hover:text-blue-200 mb-6"
+              ? "inline-flex items-center gap-2 text-rose-300 hover:text-rose-200 mb-6"
               : "inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-6"
           }
         >
@@ -105,7 +105,7 @@ const ItemDetailPage = () => {
             <div
               className={`rounded-2xl overflow-hidden border ${
                 isDark
-                  ? "border-blue-500/20 bg-white/5"
+                  ? "border-rose-500/20 bg-white/5"
                   : "border-slate-200 bg-white"
               }`}
             >
@@ -118,7 +118,7 @@ const ItemDetailPage = () => {
               ) : (
                 <div
                   className={`h-96 flex items-center justify-center ${
-                    isDark ? "text-blue-300/40" : "text-slate-400"
+                    isDark ? "text-rose-300/40" : "text-slate-400"
                   }`}
                 >
                   No Image
@@ -149,7 +149,7 @@ const ItemDetailPage = () => {
             {/* META */}
             <div
               className={`grid sm:grid-cols-2 gap-3 text-sm ${
-                isDark ? "text-blue-200/80" : "text-slate-600"
+                isDark ? "text-rose-200/80" : "text-slate-600"
               }`}
             >
               <Meta icon={<MapPin />} text={item.location} />
@@ -166,7 +166,7 @@ const ItemDetailPage = () => {
             </div>
 
             {/* DESCRIPTION */}
-            <p className={isDark ? "text-blue-100/90" : "text-slate-700"}>
+            <p className={isDark ? "text-rose-100/90" : "text-slate-700"}>
               {item.description}
             </p>
 
@@ -174,18 +174,18 @@ const ItemDetailPage = () => {
             <div
               className={`rounded-xl border p-4 flex items-center gap-3 ${
                 isDark
-                  ? "bg-white/5 border-blue-500/20"
+                  ? "bg-white/5 border-rose-500/20"
                   : "bg-white border-slate-200"
               }`}
             >
               <div
                 className={`p-3 rounded-full ${
-                  isDark ? "bg-blue-500/20" : "bg-blue-100"
+                  isDark ? "bg-rose-500/20" : "bg-rose-100"
                 }`}
               >
                 <User
                   className={
-                    isDark ? "w-5 h-5 text-blue-300" : "w-5 h-5 text-blue-600"
+                    isDark ? "w-5 h-5 text-rose-300" : "w-5 h-5 text-rose-600"
                   }
                 />
               </div>
@@ -194,7 +194,7 @@ const ItemDetailPage = () => {
                 <p className="font-semibold">{item.postedBy?.name}</p>
                 <p
                   className={
-                    isDark ? "text-xs text-blue-300/70" : "text-xs text-slate-500"
+                    isDark ? "text-xs text-rose-300/70" : "text-xs text-slate-500"
                   }
                 >
                   Posted this item
@@ -202,7 +202,7 @@ const ItemDetailPage = () => {
                 {item.postedBy?.email && (
                   <p
                     className={
-                      isDark ? "text-xs text-blue-200/80" : "text-xs text-slate-500"
+                      isDark ? "text-xs text-rose-200/80" : "text-xs text-slate-500"
                     }
                   >
                     {item.postedBy.email}
@@ -211,7 +211,7 @@ const ItemDetailPage = () => {
                 {item.postedBy?.phone && (
                   <p
                     className={
-                      isDark ? "text-xs text-blue-200/80" : "text-xs text-slate-500"
+                      isDark ? "text-xs text-rose-200/80" : "text-xs text-slate-500"
                     }
                   >
                     {item.postedBy.phone}
@@ -261,7 +261,7 @@ const ItemDetailPage = () => {
                   onClick={() => navigate(`/item/${r._id}`)}
                   className={`cursor-pointer rounded-xl border overflow-hidden ${
                     isDark
-                      ? "border-blue-500/20 bg-white/5"
+                      ? "border-rose-500/20 bg-white/5"
                       : "border-slate-200 bg-white"
                   }`}
                 >
@@ -273,7 +273,7 @@ const ItemDetailPage = () => {
 
                   <div className="p-3">
                     <p className="font-semibold truncate">{r.title}</p>
-                    <p className={isDark ? "text-xs text-blue-300/70" : "text-xs text-slate-500"}>
+                    <p className={isDark ? "text-xs text-rose-300/70" : "text-xs text-slate-500"}>
                       {r.location}
                     </p>
                   </div>
@@ -300,8 +300,8 @@ const Meta = ({ icon, text }) => (
 /* ---------- ACTION BUTTON ---------- */
 const ActionBtn = ({ icon, label, onClick, color }) => {
   const colors = {
-    blue: "bg-blue-500 hover:bg-blue-600",
-    indigo: "bg-indigo-600 hover:bg-indigo-700",
+    blue: "bg-rose-500 hover:bg-rose-600",
+    indigo: "bg-orange-600 hover:bg-orange-700",
     green: "bg-green-600 hover:bg-green-700",
   }
   return (

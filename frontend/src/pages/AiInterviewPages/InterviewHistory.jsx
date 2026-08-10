@@ -9,8 +9,8 @@ import { useTheme } from "../../context/ThemeContext"
 const getStatusClasses = (status, isDark) => {
   return status === "completed"
     ? isDark
-      ? "bg-emerald-500/15 text-emerald-300"
-      : "bg-emerald-100 text-emerald-700"
+      ? "bg-rose-500/15 text-rose-300"
+      : "bg-rose-100 text-rose-700"
     : isDark
       ? "bg-amber-500/15 text-amber-300"
       : "bg-amber-100 text-amber-700"
@@ -45,8 +45,8 @@ const InterviewHistory = () => {
   return (
     <div className={`min-h-screen px-4 py-10 md:px-8 transition-all duration-300 ${
       isDark
-        ? "bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 text-white"
-        : "bg-linear-to-b from-slate-50 via-blue-50 to-white text-black"
+        ? "bg-linear-to-b from-slate-950 via-emerald-950 to-slate-950 text-white"
+        : "bg-linear-to-b from-slate-50 via-rose-50 to-white text-black"
     }`}>
       <div className="mx-auto max-w-6xl">
         <div className={`flex flex-col gap-4 rounded-3xl border p-6 shadow-lg md:flex-row md:items-center md:justify-between md:p-8 transition-all duration-300 ${
@@ -54,7 +54,7 @@ const InterviewHistory = () => {
         }`}>
           <div>
             <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-semibold ${
-              isDark ? "bg-blue-500/15 text-blue-300" : "bg-blue-50 text-blue-700"
+              isDark ? "bg-rose-500/15 text-rose-300" : "bg-rose-50 text-rose-700"
             }`}>
               <FaHistory /> Interview History
             </div>
@@ -68,7 +68,7 @@ const InterviewHistory = () => {
 
           <button
             onClick={() => navigate("/ai-interview/start")}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-blue-600 to-indigo-600 px-5 py-3 font-semibold text-white shadow-md hover:from-blue-700 hover:to-indigo-700"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-rose-600 to-orange-600 px-5 py-3 font-semibold text-white shadow-md hover:from-rose-700 hover:to-orange-700"
           >
             <FaPlayCircle /> Start New Interview
           </button>
@@ -94,7 +94,7 @@ const InterviewHistory = () => {
             isDark ? "border-slate-700 bg-slate-900" : "border-slate-300 bg-white"
           }`}>
             <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${
-              isDark ? "bg-blue-500/15 text-blue-300" : "bg-blue-50 text-blue-600"
+              isDark ? "bg-rose-500/15 text-rose-300" : "bg-rose-50 text-rose-600"
             }`}>
               <FaHistory className="text-2xl" />
             </div>
@@ -104,7 +104,7 @@ const InterviewHistory = () => {
             </p>
             <button
               onClick={() => navigate("/ai-interview/start")}
-              className="mt-5 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+              className="mt-5 inline-flex items-center gap-2 rounded-xl bg-rose-600 px-5 py-3 font-semibold text-white hover:bg-rose-700"
             >
               Start Interview <FaArrowRight />
             </button>
@@ -162,7 +162,7 @@ const InterviewHistory = () => {
                       e.stopPropagation()
                       navigate("/ai-interview/start")
                     }}
-                    className="font-semibold text-blue-600 hover:text-blue-700"
+                    className="font-semibold text-rose-600 hover:text-rose-700"
                   >
                     Practice Again
                   </button>

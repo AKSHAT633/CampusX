@@ -16,13 +16,13 @@ const FinalResult = ({ result }) => {
 
   /* ---------- THEME ---------- */
   const textMain = isDark ? "text-white" : "text-slate-800"
-  const textSub = isDark ? "text-blue-200/80" : "text-slate-600"
+  const textSub = isDark ? "text-rose-200/80" : "text-slate-600"
   const card = isDark
-    ? "bg-white/5 border-blue-500/20"
+    ? "bg-white/5 border-rose-500/20"
     : "bg-white border-slate-200"
   const chip = isDark
-    ? "bg-blue-500/5 border-blue-500/20 text-blue-100"
-    : "bg-blue-50 border-blue-200 text-slate-700"
+    ? "bg-rose-500/5 border-rose-500/20 text-rose-100"
+    : "bg-rose-50 border-rose-200 text-slate-700"
 
   /* ---------- MARKDOWN ---------- */
   const markdownComponents = {
@@ -30,7 +30,7 @@ const FinalResult = ({ result }) => {
       <h1
         className={`text-3xl font-bold mt-8 mb-4 pb-2 border-b ${
           isDark
-            ? "text-blue-300 border-blue-500/30"
+            ? "text-rose-300 border-rose-500/30"
             : "text-slate-800 border-slate-300"
         }`}
       >
@@ -40,7 +40,7 @@ const FinalResult = ({ result }) => {
     h2: ({ children }) => (
       <h2
         className={`text-2xl font-semibold mt-6 mb-3 ${
-          isDark ? "text-blue-200" : "text-slate-700"
+          isDark ? "text-rose-200" : "text-slate-700"
         }`}
       >
         {children}
@@ -49,7 +49,7 @@ const FinalResult = ({ result }) => {
     h3: ({ children }) => (
       <h3
         className={`text-xl font-semibold mt-5 mb-2 ${
-          isDark ? "text-blue-100" : "text-slate-700"
+          isDark ? "text-rose-100" : "text-slate-700"
         }`}
       >
         {children}
@@ -108,9 +108,9 @@ const FinalResult = ({ result }) => {
             onClick={() => setQuickRevision(!quickRevision)}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm border ${
               quickRevision
-                ? "bg-blue-500/20 border-blue-400 text-blue-300"
+                ? "bg-rose-500/20 border-rose-400 text-rose-300"
                 : isDark
-                ? "bg-white/5 border-blue-500/20 text-blue-200"
+                ? "bg-white/5 border-rose-500/20 text-rose-200"
                 : "bg-white border-slate-300 text-slate-700"
             }`}
           >
@@ -125,7 +125,7 @@ const FinalResult = ({ result }) => {
             onClick={handleCopy}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm border ${
               isDark
-                ? "bg-white/5 border-blue-500/20 text-blue-200"
+                ? "bg-white/5 border-rose-500/20 text-rose-200"
                 : "bg-white border-slate-300 text-slate-700"
             }`}
           >
@@ -138,7 +138,7 @@ const FinalResult = ({ result }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleDownload}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm shadow"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-rose-500 to-orange-600 text-white text-sm shadow"
           >
             <Download className="w-4 h-4" />
             Download
@@ -167,7 +167,7 @@ const FinalResult = ({ result }) => {
             {result.subTopics && (
               <div>
                 <h3 className={`text-lg font-semibold mb-4 flex gap-2 ${textMain}`}>
-                  <Star className="w-4 h-4 text-blue-400" />
+                  <Star className="w-4 h-4 text-rose-400" />
                   Priority Topics
                 </h3>
 
@@ -175,7 +175,7 @@ const FinalResult = ({ result }) => {
                   {Object.entries(result.subTopics).map(
                     ([priority, topics]) => (
                       <div key={priority} className={`rounded-lg p-4 border ${card}`}>
-                        <div className="text-blue-400 font-semibold mb-2">
+                        <div className="text-rose-400 font-semibold mb-2">
                           {priority} Priority
                         </div>
                         <ul className={`space-y-1 text-sm ${textSub}`}>
@@ -210,7 +210,7 @@ const FinalResult = ({ result }) => {
 
         {/* DIAGRAM Q */}
         <div className={`rounded-lg border p-3 ${card}`}>
-          <p className="text-blue-400 font-medium mb-1">Diagram question</p>
+          <p className="text-rose-400 font-medium mb-1">Diagram question</p>
           <ul className={textSub}>
             <li>{result?.questions?.diagram}</li>
           </ul>
@@ -226,14 +226,14 @@ const FinalResult = ({ result }) => {
 /* ---------- SECTION ---------- */
 const Section = ({ title, data, isDark }) => {
   const card = isDark
-    ? "bg-blue-500/5 border-blue-500/20 text-blue-100"
-    : "bg-blue-50 border-blue-200 text-slate-700"
+    ? "bg-rose-500/5 border-rose-500/20 text-rose-100"
+    : "bg-rose-50 border-rose-200 text-slate-700"
 
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <HelpCircle className="w-5 h-5 text-blue-400" />
-        <h3 className="text-lg font-semibold text-blue-400">{title}</h3>
+        <HelpCircle className="w-5 h-5 text-rose-400" />
+        <h3 className="text-lg font-semibold text-rose-400">{title}</h3>
       </div>
 
       <ul className="space-y-3">

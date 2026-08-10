@@ -24,10 +24,10 @@ function RechartSetUp({ charts }) {
       {charts.map((chart, index) => (
         <div
           key={index}
-          className="bg-slate-900/40 border border-blue-500/20 rounded-2xl p-5 shadow-lg"
+          className="bg-slate-900/40 border border-rose-500/20 rounded-2xl p-5 shadow-lg"
         >
           {/* TITLE */}
-          <h4 className="text-blue-200 font-semibold mb-4">
+          <h4 className="text-rose-200 font-semibold mb-4">
             {chart.title}
           </h4>
 

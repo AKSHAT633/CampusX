@@ -16,12 +16,12 @@ const ToggleBtn = ({ active, label, color, onClick, isDark }) => {
     red: active
       ? "bg-red-500/20 border-red-500 text-red-400"
       : isDark
-      ? "border-blue-500/20 text-blue-200/60"
+      ? "border-rose-500/20 text-rose-200/60"
       : "border-slate-300 text-slate-600",
     green: active
       ? "bg-green-500/20 border-green-500 text-green-400"
       : isDark
-      ? "border-blue-500/20 text-blue-200/60"
+      ? "border-rose-500/20 text-rose-200/60"
       : "border-slate-300 text-slate-600",
   }
 
@@ -35,13 +35,13 @@ const ToggleBtn = ({ active, label, color, onClick, isDark }) => {
 /* ---------- INPUT ---------- */
 const Input = ({ label, value, onChange, placeholder, icon, required, type = "text", isDark }) => (
   <div>
-    <label className={`text-sm ${isDark ? "text-blue-200" : "text-slate-600"}`}>
+    <label className={`text-sm ${isDark ? "text-rose-200" : "text-slate-600"}`}>
       {label} {required && "*"}
     </label>
 
     <div className="relative mt-1">
       {icon && (
-        <div className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? "text-blue-400" : "text-slate-500"}`}>
+        <div className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? "text-rose-400" : "text-slate-500"}`}>
           {icon}
         </div>
       )}
@@ -55,8 +55,8 @@ const Input = ({ label, value, onChange, placeholder, icon, required, type = "te
         className={`w-full ${icon ? "pl-10" : ""} px-4 py-3 rounded-lg border outline-none transition
         ${
           isDark
-            ? "bg-slate-900/70 border-blue-500/20 text-white focus:border-blue-400"
-            : "bg-white border-slate-300 text-slate-900 focus:border-blue-500"
+            ? "bg-slate-900/70 border-rose-500/20 text-white focus:border-rose-400"
+            : "bg-white border-slate-300 text-slate-900 focus:border-rose-500"
         }`}
       />
     </div>
@@ -184,16 +184,16 @@ const AddItemForm = ({ loading, setLoading }) => {
       className={`max-w-3xl mt-6 sm:mt-10 mb-6 sm:mb-10 mx-4 sm:mx-auto p-4 sm:p-6 md:p-8 rounded-2xl border shadow-2xl space-y-5 sm:space-y-6 relative
       ${
         isDark
-          ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 border-blue-500/20 text-white"
+          ? "bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 border-rose-500/20 text-white"
           : "bg-white border-slate-200 text-slate-900"
       }`}
     >
       {/* HEADER */}
       <div className="space-y-1">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
-          Post <span className="text-blue-500">Lost / Found</span> Item
+          Post <span className="text-rose-500">Lost / Found</span> Item
         </h2>
-        <p className={isDark ? "text-blue-200/80 text-xs sm:text-sm" : "text-slate-600 text-xs sm:text-sm"}>
+        <p className={isDark ? "text-rose-200/80 text-xs sm:text-sm" : "text-slate-600 text-xs sm:text-sm"}>
           Help students recover belongings across campus
         </p>
       </div>
@@ -209,7 +209,7 @@ const AddItemForm = ({ loading, setLoading }) => {
 
       {/* DESCRIPTION */}
       <div>
-        <label className={`text-sm ${isDark ? "text-blue-200" : "text-slate-600"}`}>
+        <label className={`text-sm ${isDark ? "text-rose-200" : "text-slate-600"}`}>
           Description
         </label>
         <textarea
@@ -220,20 +220,20 @@ const AddItemForm = ({ loading, setLoading }) => {
           className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none transition
           ${
             isDark
-              ? "bg-slate-900/70 border-blue-500/20 text-white focus:border-blue-400"
-              : "bg-white border-slate-300 text-slate-900 focus:border-blue-500"
+              ? "bg-slate-900/70 border-rose-500/20 text-white focus:border-rose-400"
+              : "bg-white border-slate-300 text-slate-900 focus:border-rose-500"
           }`}
         />
       </div>
 
       {/* CATEGORY */}
       <div>
-        <label className={`text-sm ${isDark ? "text-blue-200" : "text-slate-600"}`}>
+        <label className={`text-sm ${isDark ? "text-rose-200" : "text-slate-600"}`}>
           Category *
         </label>
 
         <div className="relative mt-1">
-          <Tag className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? "text-blue-400" : "text-slate-500"}`} />
+          <Tag className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? "text-rose-400" : "text-slate-500"}`} />
 
           <select
             required
@@ -242,7 +242,7 @@ const AddItemForm = ({ loading, setLoading }) => {
             className={`w-full pl-10 px-4 py-3 rounded-lg border outline-none
             ${
               isDark
-                ? "bg-slate-900/70 border-blue-500/20 text-white"
+                ? "bg-slate-900/70 border-rose-500/20 text-white"
                 : "bg-white border-slate-300 text-slate-900"
             }`}
           >
@@ -264,7 +264,7 @@ const AddItemForm = ({ loading, setLoading }) => {
 
       {/* IMAGE */}
       <div>
-        <label className={`text-sm ${isDark ? "text-blue-200" : "text-slate-600"}`}>
+        <label className={`text-sm ${isDark ? "text-rose-200" : "text-slate-600"}`}>
           Upload Image
         </label>
 
@@ -272,12 +272,12 @@ const AddItemForm = ({ loading, setLoading }) => {
           className={`relative mt-2 flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-6 cursor-pointer transition
           ${
             isDark
-              ? "border-blue-500/30 hover:border-blue-400"
-              : "border-slate-300 hover:border-blue-500"
+              ? "border-rose-500/30 hover:border-rose-400"
+              : "border-slate-300 hover:border-rose-500"
           }`}
         >
-          <UploadCloud className={isDark ? "text-blue-400 mb-2" : "text-slate-500 mb-2"} />
-          <span className={isDark ? "text-blue-200 text-sm" : "text-slate-600 text-sm"}>
+          <UploadCloud className={isDark ? "text-rose-400 mb-2" : "text-slate-500 mb-2"} />
+          <span className={isDark ? "text-rose-200 text-sm" : "text-slate-600 text-sm"}>
             Click to upload image
           </span>
 
@@ -292,7 +292,7 @@ const AddItemForm = ({ loading, setLoading }) => {
 
         {preview && (
           <div className="mt-3">
-            <img src={preview} alt="preview" className="w-full h-48 object-cover rounded-xl border border-blue-500/20" />
+            <img src={preview} alt="preview" className="w-full h-48 object-cover rounded-xl border border-rose-500/20" />
           </div>
         )}
       </div>
@@ -302,7 +302,7 @@ const AddItemForm = ({ loading, setLoading }) => {
         whileHover={{ scale: isLoading ? 1 : 1.03 }}
         whileTap={{ scale: isLoading ? 1 : 0.97 }}
         disabled={isLoading}
-        className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm sm:text-base font-semibold shadow-lg disabled:opacity-50 flex items-center justify-center gap-2"
+        className="w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 to-orange-600 text-white text-sm sm:text-base font-semibold shadow-lg disabled:opacity-50 flex items-center justify-center gap-2"
       >
         {isLoading && <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />}
         {isLoading ? "Posting..." : "Post Item"}

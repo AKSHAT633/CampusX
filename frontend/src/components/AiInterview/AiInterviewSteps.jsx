@@ -57,7 +57,7 @@ const AiInterviewSteps = () => {
   const { isDark } = useTheme()
 
   const cardStyle = isDark
-    ? "bg-white/5 border-blue-500/20 text-white"
+    ? "bg-white/5 border-rose-500/20 text-white"
     : "bg-white border-slate-200 text-slate-800 shadow-sm"
 
   return (
@@ -80,12 +80,12 @@ const AiInterviewSteps = () => {
             className={`w-full max-w-sm rounded-xl p-6 border text-center ${cardStyle}`}
           >
             <div className="flex justify-center mb-3">
-              <div className={`rounded-lg p-3 shadow inline-flex ${isDark ? "bg-blue-500/20 border border-blue-400/50 text-blue-300" : "bg-blue-100 border border-blue-400 text-blue-600"}`}>
+              <div className={`rounded-lg p-3 shadow inline-flex ${isDark ? "bg-rose-500/20 border border-rose-400/50 text-rose-300" : "bg-rose-100 border border-rose-400 text-rose-600"}`}>
                 {item.icon}
               </div>
             </div>
 
-            <span className={`text-xs font-semibold ${isDark ? "text-blue-400" : "text-blue-600"}`}>
+            <span className={`text-xs font-semibold ${isDark ? "text-rose-400" : "text-rose-600"}`}>
               {item.step}
             </span>
 
@@ -93,7 +93,7 @@ const AiInterviewSteps = () => {
               {item.title}
             </h3>
 
-            <p className={`text-sm mt-2 ${isDark ? "text-blue-200/80" : "text-slate-600"}`}>
+            <p className={`text-sm mt-2 ${isDark ? "text-rose-200/80" : "text-slate-600"}`}>
               {item.desc}
             </p>
           </motion.div>
@@ -103,7 +103,7 @@ const AiInterviewSteps = () => {
       {/* DESKTOP TIMELINE */}
       <div className="hidden md:block space-y-20 relative">
 
-        <div className="absolute left-1/2 top-0 h-full w-0.5 bg-blue-500/30 transform -translate-x-1/2" />
+        <div className="absolute left-1/2 top-0 h-full w-0.5 bg-rose-500/30 transform -translate-x-1/2" />
 
         {steps.map((item, index) => {
 
@@ -121,7 +121,7 @@ const AiInterviewSteps = () => {
                   isLeft ? "mr-auto" : "ml-auto"
                 }`}
               >
-                <span className={`text-xs font-semibold ${isDark ? "text-blue-400" : "text-blue-600"}`}>
+                <span className={`text-xs font-semibold ${isDark ? "text-rose-400" : "text-rose-600"}`}>
                   {item.step}
                 </span>
 
@@ -129,12 +129,12 @@ const AiInterviewSteps = () => {
                   {item.title}
                 </h3>
 
-                <p className={`text-sm mt-2 ${isDark ? "text-blue-200/80" : "text-slate-600"}`}>
+                <p className={`text-sm mt-2 ${isDark ? "text-rose-200/80" : "text-slate-600"}`}>
                   {item.desc}
                 </p>
               </motion.div>
 
-              <div className={`absolute left-1/2 transform -translate-x-1/2 rounded-lg p-3 shadow ${isDark ? "bg-blue-500/20 border border-blue-400/50 text-blue-300" : "bg-blue-100 border border-blue-400 text-blue-600"}`}>
+              <div className={`absolute left-1/2 transform -translate-x-1/2 rounded-lg p-3 shadow ${isDark ? "bg-rose-500/20 border border-rose-400/50 text-rose-300" : "bg-rose-100 border border-rose-400 text-rose-600"}`}>
                 {item.icon}
               </div>
 
@@ -147,7 +147,7 @@ const AiInterviewSteps = () => {
       {/* ---------------- FEATURES SECTION ---------------- */}
 
       <h2 className={`text-center text-3xl md:text-4xl font-bold mt-32 mb-16 ${isDark ? "text-white" : "text-slate-900"}`}>
-        Advanced AI <span className="text-blue-500">Capabilities</span>
+        Advanced AI <span className="text-rose-500">Capabilities</span>
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -173,7 +173,7 @@ const AiInterviewSteps = () => {
               {item.title}
             </h3>
 
-            <p className={`${isDark ? "text-blue-200/80" : "text-slate-600"} text-sm`}>
+            <p className={`${isDark ? "text-rose-200/80" : "text-slate-600"} text-sm`}>
               {item.desc}
             </p>
 
@@ -190,7 +190,7 @@ const AiInterviewSteps = () => {
     isDark ? "text-white" : "text-slate-900"
   }`}
 >
-  Multiple Interview <span className="text-blue-500">Modes</span>
+  Multiple Interview <span className="text-rose-500">Modes</span>
 </h2>
 
 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
@@ -207,7 +207,7 @@ const AiInterviewSteps = () => {
     >
       <img src={image1} className="h-20 mb-4 object-contain" />
       <h3 className="font-semibold text-lg">Confidence Detection</h3>
-      <p className={`text-sm ${isDark ? "text-blue-200/80" : "text-slate-600"}`}>
+      <p className={`text-sm ${isDark ? "text-rose-200/80" : "text-slate-600"}`}>
         Body tone and voice analysis insights.
       </p>
     </motion.div>
@@ -221,7 +221,7 @@ const AiInterviewSteps = () => {
     >
       <img src={image2} className="h-20 mb-4 object-contain" />
       <h3 className="font-semibold text-lg">Credits System</h3>
-      <p className={`text-sm ${isDark ? "text-blue-200/80" : "text-slate-600"}`}>
+      <p className={`text-sm ${isDark ? "text-rose-200/80" : "text-slate-600"}`}>
         Unlock premium interview sessions easily.
       </p>
     </motion.div>
@@ -240,7 +240,7 @@ const AiInterviewSteps = () => {
         isDark ? "text-white" : "text-slate-900"
       }`}
     >
-      Multiple Interview <span className="text-blue-500">Modes</span>
+      Multiple Interview <span className="text-rose-500">Modes</span>
     </motion.h3>
 
   </div>
@@ -258,7 +258,7 @@ const AiInterviewSteps = () => {
     >
       <img src={image3} className="h-20 mb-4 object-contain" />
       <h3 className="font-semibold text-lg">HR Interview Mode</h3>
-      <p className={`text-sm ${isDark ? "text-blue-200/80" : "text-slate-600"}`}>
+      <p className={`text-sm ${isDark ? "text-rose-200/80" : "text-slate-600"}`}>
         Behavioral and communication based evaluation.
       </p>
     </motion.div>
@@ -272,7 +272,7 @@ const AiInterviewSteps = () => {
     >
       <img src={image4} className="h-20 mb-4 object-contain" />
       <h3 className="font-semibold text-lg">Technical Mode</h3>
-      <p className={`text-sm ${isDark ? "text-blue-200/80" : "text-slate-600"}`}>
+      <p className={`text-sm ${isDark ? "text-rose-200/80" : "text-slate-600"}`}>
         Deep technical questioning based on selected role.
       </p>
     </motion.div>

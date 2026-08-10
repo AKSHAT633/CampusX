@@ -5,23 +5,23 @@ import { useTheme } from "../context/ThemeContext";
 
 const features = [
   {
-    title: "Smart Lost & Found",
-    desc: "Report lost items and get intelligent matches with found items using AI-powered recognition.",
+    title: "Lost Something?",
+    desc: "Don't panic! Post what you lost and let the campus help you find it.",
     icon: SearchCheck,
   },
   {
-    title: "Book Marketplace",
-    desc: "Buy and sell textbooks with verified sellers. Find deals on your course materials.",
+    title: "Buy & Sell Books",
+    desc: "Seniors selling old books, juniors needing them. Direct deals, no weird middlemen.",
     icon: BookOpen,
   },
   {
-    title: "Real-Time Chat",
-    desc: "Connect instantly with other students for item exchanges and academic discussions.",
+    title: "Chat with Campus",
+    desc: "Message anyone directly. Ask about that book they listed or just sync up.",
     icon: MessageCircle,
   },
   {
-    title: "AI Notes & Interview Prep",
-    desc: "Generate smart AI notes with topic summaries and practice AI interviews with role-based questions, timed rounds, and instant feedback.",
+    title: "Notes & Prep",
+    desc: "Exams tomorrow? Generate quick notes or do a mock interview to stop freaking out.",
     icon: Brain,
   },
 ];
@@ -46,7 +46,7 @@ const WhyChooseCampusSync = () => {
         <div className="absolute inset-0 flex justify-center">
           <div
             className={`w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 blur-[140px] rounded-full ${
-              isDark ? "bg-blue-500/20" : "bg-blue-400/20"
+              isDark ? "bg-rose-500/20" : "bg-emerald-400/20"
             }`}
           />
         </div>
@@ -57,23 +57,22 @@ const WhyChooseCampusSync = () => {
           }`}
         >
           Why Choose{" "}
-          <span className="bg-gradient-to-r from-blue-700 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
-            CampusSync
+          <span className="bg-gradient-to-r from-rose-700 via-rose-500 to-orange-500 bg-clip-text text-transparent">
+            CampusX
           </span>
           ?
         </h2>
 
         <p
           className={`relative text-base sm:text-lg leading-relaxed px-4 ${
-            isDark ? "text-blue-200/90" : "text-slate-600"
+            isDark ? "text-emerald-200/90" : "text-slate-600"
           }`}
         >
-          Powerful features designed specifically for students to make campus
-          life easier and more connected.
+          Built by students, for students. Everything you actually need on campus, without the extra fluff.
         </p>
 
         <div className="mt-6 sm:mt-8 flex justify-center">
-          <div className="h-[2px] w-20 sm:w-28 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full" />
+          <div className="h-[2px] w-20 sm:w-28 bg-gradient-to-r from-transparent via-rose-500 to-transparent rounded-full" />
         </div>
       </motion.div>
 
@@ -91,15 +90,15 @@ const WhyChooseCampusSync = () => {
               whileHover={{ y: -8, scale: 1.03 }}
               className={`group relative rounded-2xl p-[1px] ${
                 isDark
-                  ? "bg-gradient-to-br from-blue-500/40 via-indigo-500/20 to-transparent"
-                  : "bg-gradient-to-br from-blue-200 via-indigo-200 to-transparent"
+                  ? "bg-gradient-to-br from-rose-500/40 via-orange-500/20 to-transparent"
+                  : "bg-gradient-to-br from-rose-200 via-orange-200 to-transparent"
               }`}
             >
               {/* CARD */}
               <div
                 className={`h-full rounded-2xl backdrop-blur-xl p-6 relative overflow-hidden border ${
                   isDark
-                    ? "bg-slate-950/90 border-blue-500/10"
+                    ? "bg-slate-950/90 border-rose-500/10"
                     : "bg-white border-slate-200 shadow-lg"
                 }`}
               >
@@ -107,8 +106,8 @@ const WhyChooseCampusSync = () => {
                 <div
                   className={`absolute inset-0 opacity-0 group-hover:opacity-40 transition duration-500 ${
                     isDark
-                      ? "bg-gradient-to-br from-blue-500/10 via-indigo-500/10 to-transparent"
-                      : "bg-gradient-to-br from-blue-100 via-indigo-100 to-transparent"
+                      ? "bg-gradient-to-br from-rose-500/10 via-orange-500/10 to-transparent"
+                      : "bg-gradient-to-br from-rose-100 via-orange-100 to-transparent"
                   }`}
                 />
 
@@ -116,8 +115,8 @@ const WhyChooseCampusSync = () => {
                 <div
                   className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
                     isDark
-                      ? "bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/40"
-                      : "bg-gradient-to-br from-blue-500 to-indigo-600 shadow-md"
+                      ? "bg-gradient-to-br from-rose-500 to-orange-600 shadow-lg shadow-rose-500/40"
+                      : "bg-gradient-to-br from-rose-500 to-orange-600 shadow-md"
                   }`}
                 >
                   <Icon className="text-white" size={22} />

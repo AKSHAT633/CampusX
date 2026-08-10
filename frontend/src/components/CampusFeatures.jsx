@@ -46,26 +46,26 @@ const CampusFeatures = () => {
 >
   {/* BACKGROUND GLOW */}
   <div className="absolute inset-0 flex justify-center">
-    <div className={`w-60 h-60 sm:w-80 sm:h-80 ${isDark ? "bg-blue-500/20" : "bg-blue-400/15"} blur-[120px] rounded-full`} />
+    <div className={`w-60 h-60 sm:w-80 sm:h-80 ${isDark ? "bg-rose-500/20" : "bg-rose-400/15"} blur-[120px] rounded-full`} />
   </div>
 
   {/* TITLE */}
   <h2 className="relative text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
     <span className={isDark ? "text-white" : "text-slate-900"}>Campus</span>
-    <span className={`bg-clip-text text-transparent ${isDark ? "bg-linear-to-r from-blue-800 via-blue-600 to-indigo-700" : "bg-linear-to-r from-blue-600 via-blue-500 to-indigo-500"}`}>
+    <span className={`bg-clip-text text-transparent ${isDark ? "bg-linear-to-r from-rose-800 via-rose-600 to-orange-700" : "bg-linear-to-r from-rose-600 via-rose-500 to-orange-500"}`}>
       Sync
     </span>
   </h2>
 
   {/* DESC */}
-  <p className={`relative ${isDark ? "text-blue-200/90" : "text-slate-600"} text-base sm:text-lg leading-relaxed max-w-2xl mx-auto px-4`}>
+  <p className={`relative ${isDark ? "text-rose-200/90" : "text-slate-600"} text-base sm:text-lg leading-relaxed max-w-2xl mx-auto px-4`}>
     Find lost items, sell books, and connect with students in real time.
     Your campus utility platform for seamless academic life.
   </p>
 
   {/* ACCENT LINE */}
   <div className="mt-6 sm:mt-8 flex justify-center">
-    <div className="h-0.5 w-20 sm:w-28 bg-linear-to-r from-transparent via-blue-500 to-transparent rounded-full" />
+    <div className="h-0.5 w-20 sm:w-28 bg-linear-to-r from-transparent via-rose-500 to-transparent rounded-full" />
   </div>
 </motion.div>
 
@@ -82,16 +82,16 @@ const CampusFeatures = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.15, duration: 0.6 }}
               whileHover={{ y: -10, scale: 1.03 }}
-              className={`group relative rounded-2xl p-px ${isDark ? "bg-linear-to-br from-blue-500/40 via-indigo-500/20 to-transparent" : "bg-linear-to-br from-blue-400/30 via-indigo-400/15 to-transparent"}`}
+              className={`group relative rounded-2xl p-px ${isDark ? "bg-linear-to-br from-rose-500/40 via-orange-500/20 to-transparent" : "bg-linear-to-br from-rose-400/30 via-orange-400/15 to-transparent"}`}
             >
               {/* CARD INNER dsadasdads*/}
-              <div className={`h-full rounded-2xl ${isDark ? "bg-slate-950/90" : "bg-white/90"} backdrop-blur-xl ${isDark ? "border-blue-500/10" : "border-blue-300/20"} border p-6 sm:p-8 relative overflow-hidden`}>
+              <div className={`h-full rounded-2xl ${isDark ? "bg-slate-950/90" : "bg-white/90"} backdrop-blur-xl ${isDark ? "border-rose-500/10" : "border-rose-300/20"} border p-6 sm:p-8 relative overflow-hidden`}>
 
                 {/* GLOW EFFECT */}
-                <div className={`pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${isDark ? "bg-linear-to-br from-blue-500/10 via-indigo-500/10 to-transparent" : "bg-linear-to-br from-blue-400/10 via-indigo-400/10 to-transparent"}`} />
+                <div className={`pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${isDark ? "bg-linear-to-br from-rose-500/10 via-orange-500/10 to-transparent" : "bg-linear-to-br from-rose-400/10 via-orange-400/10 to-transparent"}`} />
 
                 {/* ICON */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-5 sm:mb-6 shadow-lg shadow-blue-500/40 group-hover:shadow-blue-500/60 transition">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-linear-to-br from-rose-500 to-orange-600 flex items-center justify-center mb-5 sm:mb-6 shadow-lg shadow-rose-500/40 group-hover:shadow-rose-500/60 transition">
                   <Icon className="text-white" size={22} />
                 </div>
 
@@ -108,7 +108,7 @@ const CampusFeatures = () => {
                 {/* CTA sdfsdss*/}
                 <Link
                   to={f.link}
-                  className={`inline-flex items-center gap-2 ${isDark ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-700"} font-medium group-hover:text-blue-300 transition`}
+                  className={`inline-flex items-center gap-2 ${isDark ? "text-rose-400 hover:text-rose-300" : "text-rose-600 hover:text-rose-700"} font-medium group-hover:text-rose-300 transition`}
                 >
                   Explore
                   <span className="group-hover:translate-x-1 transition">→</span>

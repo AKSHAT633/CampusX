@@ -82,7 +82,7 @@ const App = () => {
 
   return (
    
-      <div className={`min-h-screen ${isDark ? "bg-linear-to-b from-slate-950 via-blue-950 to-slate-950" : "bg-linear-to-b from-white via-blue-50 to-white"} transition-colors duration-300`}>
+      <div className={`min-h-screen ${isDark ? "bg-linear-to-b from-slate-950 via-emerald-950 to-slate-950" : "bg-linear-to-b from-white via-emerald-50 to-white"} transition-colors duration-300`}>
         <Toaster position="top-center" reverseOrder={false} />
 
         <Navbar />

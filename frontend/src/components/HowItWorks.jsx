@@ -8,25 +8,25 @@ const steps = [
     title: "Post Item or Resource",
     desc: "Upload lost/found items, books for sale, or study materials using our simple and intuitive interface.",
     icon: Upload,
-    gradient: "from-blue-500 to-cyan-400",
-    glow: "bg-blue-500/20",
-    border: "border-blue-500/40",
-    iconColor: "text-blue-400",
+    gradient: "from-rose-500 to-cyan-400",
+    glow: "bg-rose-500/20",
+    border: "border-rose-500/40",
+    iconColor: "text-rose-400",
   },
   {
     title: "Get Smart Matches",
     desc: "Our AI analyzes images and details to match lost items, suggest books, and organize study content.",
     icon: BellRing,
-    gradient: "from-indigo-500 to-blue-400",
-    glow: "bg-indigo-500/20",
-    border: "border-indigo-500/40",
-    iconColor: "text-indigo-400",
+    gradient: "from-orange-500 to-rose-400",
+    glow: "bg-orange-500/20",
+    border: "border-orange-500/40",
+    iconColor: "text-orange-400",
   },
   {
     title: "Chat & Exchange",
     desc: "Connect securely with students to recover items, buy books, or collaborate through real-time chat.",
     icon: MessageCircle,
-    gradient: "from-purple-500 to-indigo-400",
+    gradient: "from-purple-500 to-orange-400",
     glow: "bg-purple-500/20",
     border: "border-purple-500/40",
     iconColor: "text-purple-400",
@@ -44,7 +44,7 @@ const steps = [
     title: "AI Interview Practice",
     desc: "Practice HR and technical rounds with role-based AI questions, timed sessions, and instant feedback.",
     icon: Briefcase,
-    gradient: "from-cyan-500 to-blue-500",
+    gradient: "from-cyan-500 to-rose-500",
     glow: "bg-cyan-500/20",
     border: "border-cyan-500/40",
     iconColor: "text-cyan-400",
@@ -71,7 +71,7 @@ const HowItWorks = () => {
         <div className="absolute inset-0 flex justify-center">
           <div
             className={`w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 blur-[140px] rounded-full ${
-              isDark ? "bg-blue-500/20" : "bg-blue-400/20"
+              isDark ? "bg-rose-500/20" : "bg-emerald-400/20"
             }`}
           />
         </div>
@@ -82,7 +82,7 @@ const HowItWorks = () => {
           }`}
         >
           How It{" "}
-          <span className="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-purple-500 bg-clip-text text-transparent">
             Works
           </span>
         </h2>
@@ -103,8 +103,8 @@ const HowItWorks = () => {
         <div
           className={`hidden lg:block absolute top-10 left-0 right-0 h-[2px] ${
             isDark
-              ? "bg-gradient-to-r from-blue-500/40 via-purple-500/40 to-pink-500/40"
-              : "bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300"
+              ? "bg-gradient-to-r from-rose-500/40 via-purple-500/40 to-pink-500/40"
+              : "bg-gradient-to-r from-rose-300 via-purple-300 to-pink-300"
           }`}
         />
 
@@ -159,7 +159,7 @@ const HowItWorks = () => {
               {/* HOVER GLOW */}
               <div
                 className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 blur-2xl rounded-full ${
-                  isDark ? step.glow : "bg-blue-200/40"
+                  isDark ? step.glow : "bg-rose-200/40"
                 }`}
               />
             </motion.div>

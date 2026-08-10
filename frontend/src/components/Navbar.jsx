@@ -35,8 +35,8 @@ const notifications = [
     id: 2,
     text: "New found items",
     icon: Package,
-    color: "text-blue-500",
-    bg: "bg-blue-50 dark:bg-blue-900/20",
+    color: "text-rose-500",
+    bg: "bg-rose-50 dark:bg-rose-900/20",
   },
   {
     id: 3,
@@ -116,13 +116,13 @@ const Navbar = () => {
   /* ---------- THEME COLORS ---------- */
   const logoMain = isDark ? "text-white" : "text-slate-800";
   const iconColor = isDark
-    ? "text-gray-300 hover:text-blue-300"
-    : "text-gray-600 hover:text-blue-600";
+    ? "text-gray-300 hover:text-emerald-300"
+    : "text-gray-600 hover:text-emerald-600";
 
   const hoverBg = isDark ? "hover:bg-white/5" : "hover:bg-slate-100";
 
   const dropdownBg = isDark
-    ? "bg-slate-900/95 border-blue-500/20 text-gray-300"
+    ? "bg-slate-900/95 border-emerald-500/20 text-gray-300"
     : "bg-white border-slate-200 text-slate-700";
 
   const dropdownHover = isDark ? "hover:bg-slate-800" : "hover:bg-slate-100";
@@ -133,19 +133,19 @@ const Navbar = () => {
       animate={{ y: 0 }}
       className={`sticky top-0 z-50 backdrop-blur-xl transition-colors ${
         isDark
-          ? "bg-linear-to-r from-slate-950/95 via-blue-950/95 to-slate-950/95 border-b border-blue-500/30"
-          : "bg-linear-to-r from-white/95 via-blue-50/95 to-white/95 border-b border-blue-200/40"
+          ? "bg-linear-to-r from-slate-950/95 via-emerald-950/95 to-slate-950/95 border-b border-emerald-500/30"
+          : "bg-linear-to-r from-white/95 via-emerald-50/95 to-white/95 border-b border-emerald-200/40"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* LOGO */}
           <Link to="/" className="flex items-center gap-2">
-            <img src={logo} alt="CampusSync" className="w-10 h-10" />
+            <img src={logo} alt="CampusX" className="w-10 h-10" />
             <span className="text-lg md:text-xl font-bold">
               <span className={logoMain}>Campus</span>
-              <span className="bg-linear-to-r from-blue-500 via-blue-400 to-indigo-500 bg-clip-text text-transparent">
-                Sync
+              <span className="bg-linear-to-r from-emerald-500 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
+                X
               </span>
             </span>
           </Link>
@@ -163,18 +163,18 @@ const Navbar = () => {
                   className={`relative group flex items-center gap-2 font-medium transition ${
                     isActive
                       ? isDark
-                        ? "text-blue-300"
-                        : "text-blue-600"
+                        ? "text-emerald-300"
+                        : "text-emerald-600"
                       : isDark
-                        ? "text-gray-300 hover:text-blue-300"
-                        : "text-gray-600 hover:text-blue-600"
+                        ? "text-gray-300 hover:text-emerald-300"
+                        : "text-gray-600 hover:text-emerald-600"
                   }`}
                 >
                   <Icon size={16} />
                   {item.name}
 
                   <span
-                    className={`absolute left-0 -bottom-1 h-0.5 bg-linear-to-r from-blue-400 to-indigo-500 transition-all ${
+                    className={`absolute left-0 -bottom-1 h-0.5 bg-linear-to-r from-emerald-400 to-teal-500 transition-all ${
                       isActive ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   />
@@ -206,7 +206,7 @@ const Navbar = () => {
                 className={`relative p-2 rounded-lg ${hoverBg}`}
               >
                 <Bell className={`w-5 h-5 ${iconColor}`} />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-emerald-500 rounded-full" />
               </button>
 
           {noti && (
@@ -237,7 +237,7 @@ const Navbar = () => {
             onClick={() => setCurrentNoti(t.text)}
             className={`flex-1 flex items-center justify-center gap-2 py-3 px-2 transition-colors ${
               isActive
-                ? "border-b-2 border-blue-500 bg-blue-50 dark:bg-blue-900/20"
+                ? "border-b-2 border-rose-500 bg-rose-50 dark:bg-rose-900/20"
                 : "hover:bg-gray-50 dark:hover:bg-gray-800"
             }`}
           >
@@ -297,7 +297,7 @@ const Navbar = () => {
                 onClick={() => setNoti(false)}
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               >
-                <div className="w-10 h-10 rounded-lg bg-linear-to-br from-blue-400 to-blue-600 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-linear-to-br from-rose-400 to-rose-600 flex items-center justify-center shrink-0">
                   <Package className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -361,7 +361,7 @@ const Navbar = () => {
             navigate("/market");
           }
         }}
-        className="text-sm text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+        className="text-sm text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-medium"
       >
         View all
       </button>
@@ -375,7 +375,7 @@ const Navbar = () => {
               <div className="relative" ref={profileRef}>
                 <button
                   onClick={() => setShowProfile(!showProfile)}
-                  className="w-9 h-9 rounded-full overflow-hidden bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold"
+                  className="w-9 h-9 rounded-full overflow-hidden bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-semibold"
                 >
                   {userData.ProfileImage ? (
                     <img
@@ -452,7 +452,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/register"
-                className="hidden sm:inline-flex px-4 py-2 text-sm font-medium rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 text-white hover:scale-105 transition"
+                className="hidden sm:inline-flex px-4 py-2 text-sm font-medium rounded-lg bg-linear-to-r from-emerald-500 to-teal-600 text-white hover:scale-105 transition"
               >
                 Sign Up
               </Link>
@@ -478,8 +478,8 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className={`lg:hidden backdrop-blur-xl ${
               isDark
-                ? "border-t border-blue-500/20 bg-slate-950/95"
-                : "border-t border-blue-200/40 bg-white/95"
+                ? "border-t border-emerald-500/20 bg-slate-950/95"
+                : "border-t border-emerald-200/40 bg-white/95"
             }`}
           >
             <div className="px-6 py-4 space-y-3">
@@ -492,8 +492,8 @@ const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-2 ${
                       isDark
-                        ? "text-gray-300 hover:text-blue-300"
-                        : "text-gray-600 hover:text-blue-600"
+                        ? "text-gray-300 hover:text-rose-300"
+                        : "text-gray-600 hover:text-rose-600"
                     }`}
                   >
                     <Icon size={16} />
@@ -504,15 +504,15 @@ const Navbar = () => {
 
               {userData && (
                 <>
-                  <div className={`pt-3 mt-3 border-t ${isDark ? "border-blue-500/20" : "border-blue-200/40"}`} />
+                  <div className={`pt-3 mt-3 border-t ${isDark ? "border-rose-500/20" : "border-rose-200/40"}`} />
 
                   <Link
                     to="/profile"
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-2 ${
                       isDark
-                        ? "text-gray-300 hover:text-blue-300"
-                        : "text-gray-600 hover:text-blue-600"
+                        ? "text-gray-300 hover:text-rose-300"
+                        : "text-gray-600 hover:text-rose-600"
                     }`}
                   >
                     <Home size={16} />
@@ -524,8 +524,8 @@ const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-2 ${
                       isDark
-                        ? "text-gray-300 hover:text-blue-300"
-                        : "text-gray-600 hover:text-blue-600"
+                        ? "text-gray-300 hover:text-rose-300"
+                        : "text-gray-600 hover:text-rose-600"
                     }`}
                   >
                     <BookOpen size={16} />
@@ -537,8 +537,8 @@ const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-2 ${
                       isDark
-                        ? "text-gray-300 hover:text-blue-300"
-                        : "text-gray-600 hover:text-blue-600"
+                        ? "text-gray-300 hover:text-rose-300"
+                        : "text-gray-600 hover:text-rose-600"
                     }`}
                   >
                     <Briefcase size={16} />
@@ -549,12 +549,12 @@ const Navbar = () => {
 
               {!userData && (
                 <>
-                  <div className={`pt-3 mt-3 border-t ${isDark ? "border-blue-500/20" : "border-blue-200/40"}`} />
+                  <div className={`pt-3 mt-3 border-t ${isDark ? "border-rose-500/20" : "border-rose-200/40"}`} />
 
                   <Link
                     to="/register"
                     onClick={() => setIsOpen(false)}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 text-white transition"
+                    className="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg bg-linear-to-r from-emerald-500 to-teal-600 text-white transition"
                   >
                     Sign Up
                   </Link>
@@ -564,8 +564,8 @@ const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                     className={`w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg border transition ${
                       isDark
-                        ? "border-blue-500/30 text-gray-200 hover:bg-slate-800"
-                        : "border-blue-200 text-slate-700 hover:bg-slate-50"
+                        ? "border-rose-500/30 text-gray-200 hover:bg-slate-800"
+                        : "border-rose-200 text-slate-700 hover:bg-slate-50"
                     }`}
                   >
                     Login

@@ -16,15 +16,15 @@ import { useTheme } from "../../context/ThemeContext"
 
 const features = [
   {
-    icon: <FaUserTie className="text-blue-600 text-xl" />,
+    icon: <FaUserTie className="text-rose-600 text-xl" />,
     text: "Choose Role & Experience",
   },
   {
-    icon: <FaMicrophoneAlt className="text-blue-600 text-xl" />,
+    icon: <FaMicrophoneAlt className="text-rose-600 text-xl" />,
     text: "Smart Voice Interview",
   },
   {
-    icon: <FaChartLine className="text-blue-600 text-xl" />,
+    icon: <FaChartLine className="text-rose-600 text-xl" />,
     text: "Performance Analytics",
   },
 ]
@@ -155,7 +155,7 @@ const Step1SetUp = ({ onStart }) => {
         >
 
           <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${
-            isDark ? "bg-blue-500/15 text-blue-300 border-blue-500/30" : "bg-blue-50 text-blue-700 border-blue-100"
+            isDark ? "bg-rose-500/15 text-rose-300 border-rose-500/30" : "bg-rose-50 text-rose-700 border-rose-100"
           }`}>
             AI Interview Setup
           </span>
@@ -200,7 +200,7 @@ const Step1SetUp = ({ onStart }) => {
           }`}
         >
           <div className={`absolute -top-24 -right-24 h-56 w-56 rounded-full blur-3xl ${
-            isDark ? "bg-blue-500/20" : "bg-blue-100/60"
+            isDark ? "bg-rose-500/20" : "bg-rose-100/60"
           }`} />
 
           <div className="relative space-y-5">
@@ -217,7 +217,7 @@ const Step1SetUp = ({ onStart }) => {
                 placeholder="Frontend Developer"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                className={`w-full mt-1 p-2.5 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all duration-300 ${
+                className={`w-full mt-1 p-2.5 border rounded-lg outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 transition-all duration-300 ${
                   isDark ? "border-slate-700 bg-slate-800 text-slate-100" : "border-slate-300 bg-white text-slate-900"
                 }`}
               />
@@ -234,7 +234,7 @@ const Step1SetUp = ({ onStart }) => {
               <select
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
-                className={`w-full mt-1 p-2.5 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all duration-300 ${
+                className={`w-full mt-1 p-2.5 border rounded-lg outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 transition-all duration-300 ${
                   isDark ? "border-slate-700 bg-slate-800 text-slate-100" : "border-slate-300 bg-white text-slate-900"
                 }`}
               >
@@ -257,7 +257,7 @@ const Step1SetUp = ({ onStart }) => {
               <select
                 value={mode}
                 onChange={(e) => setMode(e.target.value)}
-                className={`w-full mt-1 p-2.5 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all duration-300 ${
+                className={`w-full mt-1 p-2.5 border rounded-lg outline-none focus:ring-2 focus:ring-rose-500/30 focus:border-rose-500 transition-all duration-300 ${
                   isDark ? "border-slate-700 bg-slate-800 text-slate-100" : "border-slate-300 bg-white text-slate-900"
                 }`}
               >
@@ -278,11 +278,11 @@ const Step1SetUp = ({ onStart }) => {
 
               <label
                 htmlFor="resume-upload"
-                className={`mt-2 flex items-center justify-center gap-2 w-full border border-dashed rounded-lg p-3.5 cursor-pointer transition-all duration-300 hover:border-blue-500 ${
-                  isDark ? "border-slate-700 hover:bg-blue-500/10" : "border-slate-300 hover:bg-blue-50"
+                className={`mt-2 flex items-center justify-center gap-2 w-full border border-dashed rounded-lg p-3.5 cursor-pointer transition-all duration-300 hover:border-rose-500 ${
+                  isDark ? "border-slate-700 hover:bg-rose-500/10" : "border-slate-300 hover:bg-rose-50"
                 }`}
               >
-                <FaFileUpload className="text-blue-600 text-lg" />
+                <FaFileUpload className="text-rose-600 text-lg" />
                 <span className={`text-sm font-medium truncate ${isDark ? "text-slate-200" : "text-slate-700"}`}>
                   {resume ? resume.name : "Choose your resume file"}
                 </span>
@@ -321,7 +321,7 @@ const Step1SetUp = ({ onStart }) => {
               )}
 
               {analysisDone && (
-                <p className="mt-2 text-xs text-emerald-600 font-medium inline-flex items-center gap-1">
+                <p className="mt-2 text-xs text-rose-600 font-medium inline-flex items-center gap-1">
                   <FaCheckCircle /> Resume analyzed successfully.
                 </p>
               )}
@@ -334,7 +334,7 @@ const Step1SetUp = ({ onStart }) => {
             {analysisDone && (
 
               <div className={`border rounded-xl p-3.5 space-y-3 transition-all duration-300 ${
-                isDark ? "border-blue-500/30 bg-blue-500/10" : "border-blue-100 bg-blue-50/50"
+                isDark ? "border-rose-500/30 bg-rose-500/10" : "border-rose-100 bg-rose-50/50"
               }`}>
 
                 {/* SKILLS */}
@@ -351,7 +351,7 @@ const Step1SetUp = ({ onStart }) => {
                       <span
                         key={index}
                         className={`px-2 py-1 text-xs rounded-full ${
-                          isDark ? "bg-blue-500/20 text-blue-200" : "bg-blue-100 text-blue-700"
+                          isDark ? "bg-rose-500/20 text-rose-200" : "bg-rose-100 text-rose-700"
                         }`}
                       >
                         {skill}
@@ -396,7 +396,7 @@ const Step1SetUp = ({ onStart }) => {
               whileTap={{ scale: 0.98 }}
               onClick={handleSubmit}
               disabled={!canStart}
-              className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full bg-rose-600 text-white py-2.5 rounded-lg font-medium hover:bg-rose-700 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? "Starting..." : "Start Interview"}
             </motion.button>

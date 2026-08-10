@@ -11,15 +11,15 @@ const Footer = () => {
     <footer
       className={`relative overflow-hidden transition-colors duration-300 ${
         isDark
-          ? "border-t border-blue-500/20 bg-linear-to-br from-slate-950 via-blue-950 to-slate-900 text-white"
-          : "border-t border-slate-200 bg-linear-to-br from-white via-blue-50 to-white text-slate-900"
+          ? "border-t border-rose-500/20 bg-linear-to-br from-slate-950 via-rose-950 to-slate-900 text-white"
+          : "border-t border-slate-200 bg-linear-to-br from-white via-emerald-50 to-white text-slate-900"
       }`}
     >
       {/* GLOW */}
       <div className="absolute inset-0 flex justify-center">
         <div
           className={`w-125 h-125 blur-[160px] rounded-full ${
-            isDark ? "bg-blue-600/20" : "bg-blue-400/15"
+            isDark ? "bg-emerald-600/20" : "bg-rose-400/15"
           }`}
         />
       </div>
@@ -31,13 +31,13 @@ const Footer = () => {
           {/* BRAND */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img className="w-14 h-14" src={logo} alt="CampusSync" />
+              <img className="w-14 h-14" src={logo} alt="CampusX" />
               <span
                 className={`text-xl font-semibold ${
                   isDark ? "text-white" : "text-slate-900"
                 }`}
               >
-                Campus<span className="text-blue-500">Sync</span>
+                Campus<span className="text-rose-500">Sync</span>
               </span>
             </div>
 
@@ -46,7 +46,7 @@ const Footer = () => {
                 isDark ? "text-gray-300" : "text-slate-600"
               }`}
             >
-              CampusSync helps students recover lost items, trade books,
+              CampusX helps students recover lost items, trade books,
               and collaborate through AI-powered campus tools.
             </p>
           </div>
@@ -94,15 +94,15 @@ const Footer = () => {
               }`}
             >
               <li className="flex items-center gap-2">
-                <Mail size={16} className="text-blue-500" />
-                support@campussync.com
+                <Mail size={16} className="text-emerald-500" />
+                support@campusx.com
               </li>
               <li className="flex items-center gap-2">
-                <MapPin size={16} className="text-blue-500" />
+                <MapPin size={16} className="text-emerald-500" />
                 Your University Campus
               </li>
               <li className="flex items-center gap-2">
-                <Phone size={16} className="text-blue-500" />
+                <Phone size={16} className="text-emerald-500" />
                 +91 00000 00000
               </li>
             </ul>
@@ -120,7 +120,7 @@ const Footer = () => {
         <div
           className={`mt-12 h-px ${
             isDark
-              ? "bg-linear-to-r from-transparent via-blue-500/30 to-transparent"
+              ? "bg-linear-to-r from-transparent via-rose-500/30 to-transparent"
               : "bg-linear-to-r from-transparent via-slate-300 to-transparent"
           }`}
         />
@@ -131,7 +131,7 @@ const Footer = () => {
             isDark ? "text-gray-400" : "text-slate-500"
           }`}
         >
-          <div>© {new Date().getFullYear()} CampusSync. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} CampusX. All rights reserved.</div>
 
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             <FooterLink to="/about" label="About" isDark={isDark} />
@@ -162,8 +162,8 @@ const FooterCol = ({ title, links, isDark }) => (
               to={l.to}
               className={`transition ${
                 isDark
-                  ? "text-gray-300 hover:text-blue-300"
-                  : "text-slate-600 hover:text-blue-600"
+                  ? "text-gray-300 hover:text-rose-300"
+                  : "text-slate-600 hover:text-rose-600"
               }`}
             >
               {l.label}
@@ -185,8 +185,8 @@ const FooterLink = ({ to, label, isDark }) => (
     to={to}
     className={`transition ${
       isDark
-        ? "hover:text-blue-300"
-        : "hover:text-blue-600"
+        ? "hover:text-rose-300"
+        : "hover:text-rose-600"
     }`}
   >
     {label}
@@ -198,8 +198,8 @@ const Social = ({ icon, isDark }) => (
   <div
     className={`w-9 h-9 rounded-lg flex items-center justify-center cursor-pointer border ${
       isDark
-        ? "bg-blue-500/10 border-blue-500/30 text-blue-400 hover:bg-blue-500/20"
-        : "bg-white border-slate-200 text-blue-600 hover:bg-blue-50"
+        ? "bg-rose-500/10 border-rose-500/30 text-rose-400 hover:bg-rose-500/20"
+        : "bg-white border-slate-200 text-rose-600 hover:bg-rose-50"
     }`}
   >
     {icon}

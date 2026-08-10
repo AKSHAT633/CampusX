@@ -95,7 +95,7 @@ function MermaidSetup({ diagram }) {
 
   return (
     <div className="w-full overflow-x-auto">
-      <div className="mx-auto max-w-5xl bg-gradient-to-br from-slate-950/90 via-blue-950/40 to-slate-950/90 border border-blue-500/20 rounded-2xl p-6 shadow-xl">
+      <div className="mx-auto max-w-5xl bg-gradient-to-br from-slate-950/90 via-rose-950/40 to-slate-950/90 border border-rose-500/20 rounded-2xl p-6 shadow-xl">
 
         {/* glow */}
         <div className="absolute inset-0 pointer-events-none opacity-20 blur-2xl" />

@@ -63,22 +63,22 @@ const MessageSideBar = () => {
     <div
       className={`h-[710px] rounded-lg w-screen md:w-80 flex flex-col border-r shadow-lg ${
         isDark
-          ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 border-blue-500/20 shadow-black/30"
-          : "bg-white border-blue-200 shadow-blue-100"
+          ? "bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 border-rose-500/20 shadow-black/30"
+          : "bg-white border-rose-200 shadow-rose-100"
       }`}
     >
 
       {/* HEADER */}
       <div
         className={`px-5 py-4 border-b flex items-center gap-2 ${
-          isDark ? "border-blue-500/20" : "border-blue-200"
+          isDark ? "border-rose-500/20" : "border-rose-200"
         }`}
       >
-        <Users className="w-5 h-5 text-blue-500" />
+        <Users className="w-5 h-5 text-emerald-500" />
 
         <h2
           className={`font-semibold ${
-            isDark ? "text-blue-300" : "text-blue-700"
+            isDark ? "text-rose-300" : "text-rose-700"
           }`}
         >
           Messages
@@ -88,7 +88,7 @@ const MessageSideBar = () => {
       {/* TOGGLE BUTTONS */}
       <div
         className={`px-3 py-2 border-b flex gap-2 ${
-          isDark ? "border-blue-500/20" : "border-blue-200"
+          isDark ? "border-rose-500/20" : "border-rose-200"
         }`}
       >
         <button
@@ -96,11 +96,11 @@ const MessageSideBar = () => {
           className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
             viewMode === "conversations"
               ? isDark
-                ? "bg-blue-600 text-white"
-                : "bg-blue-500 text-white"
+                ? "bg-rose-600 text-white"
+                : "bg-rose-500 text-white"
               : isDark
-              ? "bg-slate-900/50 text-blue-300 hover:bg-slate-900"
-              : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+              ? "bg-slate-900/50 text-rose-300 hover:bg-slate-900"
+              : "bg-rose-100 text-rose-700 hover:bg-rose-200"
           }`}
         >
           <MessageCircle className="w-4 h-4 inline mr-1" />
@@ -111,11 +111,11 @@ const MessageSideBar = () => {
           className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
             viewMode === "allUsers"
               ? isDark
-                ? "bg-blue-600 text-white"
-                : "bg-blue-500 text-white"
+                ? "bg-rose-600 text-white"
+                : "bg-rose-500 text-white"
               : isDark
-              ? "bg-slate-900/50 text-blue-300 hover:bg-slate-900"
-              : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+              ? "bg-slate-900/50 text-rose-300 hover:bg-slate-900"
+              : "bg-rose-100 text-rose-700 hover:bg-rose-200"
           }`}
         >
           <Users className="w-4 h-4 inline mr-1" />
@@ -126,12 +126,12 @@ const MessageSideBar = () => {
       {/* SEARCH */}
       <div
         className={`px-3 py-3 border-b ${
-          isDark ? "border-blue-500/20" : "border-blue-200"
+          isDark ? "border-rose-500/20" : "border-rose-200"
         }`}
       >
         <div className="relative">
 
-          <Search className="w-4 h-4 text-blue-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-rose-400 absolute left-3 top-1/2 -translate-y-1/2" />
 
           <input
             value={search}
@@ -139,8 +139,8 @@ const MessageSideBar = () => {
             placeholder="Search user..."
             className={`w-full pl-9 pr-3 py-2 rounded-lg text-sm outline-none ${
               isDark
-                ? "bg-slate-900/70 border border-blue-500/20 text-blue-100"
-                : "bg-blue-50 border border-blue-200 text-blue-900"
+                ? "bg-slate-900/70 border border-rose-500/20 text-rose-100"
+                : "bg-rose-50 border border-rose-200 text-rose-900"
             }`}
           />
 
@@ -151,7 +151,7 @@ const MessageSideBar = () => {
       {onlineFilteredUsers.length > 0 && (
         <div
           className={`px-3 py-2 border-b ${
-            isDark ? "border-blue-500/20" : "border-blue-200"
+            isDark ? "border-rose-500/20" : "border-rose-200"
           }`}
         >
           <p
@@ -175,14 +175,14 @@ const MessageSideBar = () => {
                       alt={user.name}
                       className={`w-12 h-12 rounded-full object-cover transition-all ${
                         selectedUser?._id === user._id 
-                          ? "border-4 border-blue-500 ring-2 ring-blue-400/50" 
+                          ? "border-4 border-rose-500 ring-2 ring-rose-400/50" 
                           : "border-2 border-green-500"
                       }`}
                     />
                   ) : (
-                    <div className={`w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold text-sm transition-all ${
+                    <div className={`w-12 h-12 rounded-full bg-gradient-to-br from-rose-500 to-orange-600 flex items-center justify-center text-white font-semibold text-sm transition-all ${
                       selectedUser?._id === user._id 
-                        ? "border-4 border-blue-500 ring-2 ring-blue-400/50" 
+                        ? "border-4 border-rose-500 ring-2 ring-rose-400/50" 
                         : "border-2 border-green-500"
                     }`}>
                       {user.name?.charAt(0)?.toUpperCase()}
@@ -192,7 +192,7 @@ const MessageSideBar = () => {
                 </div>
                 <p
                   className={`text-[10px] text-center mt-1 truncate w-12 ${
-                    isDark ? "text-blue-200" : "text-blue-800"
+                    isDark ? "text-rose-200" : "text-rose-800"
                   }`}
                 >
                   {user.name?.split(" ")[0]}
@@ -216,11 +216,11 @@ const MessageSideBar = () => {
               className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer ${
                 selectedUser?._id === user?._id
                   ? isDark
-                    ? "bg-blue-500/20 border border-blue-400/40"
-                    : "bg-blue-100 border border-blue-300"
+                    ? "bg-rose-500/20 border border-rose-400/40"
+                    : "bg-rose-100 border border-rose-300"
                   : isDark
-                    ? "bg-white/5 border border-blue-500/20 hover:bg-blue-500/10"
-                    : "bg-blue-50 border border-blue-200 hover:bg-blue-100"
+                    ? "bg-white/5 border border-rose-500/20 hover:bg-rose-500/10"
+                    : "bg-rose-50 border border-rose-200 hover:bg-rose-100"
               }`}
             >
 
@@ -230,10 +230,10 @@ const MessageSideBar = () => {
                   <img
                     src={user.profileImage}
                     alt={user.name}
-                    className="w-10 h-10 rounded-full object-cover border border-blue-300/30"
+                    className="w-10 h-10 rounded-full object-cover border border-rose-300/30"
                   />
                 ) : (
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold text-sm">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose-500 to-orange-600 flex items-center justify-center text-white font-semibold text-sm">
                     {user.name?.charAt(0)?.toUpperCase()}
                   </div>
                 )}
@@ -248,7 +248,7 @@ const MessageSideBar = () => {
 
                 <p
                   className={`text-sm font-medium ${
-                    isDark ? "text-blue-100" : "text-blue-900"
+                    isDark ? "text-rose-100" : "text-rose-900"
                   }`}
                 >
                   {user.name}
@@ -256,7 +256,7 @@ const MessageSideBar = () => {
 
                 <p
                   className={`text-xs ${
-                    isDark ? "text-blue-300/70" : "text-blue-700/70"
+                    isDark ? "text-rose-300/70" : "text-rose-700/70"
                   }`}
                 >
                   {isUserOnline(user._id) ? (
@@ -271,7 +271,7 @@ const MessageSideBar = () => {
               </div>
 
               {viewMode === "conversations" && !isUserOnline(user._id) && (
-                <span className={isDark ? "text-[10px] text-blue-300/70" : "text-[10px] text-blue-700/70"}>
+                <span className={isDark ? "text-[10px] text-rose-300/70" : "text-[10px] text-rose-700/70"}>
                   {formatTime(user.lastMessageAt)}
                 </span>
               )}
@@ -283,7 +283,7 @@ const MessageSideBar = () => {
 
           <div
             className={`flex flex-col items-center justify-center py-8 ${
-              isDark ? "text-blue-300/70" : "text-blue-700/70"
+              isDark ? "text-rose-300/70" : "text-rose-700/70"
             }`}
           >
             <MessageCircle className="w-8 h-8 mb-2 opacity-50" />

@@ -128,7 +128,7 @@ const InterviewReport = () => {
   return (
     <div className={`min-h-screen transition-all duration-300 ${
       isDark
-        ? 'bg-linear-to-br from-slate-950 via-blue-950 to-slate-950 text-white'
+        ? 'bg-linear-to-br from-slate-950 via-emerald-950 to-slate-950 text-white'
         : 'bg-gray-50 text-black'
     }`}>
 
@@ -177,7 +177,7 @@ const InterviewReport = () => {
         </span>
         <span className="flex items-center gap-1.5"><FaStar className="text-amber-400 shrink-0" /> {report.mode}</span>
         <span className="flex items-center gap-1.5">
-          <FaClock className="text-blue-400 shrink-0" />
+          <FaClock className="text-rose-400 shrink-0" />
           {new Date(report.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
         </span>
         <span className="flex items-center gap-1.5">

@@ -34,7 +34,7 @@ const Notes = () => {
     <div
       className={`min-h-screen ${
         isDark
-          ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950"
+          ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950"
           : "bg-slate-100"
       }`}
     >
@@ -42,7 +42,7 @@ const Notes = () => {
       <header
         className={`sticky top-0 z-50 backdrop-blur border-b ${
           isDark
-            ? "bg-slate-950/70 border-blue-500/20"
+            ? "bg-slate-950/70 border-rose-500/20"
             : "bg-white/80 border-slate-200"
         }`}
       >
@@ -52,9 +52,9 @@ const Notes = () => {
             <img src={logo} alt="ExamNotes" className="w-9 h-9" />
             <div>
               <h1 className={`font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>
-                Exam<span className="text-blue-500">Notes</span>
+                Exam<span className="text-rose-500">Notes</span>
               </h1>
-              <p className={isDark ? "text-xs text-blue-200/70" : "text-xs text-slate-500"}>
+              <p className={isDark ? "text-xs text-rose-200/70" : "text-xs text-slate-500"}>
                 AI study workspace
               </p>
             </div>
@@ -66,7 +66,7 @@ const Notes = () => {
               whileHover={{ y: -2 }}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm ${
                 isDark
-                  ? "bg-white/5 border-blue-500/20 text-blue-200"
+                  ? "bg-white/5 border-rose-500/20 text-rose-200"
                   : "bg-white border-slate-200 text-slate-700 shadow-sm"
               }`}
             >
@@ -77,12 +77,12 @@ const Notes = () => {
             {/* CREDITS */}
             <div className="relative flex items-center gap-2">
               <Diamond className="w-5 h-5 text-cyan-400" />
-              <span className={isDark ? "text-blue-300 text-sm font-semibold" : "text-slate-700 text-sm font-semibold"}>
+              <span className={isDark ? "text-rose-300 text-sm font-semibold" : "text-slate-700 text-sm font-semibold"}>
                 {userData?.credits}
               </span>
 
               <motion.button whileHover={{ rotate: 90 }} onClick={() => setOpen((p) => !p)}>
-                <Plus className="w-4 h-4 text-blue-500" />
+                <Plus className="w-4 h-4 text-emerald-500" />
               </motion.button>
 
               <AnimatePresence>
@@ -94,7 +94,7 @@ const Notes = () => {
                     exit={{ opacity: 0 }}
                     className={`absolute right-0 top-10 w-72 rounded-xl p-5 border shadow-xl ${
                       isDark
-                        ? "bg-slate-900 border-blue-500/20 text-white"
+                        ? "bg-slate-900 border-rose-500/20 text-white"
                         : "bg-white border-slate-200 text-slate-900"
                     }`}
                   >
@@ -110,7 +110,7 @@ const Notes = () => {
                       Generate AI notes, diagrams & PDFs.
                     </p>
 
-                    <button onClick={()=>navigate("/pricing")} className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+                    <button onClick={()=>navigate("/pricing")} className="w-full py-2 rounded-lg bg-gradient-to-r from-rose-500 to-orange-600 text-white">
                       Buy More Credits
                     </button>
                   </motion.div>
@@ -127,7 +127,7 @@ const Notes = () => {
         <div
           className={`rounded-2xl p-6 border ${
             isDark
-              ? "bg-white/5 border-blue-500/20"
+              ? "bg-white/5 border-rose-500/20"
               : "bg-white border-slate-200 shadow-sm"
           }`}
         >
@@ -148,7 +148,7 @@ const Notes = () => {
         {/* EMPTY */}
         {!result && (
           <div className="text-center py-16">
-            <div className={isDark ? "text-blue-200/80" : "text-slate-500"}>
+            <div className={isDark ? "text-rose-200/80" : "text-slate-500"}>
               <p className="text-lg font-medium">Your notes will appear here</p>
               <p className="text-sm mt-2">
                 Enter a topic above to generate AI notes
@@ -164,7 +164,7 @@ const Notes = () => {
             <div
               className={`lg:col-span-1 rounded-2xl p-4 border ${
                 isDark
-                  ? "bg-white/5 border-blue-500/20"
+                  ? "bg-white/5 border-rose-500/20"
                   : "bg-white border-slate-200 shadow-sm"
               }`}
             >
@@ -175,7 +175,7 @@ const Notes = () => {
             <div
               className={`lg:col-span-3 rounded-2xl p-6 border ${
                 isDark
-                  ? "bg-white/5 border-blue-500/20"
+                  ? "bg-white/5 border-rose-500/20"
                   : "bg-white border-slate-200 shadow-sm"
               }`}
             >

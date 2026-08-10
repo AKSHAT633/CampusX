@@ -22,16 +22,16 @@ const TopicForm = ({ loading, setLoading, setResult, setError }) => {
 
   /* ---------- THEME ---------- */
   const formBg = isDark
-    ? "bg-white/5 border-blue-500/20 text-white"
+    ? "bg-white/5 border-rose-500/20 text-white"
     : "bg-white border-slate-200 text-slate-900 shadow-sm"
 
-  const labelText = isDark ? "text-blue-200" : "text-slate-600"
+  const labelText = isDark ? "text-rose-200" : "text-slate-600"
   const inputBg = isDark
-    ? "bg-slate-900/70 border-blue-500/20 text-white"
+    ? "bg-slate-900/70 border-rose-500/20 text-white"
     : "bg-white border-slate-300 text-slate-900"
 
   const progressBg = isDark ? "bg-slate-800" : "bg-slate-200"
-  const progressTextColor = isDark ? "text-blue-300" : "text-slate-600"
+  const progressTextColor = isDark ? "text-rose-300" : "text-slate-600"
 
   /* ---------- AI PROGRESS ---------- */
   useEffect(() => {
@@ -119,7 +119,7 @@ const TopicForm = ({ loading, setLoading, setResult, setError }) => {
     >
       {/* TITLE */}
       <div className="mb-6 flex items-center gap-2">
-        <Sparkles className="text-blue-500" />
+        <Sparkles className="text-emerald-500" />
         <h2 className="text-xl font-semibold">
           Generate AI Notes
         </h2>
@@ -133,7 +133,7 @@ const TopicForm = ({ loading, setLoading, setResult, setError }) => {
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           placeholder="Enter topic (e.g. Web Development)"
-          className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none focus:border-blue-500 ${inputBg}`}
+          className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none focus:border-rose-500 ${inputBg}`}
         />
       </div>
 
@@ -143,7 +143,7 @@ const TopicForm = ({ loading, setLoading, setResult, setError }) => {
         <select
           value={classLevel}
           onChange={(e) => setClassLevel(e.target.value)}
-          className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none focus:border-blue-500 ${inputBg}`}
+          className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none focus:border-rose-500 ${inputBg}`}
         >
           <option value="">Select level</option>
           <option>School</option>
@@ -160,7 +160,7 @@ const TopicForm = ({ loading, setLoading, setResult, setError }) => {
         <select
           value={examType}
           onChange={(e) => setExamType(e.target.value)}
-          className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none focus:border-blue-500 ${inputBg}`}
+          className={`w-full mt-1 px-4 py-3 rounded-lg border outline-none focus:border-rose-500 ${inputBg}`}
         >
           <option value="">Select exam</option>
           <option>Semester</option>
@@ -183,7 +183,7 @@ const TopicForm = ({ loading, setLoading, setResult, setError }) => {
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.95 }}
         disabled={loading}
-        className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg disabled:opacity-50 mb-4"
+        className="w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 to-orange-600 text-white font-semibold shadow-lg disabled:opacity-50 mb-4"
       >
         {loading ? "Generating..." : "Generate Notes"}
       </motion.button>
@@ -199,7 +199,7 @@ const TopicForm = ({ loading, setLoading, setResult, setError }) => {
           >
             <div className={`w-full rounded-lg h-6 overflow-hidden border ${progressBg}`}>
               <motion.div
-                className="h-6 bg-gradient-to-r from-blue-500 to-indigo-500"
+                className="h-6 bg-gradient-to-r from-emerald-500 to-teal-500"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
               />
@@ -217,7 +217,7 @@ const TopicForm = ({ loading, setLoading, setResult, setError }) => {
 /* ---------- TOGGLE ---------- */
 const Toggle = ({ label, value, onChange, isDark }) => {
   const bg = isDark
-    ? "bg-slate-900/60 border-blue-500/20 text-blue-200"
+    ? "bg-slate-900/60 border-rose-500/20 text-rose-200"
     : "bg-white border-slate-300 text-slate-700"
 
   return (
@@ -229,7 +229,7 @@ const Toggle = ({ label, value, onChange, isDark }) => {
 
       <div
         className={`w-10 h-5 rounded-full p-1 transition ${
-          value ? "bg-blue-500" : isDark ? "bg-gray-600" : "bg-slate-300"
+          value ? "bg-rose-500" : isDark ? "bg-gray-600" : "bg-slate-300"
         }`}
       >
         <div

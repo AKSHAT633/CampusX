@@ -33,10 +33,10 @@ const HeroExam = () => {
   const { isDark } = useTheme()
   const navigate = useNavigate();
   return (
-    <section className={`relative overflow-hidden ${isDark ? 'bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 text-white' : 'bg-gradient-to-b from-white via-blue-50 to-white text-slate-900'}`}>
+    <section className={`relative overflow-hidden ${isDark ? 'bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 text-white' : 'bg-gradient-to-b from-white via-emerald-50 to-white text-slate-900'}`}>
 
       {/* SOFT GLOW */}
-      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-blue-600/20 blur-[160px] rounded-full" />
+      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-rose-600/20 blur-[160px] rounded-full" />
 
       <div className="relative max-w-7xl mx-auto px-6 pt-24 pb-20">
 
@@ -52,13 +52,13 @@ const HeroExam = () => {
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
               Create Smart
               <br />
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-rose-400 via-cyan-400 to-orange-400 bg-clip-text text-transparent">
                 AI Notes
               </span>{" "}
               in Seconds
             </h1>
 
-            <p className={`${isDark ? 'text-blue-200/90' : 'text-slate-600'} text-lg mb-8 max-w-lg`}>
+            <p className={`${isDark ? 'text-rose-200/90' : 'text-slate-600'} text-lg mb-8 max-w-lg`}>
               Generate exam-focused notes, diagrams, and revision-ready PDFs
               using AI — faster, cleaner and smarter.
             </p>
@@ -66,7 +66,7 @@ const HeroExam = () => {
             <motion.button onClick={()=>navigate("/note")}
               whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 font-semibold shadow-lg shadow-blue-500/30"
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-rose-500 to-orange-600 font-semibold shadow-lg shadow-rose-500/30"
             >
               Get Started
             </motion.button>
@@ -98,11 +98,11 @@ const HeroExam = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * i }}
                 whileHover={{ y: -8, scale: 1.03 }}
-                className={`group rounded-2xl p-6 ${isDark ? 'bg-gradient-to-b from-white/5 to-white/0 border border-blue-500/20' : 'bg-gradient-to-b from-slate-100/50 to-slate-50/30 border border-blue-200/40'} backdrop-blur-xl shadow-lg ${isDark ? 'hover:shadow-blue-500/20' : 'hover:shadow-blue-200/20'} transition`}
+                className={`group rounded-2xl p-6 ${isDark ? 'bg-gradient-to-b from-white/5 to-white/0 border border-rose-500/20' : 'bg-gradient-to-b from-slate-100/50 to-slate-50/30 border border-rose-200/40'} backdrop-blur-xl shadow-lg ${isDark ? 'hover:shadow-rose-500/20' : 'hover:shadow-rose-200/20'} transition`}
               >
                 {/* ICON */}
-                <div className={`w-12 h-12 mb-4 rounded-xl ${isDark ? 'bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-blue-500/20' : 'bg-gradient-to-br from-blue-200/40 to-indigo-200/30 border border-blue-300/40'} flex items-center justify-center group-hover:scale-110 transition`}>
-                  <Icon className={`w-6 h-6 ${isDark ? 'text-blue-400' : 'text-blue-600'}`} />
+                <div className={`w-12 h-12 mb-4 rounded-xl ${isDark ? 'bg-gradient-to-br from-rose-500/20 to-orange-500/20 border border-rose-500/20' : 'bg-gradient-to-br from-rose-200/40 to-orange-200/30 border border-rose-300/40'} flex items-center justify-center group-hover:scale-110 transition`}>
+                  <Icon className={`w-6 h-6 ${isDark ? 'text-rose-400' : 'text-rose-600'}`} />
                 </div>
 
                 {/* TITLE */}
@@ -126,12 +126,12 @@ const HeroExam = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className={`p-6 rounded-lg ${isDark ? 'bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20' : 'bg-gradient-to-br from-blue-100/30 to-indigo-100/20 border border-blue-300/30'} backdrop-blur-xl`}
+            className={`p-6 rounded-lg ${isDark ? 'bg-gradient-to-br from-rose-500/10 to-orange-500/10 border border-rose-500/20' : 'bg-gradient-to-br from-rose-100/30 to-orange-100/20 border border-rose-300/30'} backdrop-blur-xl`}
           >
-            <h3 className={`${isDark ? 'text-blue-300' : 'text-blue-700'} font-semibold mb-3 text-lg flex items-center gap-2`}>
+            <h3 className={`${isDark ? 'text-rose-300' : 'text-rose-700'} font-semibold mb-3 text-lg flex items-center gap-2`}>
               <span className="text-xl">📝</span> How to Use
             </h3>
-            <ul className={`${isDark ? 'text-blue-200/80' : 'text-blue-700/80'} text-sm space-y-2 leading-relaxed`}>
+            <ul className={`${isDark ? 'text-rose-200/80' : 'text-rose-700/80'} text-sm space-y-2 leading-relaxed`}>
               <li>✓ Enter your topic or subject</li>
               <li>✓ Select your class level & exam type</li>
               <li>✓ Choose optional diagrams or charts</li>
@@ -164,7 +164,7 @@ const HeroExam = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className={`p-6 rounded-lg ${isDark ? 'bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20' : 'bg-gradient-to-br from-cyan-100/30 to-blue-100/20 border border-cyan-300/30'} backdrop-blur-xl`}
+            className={`p-6 rounded-lg ${isDark ? 'bg-gradient-to-br from-cyan-500/10 to-rose-500/10 border border-cyan-500/20' : 'bg-gradient-to-br from-cyan-100/30 to-rose-100/20 border border-cyan-300/30'} backdrop-blur-xl`}
           >
             <h3 className={`${isDark ? 'text-cyan-300' : 'text-cyan-700'} font-semibold mb-3 text-lg flex items-center gap-2`}>
               <span className="text-xl">💎</span> Credits System
@@ -193,27 +193,27 @@ const HeroExam = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className={`mt-12 p-6 rounded-lg ${isDark ? 'bg-gradient-to-r from-blue-500/5 to-indigo-500/5 border border-blue-500/20' : 'bg-gradient-to-r from-blue-100/30 to-indigo-100/20 border border-blue-300/30'} backdrop-blur-xl`}
+          className={`mt-12 p-6 rounded-lg ${isDark ? 'bg-gradient-to-r from-rose-500/5 to-orange-500/5 border border-rose-500/20' : 'bg-gradient-to-r from-rose-100/30 to-orange-100/20 border border-rose-300/30'} backdrop-blur-xl`}
         >
-          <h3 className={`${isDark ? 'text-blue-700' : 'text-blue-700'} font-semibold mb-4 text-lg flex items-center gap-2`}>
+          <h3 className={`${isDark ? 'text-rose-700' : 'text-rose-700'} font-semibold mb-4 text-lg flex items-center gap-2`}>
             <span className="text-xl">💡</span> Pro Tips for Better Results
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex gap-3 p-3 rounded-lg bg-white/5">
               <span className="text-cyan-800 font-bold">1.</span>
-              <p className="text-blue-700 text-sm">Be specific with topics - "Photosynthesis Process in Plants" works better than just "Plants"</p>
+              <p className="text-rose-700 text-sm">Be specific with topics - "Photosynthesis Process in Plants" works better than just "Plants"</p>
             </div>
             <div className="flex gap-3 p-3 rounded-lg bg-white/5">
               <span className="text-cyan-800 font-bold">2.</span>
-              <p className="text-blue-700 text-sm">Use Revision Mode for quick summaries before exams</p>
+              <p className="text-rose-700 text-sm">Use Revision Mode for quick summaries before exams</p>
             </div>
             <div className="flex gap-3 p-3 rounded-lg bg-white/5">
               <span className="text-cyan-800 font-bold">3.</span>
-              <p className="text-blue-700 text-sm">Enable Diagrams & Charts for better visual understanding</p>
+              <p className="text-rose-700 text-sm">Enable Diagrams & Charts for better visual understanding</p>
             </div>
             <div className="flex gap-3 p-3 rounded-lg bg-white/5">
               <span className="text-cyan-800 font-bold">4.</span>
-              <p className="text-blue-700 text-sm">Save all generated notes for future reference and revision</p>
+              <p className="text-rose-700 text-sm">Save all generated notes for future reference and revision</p>
             </div>
           </div>
         </motion.div>

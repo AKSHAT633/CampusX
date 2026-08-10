@@ -32,10 +32,10 @@ const AiInterviewNavbar = () => {
 
 
   const titleMain = isDark ? "text-white" : "text-slate-900"
-  const creditsText = isDark ? "text-blue-300" : "text-slate-700"
+  const creditsText = isDark ? "text-rose-300" : "text-slate-700"
 
   const popupBg = isDark
-    ? "bg-slate-900 border-blue-500/20 text-white"
+    ? "bg-slate-900 border-rose-500/20 text-white"
     : "bg-white border-slate-200 text-slate-800"
 
 
@@ -65,7 +65,7 @@ className="w-9 h-9 object-contain"
 AI
 </span>
 
-<span className="bg-linear-to-r from-blue-500 via-cyan-500 to-indigo-500 bg-clip-text text-transparent">
+<span className="bg-linear-to-r from-rose-500 via-cyan-500 to-orange-500 bg-clip-text text-transparent">
  Interview
 </span>
 
@@ -85,7 +85,7 @@ whileTap={{scale:0.95}}
 
 onClick={()=>setOpen(!open)}
 
-className="flex items-center gap-2 px-3 py-2 rounded-xl border border-blue-500/40 hover:border-blue-500 transition-all duration-300"
+className="flex items-center gap-2 px-3 py-2 rounded-xl border border-rose-500/40 hover:border-rose-500 transition-all duration-300"
 
 >
 
@@ -95,7 +95,7 @@ className="flex items-center gap-2 px-3 py-2 rounded-xl border border-blue-500/4
 {userData?.credits || 0}
 </span>
 
-<Plus className="w-4 h-4 text-blue-500"/>
+<Plus className="w-4 h-4 text-rose-500"/>
 
 </motion.button>
 
@@ -140,7 +140,7 @@ Use credits to generate AI interviews and reports.
 
 onClick={()=>navigate("/pricing")}
 
-className="w-full py-2 rounded-lg bg-linear-to-r from-blue-500 to-indigo-600 text-white font-medium hover:scale-105 transition"
+className="w-full py-2 rounded-lg bg-linear-to-r from-rose-500 to-orange-600 text-white font-medium hover:scale-105 transition"
 
 >
 

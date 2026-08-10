@@ -159,16 +159,16 @@ const ChatMessages = () => {
   return (
     <div className={`w-full h-[700px] lg:h-[85vh] flex flex-col border rounded-lg overflow-hidden shadow-lg ${
       isDark 
-        ? "bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950 border-blue-500/20" 
-        : "bg-white border-blue-200"
+        ? "bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 border-rose-500/20" 
+        : "bg-white border-rose-200"
     }`}>
       {selectedUser ? (
         <>
           {/* ================= HEADER ================= */}
           <div className={`flex-shrink-0 flex items-center justify-between px-3 lg:px-4 py-3 border-b ${
             isDark 
-              ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 border-blue-500/20" 
-              : "bg-gradient-to-r from-blue-500 to-indigo-600 border-blue-200"
+              ? "bg-gradient-to-r from-rose-600 via-orange-600 to-rose-600 border-rose-500/20" 
+              : "bg-gradient-to-r from-rose-500 to-orange-600 border-rose-200"
           }`}>
             <div className="flex items-center gap-3">
               {/* Back button mobile */}
@@ -188,7 +188,7 @@ const ChatMessages = () => {
                     className="w-10 h-10 rounded-full object-cover border-2 border-white"
                   />
                 ) : (
-                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-600 font-semibold border-2 border-white">
+                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-rose-600 font-semibold border-2 border-white">
                     {firstLetter}
                   </div>
                 )}
@@ -217,7 +217,7 @@ const ChatMessages = () => {
           <div ref={messagesContainerRef} className={`flex-1 overflow-y-auto p-3 lg:p-4 space-y-3 ${
             isDark 
               ? "bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" 
-              : "bg-gradient-to-b from-gray-50 to-blue-50/30"
+              : "bg-gradient-to-b from-gray-50 to-rose-50/30"
           }`}>
             {messages.map((msg) => {
               const isSender =
@@ -251,8 +251,8 @@ const ChatMessages = () => {
           {/* ================= INPUT ================= */}
           <div className={`flex-shrink-0 p-2 lg:p-3 border-t ${
             isDark 
-              ? "bg-slate-950 border-blue-500/20" 
-              : "bg-white border-blue-200"
+              ? "bg-slate-950 border-rose-500/20" 
+              : "bg-white border-rose-200"
           }`}>
             <div className="relative">
               {/* Emoji Picker */}
@@ -273,7 +273,7 @@ const ChatMessages = () => {
                   <img
                     src={frontendImage}
                     alt="preview"
-                    className="w-32 h-32 rounded-lg object-cover border-2 border-blue-500"
+                    className="w-32 h-32 rounded-lg object-cover border-2 border-rose-500"
                   />
 
                   <button
@@ -303,8 +303,8 @@ const ChatMessages = () => {
                   }
                   className={`p-2 rounded-lg transition ${
                     isDark 
-                      ? "hover:bg-blue-500/20 text-blue-400" 
-                      : "hover:bg-blue-100 text-blue-600"
+                      ? "hover:bg-rose-500/20 text-rose-400" 
+                      : "hover:bg-rose-100 text-rose-600"
                   }`}
                 >
                   <Smile className="w-5 h-5" />
@@ -328,8 +328,8 @@ const ChatMessages = () => {
                   }
                   className={`p-2 rounded-lg transition ${
                     isDark 
-                      ? "hover:bg-blue-500/20 text-blue-400" 
-                      : "hover:bg-blue-100 text-blue-600"
+                      ? "hover:bg-rose-500/20 text-rose-400" 
+                      : "hover:bg-rose-100 text-rose-600"
                   }`}
                 >
                   <Image className="w-5 h-5" />
@@ -345,8 +345,8 @@ const ChatMessages = () => {
                   placeholder="Type a message..."
                   className={`flex-1 px-3 lg:px-4 py-2 rounded-lg text-sm outline-none transition ${
                     isDark 
-                      ? "bg-slate-900 border border-blue-500/20 text-blue-100 placeholder-blue-400/50 focus:ring-2 focus:ring-blue-500" 
-                      : "bg-blue-50 border border-blue-200 text-blue-900 placeholder-blue-400 focus:ring-2 focus:ring-blue-500"
+                      ? "bg-slate-900 border border-rose-500/20 text-rose-100 placeholder-rose-400/50 focus:ring-2 focus:ring-rose-500" 
+                      : "bg-rose-50 border border-rose-200 text-rose-900 placeholder-rose-400 focus:ring-2 focus:ring-rose-500"
                   }`}
                 />
 
@@ -354,7 +354,7 @@ const ChatMessages = () => {
                 <button
                   type="submit"
                   disabled={!input.trim() && !backendImage}
-                  className="px-3 lg:px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg flex items-center gap-2 hover:from-blue-600 hover:to-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 lg:px-4 py-2 bg-gradient-to-r from-rose-500 to-orange-600 text-white rounded-lg flex items-center gap-2 hover:from-rose-600 hover:to-orange-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -367,22 +367,22 @@ const ChatMessages = () => {
         <div className="flex-1 flex flex-col items-center justify-center text-center p-8">
           <div className={`w-16 lg:w-20 h-16 lg:h-20 rounded-full flex items-center justify-center mb-4 ${
             isDark 
-              ? "bg-gradient-to-br from-blue-900/30 to-indigo-900/30" 
-              : "bg-gradient-to-br from-blue-100 to-indigo-100"
+              ? "bg-gradient-to-br from-rose-900/30 to-orange-900/30" 
+              : "bg-gradient-to-br from-rose-100 to-orange-100"
           }`}>
             <MessageCircle className={`w-8 lg:w-10 h-8 lg:h-10 ${
-              isDark ? "text-blue-400" : "text-blue-500"
+              isDark ? "text-rose-400" : "text-rose-500"
             }`} />
           </div>
 
           <h3 className={`text-lg lg:text-xl font-semibold mb-2 ${
-            isDark ? "text-blue-100" : "text-blue-900"
+            isDark ? "text-rose-100" : "text-rose-900"
           }`}>
             Select a conversation
           </h3>
 
           <p className={`text-xs lg:text-sm max-w-sm ${
-            isDark ? "text-blue-300/70" : "text-blue-600/70"
+            isDark ? "text-rose-300/70" : "text-rose-600/70"
           }`}>
             Choose a user from the sidebar to start chatting
           </p>

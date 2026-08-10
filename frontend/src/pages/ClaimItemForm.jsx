@@ -101,7 +101,7 @@ const ClaimItemForm = ({ item: itemProp }) => {
       <div
         className={`min-h-screen p-6 ${
           isDark
-            ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+            ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
             : "bg-slate-50 text-slate-900"
         }`}
       >
@@ -116,7 +116,7 @@ const ClaimItemForm = ({ item: itemProp }) => {
     <div
       className={`min-h-screen p-6 ${
         isDark
-          ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+          ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
           : "bg-slate-50 text-slate-900"
       }`}
     >
@@ -126,14 +126,14 @@ const ClaimItemForm = ({ item: itemProp }) => {
         animate={{ opacity: 1, y: 0 }}
         className={`max-w-2xl mx-auto mt-10 p-6 rounded-2xl border shadow-xl space-y-5 ${
           isDark
-            ? "bg-white/5 border-blue-500/20"
+            ? "bg-white/5 border-rose-500/20"
             : "bg-white border-slate-200"
         }`}
       >
         {/* HEADER */}
         <div>
           <h2 className="text-2xl font-bold">Claim Item</h2>
-          <p className={isDark ? "text-blue-200/80 text-sm" : "text-slate-600 text-sm"}>
+          <p className={isDark ? "text-rose-200/80 text-sm" : "text-slate-600 text-sm"}>
             Provide details so the owner can verify the item belongs to you
           </p>
         </div>
@@ -142,19 +142,19 @@ const ClaimItemForm = ({ item: itemProp }) => {
         <div
           className={`p-4 rounded-xl border ${
             isDark
-              ? "bg-white/5 border-blue-500/20"
+              ? "bg-white/5 border-rose-500/20"
               : "bg-slate-50 border-slate-200"
           }`}
         >
           <p className="font-semibold">{item.title}</p>
-          <p className={isDark ? "text-blue-300/70 text-xs" : "text-slate-500 text-xs"}>
+          <p className={isDark ? "text-rose-300/70 text-xs" : "text-slate-500 text-xs"}>
             {item.category} • {item.location}
           </p>
         </div>
 
         {/* IDENTIFYING */}
         <div>
-          <label className={isDark ? "text-blue-200 text-sm" : "text-slate-700 text-sm"}>
+          <label className={isDark ? "text-rose-200 text-sm" : "text-slate-700 text-sm"}>
             Identifying Details *
           </label>
           <textarea
@@ -166,7 +166,7 @@ const ClaimItemForm = ({ item: itemProp }) => {
             }
             className={`w-full mt-1 px-4 py-3 rounded-lg border ${
               isDark
-                ? "bg-slate-900 border-blue-500/20 text-white"
+                ? "bg-slate-900 border-rose-500/20 text-white"
                 : "bg-white border-slate-300 text-slate-900"
             }`}
           />
@@ -193,19 +193,19 @@ const ClaimItemForm = ({ item: itemProp }) => {
 
         {/* IMAGE */}
         <div>
-          <label className={isDark ? "text-blue-200 text-sm" : "text-slate-700 text-sm"}>
+          <label className={isDark ? "text-rose-200 text-sm" : "text-slate-700 text-sm"}>
             Proof Image (optional)
           </label>
 
           <label
             className={`mt-2 flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-5 cursor-pointer ${
               isDark
-                ? "border-blue-500/30 hover:border-blue-400"
-                : "border-slate-300 hover:border-blue-400"
+                ? "border-rose-500/30 hover:border-rose-400"
+                : "border-slate-300 hover:border-rose-400"
             }`}
           >
-            <UploadCloud className={isDark ? "text-blue-400 mb-2" : "text-blue-500 mb-2"} />
-            <span className={isDark ? "text-blue-200 text-sm" : "text-slate-600 text-sm"}>
+            <UploadCloud className={isDark ? "text-rose-400 mb-2" : "text-rose-500 mb-2"} />
+            <span className={isDark ? "text-rose-200 text-sm" : "text-slate-600 text-sm"}>
               Upload proof photo
             </span>
 
@@ -223,7 +223,7 @@ const ClaimItemForm = ({ item: itemProp }) => {
               src={preview}
               alt="proof"
               className={`mt-3 rounded-lg max-h-40 border ${
-                isDark ? "border-blue-500/20" : "border-slate-200"
+                isDark ? "border-rose-500/20" : "border-slate-200"
               }`}
             />
           )}
@@ -234,7 +234,7 @@ const ClaimItemForm = ({ item: itemProp }) => {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.95 }}
           disabled={loading}
-          className="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold shadow-lg disabled:opacity-50"
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-rose-600 text-white font-semibold shadow-lg disabled:opacity-50"
         >
           {loading ? "Submitting..." : "Submit Claim"}
         </motion.button>
@@ -248,12 +248,12 @@ export default ClaimItemForm
 /* ---------- INPUT ---------- */
 const Input = ({ label, value, onChange, type = "text", icon, required, isDark }) => (
   <div>
-    <label className={isDark ? "text-blue-200 text-sm" : "text-slate-700 text-sm"}>
+    <label className={isDark ? "text-rose-200 text-sm" : "text-slate-700 text-sm"}>
       {label} {required && "*"}
     </label>
     <div className="relative mt-1">
       {icon && (
-        <div className={isDark ? "absolute left-3 top-1/2 -translate-y-1/2 text-blue-400" : "absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"}>
+        <div className={isDark ? "absolute left-3 top-1/2 -translate-y-1/2 text-rose-400" : "absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"}>
           {icon}
         </div>
       )}
@@ -264,7 +264,7 @@ const Input = ({ label, value, onChange, type = "text", icon, required, isDark }
         onChange={(e) => onChange(e.target.value)}
         className={`w-full px-4 py-3 rounded-lg border ${
           isDark
-            ? "bg-slate-900 border-blue-500/20 text-white"
+            ? "bg-slate-900 border-rose-500/20 text-white"
             : "bg-white border-slate-300 text-slate-900"
         } ${icon ? "pl-10" : ""}`}
       />

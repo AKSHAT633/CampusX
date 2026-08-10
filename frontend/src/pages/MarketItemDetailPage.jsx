@@ -56,7 +56,7 @@ const MarketItemDetailPage = () => {
     return (
       <div className={`min-h-screen flex items-center justify-center ${
         isDark
-          ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+          ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
           : "bg-slate-50 text-slate-900"
       }`}>
         Loading...
@@ -89,7 +89,7 @@ const MarketItemDetailPage = () => {
   return (
     <div className={`min-h-screen p-6 ${
       isDark
-        ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+        ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
         : "bg-slate-50 text-slate-900"
     }`}>
       <div className="max-w-7xl mx-auto">
@@ -98,7 +98,7 @@ const MarketItemDetailPage = () => {
         <button
           onClick={() => navigate("/sell")}
           className={isDark
-            ? "flex items-center gap-2 text-blue-300 hover:text-blue-200 mb-6"
+            ? "flex items-center gap-2 text-rose-300 hover:text-rose-200 mb-6"
             : "flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-6"}
         >
           <ArrowLeft className="w-5 h-5" />
@@ -114,7 +114,7 @@ const MarketItemDetailPage = () => {
               animate={{ opacity: 1, scale: 1 }}
               className={`rounded-2xl overflow-hidden border aspect-square ${
                 isDark
-                  ? "border-blue-500/20 bg-slate-900/50"
+                  ? "border-rose-500/20 bg-slate-900/50"
                   : "border-slate-200 bg-white"
               }`}
             >
@@ -126,7 +126,7 @@ const MarketItemDetailPage = () => {
                 />
               ) : (
                 <div className={isDark
-                  ? "w-full h-full flex items-center justify-center text-blue-300/30"
+                  ? "w-full h-full flex items-center justify-center text-rose-300/30"
                   : "w-full h-full flex items-center justify-center text-slate-400"}>
                   <ShoppingBag className="w-24 h-24" />
                 </div>
@@ -141,9 +141,9 @@ const MarketItemDetailPage = () => {
                     onClick={() => setSelectedImage(i)}
                     className={`rounded-lg overflow-hidden border-2 ${
                       selectedImage === i
-                        ? "border-blue-500"
+                        ? "border-rose-500"
                         : isDark
-                        ? "border-blue-500/20"
+                        ? "border-rose-500/20"
                         : "border-slate-200"
                     }`}
                   >
@@ -175,7 +175,7 @@ const MarketItemDetailPage = () => {
             {/* INFO GRID */}
             <div className={`grid grid-cols-2 gap-4 p-4 rounded-xl border ${
               isDark
-                ? "bg-white/5 border-blue-500/20"
+                ? "bg-white/5 border-rose-500/20"
                 : "bg-white border-slate-200"
             }`}>
               <InfoItem isDark={isDark} icon={<Tag/>} label="Category" value={item.category}/>
@@ -192,14 +192,14 @@ const MarketItemDetailPage = () => {
             {/* DESCRIPTION */}
             <div className={`p-4 rounded-xl border ${
               isDark
-                ? "bg-white/5 border-blue-500/20"
+                ? "bg-white/5 border-rose-500/20"
                 : "bg-white border-slate-200"
             }`}>
               <h3 className="font-semibold text-lg mb-2 flex items-center gap-2">
-                <Package className={isDark ? "text-blue-400" : "text-blue-500"} />
+                <Package className={isDark ? "text-rose-400" : "text-rose-500"} />
                 Description
               </h3>
-              <p className={isDark ? "text-blue-100/80" : "text-slate-600"}>
+              <p className={isDark ? "text-rose-100/80" : "text-slate-600"}>
                 {item.description}
               </p>
             </div>
@@ -207,15 +207,15 @@ const MarketItemDetailPage = () => {
             {/* SELLER */}
             <div className={`p-4 rounded-xl border ${
               isDark
-                ? "bg-gradient-to-br from-blue-500/10 to-indigo-600/10 border-blue-500/30"
+                ? "bg-gradient-to-br from-rose-500/10 to-orange-600/10 border-rose-500/30"
                 : "bg-slate-50 border-slate-200"
             }`}>
               <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                <User className={isDark ? "text-blue-400" : "text-blue-500"} />
+                <User className={isDark ? "text-rose-400" : "text-rose-500"} />
                 Seller Information
               </h3>
 
-              <div className={isDark ? "space-y-2 text-blue-200" : "space-y-2 text-slate-700"}>
+              <div className={isDark ? "space-y-2 text-rose-200" : "space-y-2 text-slate-700"}>
                 <div className="flex items-center gap-2">
                   <User className="w-4 h-4"/>
                   {item.seller?.name}
@@ -279,7 +279,7 @@ const MarketItemDetailPage = () => {
         {relatedItems.length > 0 && (
           <div className="mt-12">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <Tag className={isDark ? "text-blue-400" : "text-blue-500"} />
+              <Tag className={isDark ? "text-rose-400" : "text-rose-500"} />
               Related Items
             </h2>
 
@@ -288,7 +288,7 @@ const MarketItemDetailPage = () => {
                 <Link key={rel._id} to={`/sell/${rel._id}`}
                   className={`block rounded-2xl border overflow-hidden ${
                     isDark
-                      ? "border-blue-500/20 bg-white/5"
+                      ? "border-rose-500/20 bg-white/5"
                       : "border-slate-200 bg-white"
                   }`}>
                   <div className={isDark ? "h-40 bg-slate-800" : "h-40 bg-slate-100"}>
@@ -307,7 +307,7 @@ const MarketItemDetailPage = () => {
                       <IndianRupee className="w-4 h-4"/>
                       {rel.price}
                     </div>
-                    <div className={isDark ? "text-blue-300/70 text-xs" : "text-slate-500 text-xs"}>
+                    <div className={isDark ? "text-rose-300/70 text-xs" : "text-slate-500 text-xs"}>
                       {rel.category}
                     </div>
                   </div>
@@ -326,11 +326,11 @@ export default MarketItemDetailPage
 /* ---------- INFO ITEM ---------- */
 const InfoItem = ({ icon, label, value, isDark }) => (
   <div>
-    <div className={isDark ? "flex items-center gap-1.5 text-xs text-blue-300/70" : "flex items-center gap-1.5 text-xs text-slate-500"}>
+    <div className={isDark ? "flex items-center gap-1.5 text-xs text-rose-300/70" : "flex items-center gap-1.5 text-xs text-slate-500"}>
       {React.cloneElement(icon, { className: "w-3.5 h-3.5" })}
       {label}
     </div>
-    <div className={isDark ? "font-medium text-blue-100" : "font-medium text-slate-900"}>
+    <div className={isDark ? "font-medium text-rose-100" : "font-medium text-slate-900"}>
       {value}
     </div>
   </div>
@@ -339,8 +339,8 @@ const InfoItem = ({ icon, label, value, isDark }) => (
 /* ---------- CONTACT BUTTON ---------- */
 const ContactBtn = ({ icon, label, onClick, color }) => {
   const colors = {
-    blue: "bg-blue-500 hover:bg-blue-600",
-    indigo: "bg-indigo-600 hover:bg-indigo-700",
+    blue: "bg-rose-500 hover:bg-rose-600",
+    indigo: "bg-orange-600 hover:bg-orange-700",
     green: "bg-green-600 hover:bg-green-700",
   }
   return (

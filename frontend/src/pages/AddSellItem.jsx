@@ -42,16 +42,16 @@ const AddSellItem = () => {
 
   /* ---------- COLORS ---------- */
   const pageBg = isDark
-    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
-    : "bg-gradient-to-br from-white via-blue-50 to-white text-slate-900"
+    ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
+    : "bg-gradient-to-br from-white via-emerald-50 to-white text-slate-900"
 
   const cardBg = isDark
-    ? "bg-white/5 border-blue-500/20"
+    ? "bg-white/5 border-rose-500/20"
     : "bg-white border-slate-200"
 
   const labelColor = isDark ? "text-slate-300" : "text-slate-600"
   const inputBg = isDark
-    ? "bg-slate-900/70 border-blue-500/20 text-white placeholder:text-slate-400"
+    ? "bg-slate-900/70 border-rose-500/20 text-white placeholder:text-slate-400"
     : "bg-white border-slate-300 text-slate-900 placeholder:text-slate-400"
 
   /* ---------- IMAGE ---------- */
@@ -141,7 +141,7 @@ const AddSellItem = () => {
         {/* HEADER */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold flex items-center gap-2">
-            <Package className="w-7 h-7 text-blue-500" />
+            <Package className="w-7 h-7 text-emerald-500" />
             Sell an Item
           </h1>
           <p className={labelColor}>
@@ -224,11 +224,11 @@ const AddSellItem = () => {
             <label
               className={`mt-2 flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-6 cursor-pointer transition ${
                 isDark
-                  ? "border-blue-500/30 hover:border-blue-400"
-                  : "border-slate-300 hover:border-blue-400"
+                  ? "border-rose-500/30 hover:border-rose-400"
+                  : "border-slate-300 hover:border-rose-400"
               }`}
             >
-              <UploadCloud className="text-blue-500 mb-2" />
+              <UploadCloud className="text-rose-500 mb-2" />
               <span className={`text-sm ${labelColor}`}>
                 Upload item images
               </span>
@@ -249,7 +249,7 @@ const AddSellItem = () => {
                     src={src}
                     alt=""
                     className={`h-24 w-full object-cover rounded-lg border ${
-                      isDark ? "border-blue-500/20" : "border-slate-200"
+                      isDark ? "border-rose-500/20" : "border-slate-200"
                     }`}
                   />
                 ))}
@@ -262,7 +262,7 @@ const AddSellItem = () => {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             disabled={loading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 to-orange-600 text-white font-semibold shadow-lg"
           >
             {loading ? "Posting..." : "Post Item"}
           </motion.button>
@@ -287,7 +287,7 @@ const Input = ({
 }) => {
   const labelColor = isDark ? "text-slate-300" : "text-slate-600"
   const inputBg = isDark
-    ? "bg-slate-900/70 border-blue-500/20 text-white"
+    ? "bg-slate-900/70 border-rose-500/20 text-white"
     : "bg-white border-slate-300 text-slate-900"
 
   return (
@@ -297,7 +297,7 @@ const Input = ({
       </label>
       <div className="relative mt-1">
         {icon && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-500">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-rose-500">
             {icon}
           </div>
         )}
@@ -328,7 +328,7 @@ const Select = ({
 }) => {
   const labelColor = isDark ? "text-slate-300" : "text-slate-600"
   const inputBg = isDark
-    ? "bg-slate-900/70 border-blue-500/20 text-white"
+    ? "bg-slate-900/70 border-rose-500/20 text-white"
     : "bg-white border-slate-300 text-slate-900"
 
   return (
@@ -338,7 +338,7 @@ const Select = ({
       </label>
       <div className="relative mt-1">
         {icon && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-500">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-rose-500">
             {icon}
           </div>
         )}

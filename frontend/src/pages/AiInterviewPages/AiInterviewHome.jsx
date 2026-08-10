@@ -10,8 +10,8 @@ const AiInterviewHome = () => {
   return (
     <div className={`${
       isDark
-        ? 'bg-linear-to-br from-slate-950 via-blue-950 to-slate-950 text-white'
-        : 'bg-linear-to-br from-blue-50 via-white to-blue-50 text-black'
+        ? 'bg-linear-to-br from-slate-950 via-emerald-950 to-slate-950 text-white'
+        : 'bg-linear-to-br from-rose-50 via-white to-rose-50 text-black'
     } transition-all duration-300`}>
 
         <AiInterviewNavbar/>

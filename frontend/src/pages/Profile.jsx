@@ -33,21 +33,21 @@ const Profile = () => {
 
   /* ---------- THEME ---------- */
   const pageBg = isDark
-    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
-    : "bg-gradient-to-br from-white via-blue-50 to-white text-slate-900"
+    ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
+    : "bg-gradient-to-br from-white via-emerald-50 to-white text-slate-900"
 
   const cardBg = isDark
-    ? "bg-white/5 border-blue-500/20"
+    ? "bg-white/5 border-rose-500/20"
     : "bg-white border-slate-200 shadow-lg"
 
-  const labelText = isDark ? "text-blue-300/60" : "text-slate-500"
-  const valueText = isDark ? "text-blue-100" : "text-slate-800"
+  const labelText = isDark ? "text-rose-300/60" : "text-slate-500"
+  const valueText = isDark ? "text-rose-100" : "text-slate-800"
   const inputBg = isDark
-    ? "bg-slate-900/40 border-blue-500/20 text-blue-100"
+    ? "bg-slate-900/40 border-rose-500/20 text-rose-100"
     : "bg-white border-slate-300 text-slate-900"
 
   const statCard = isDark
-    ? "bg-slate-900/40 border-blue-500/20"
+    ? "bg-slate-900/40 border-rose-500/20"
     : "bg-slate-50 border-slate-200"
 
   /* LOAD USER */
@@ -132,14 +132,14 @@ const Profile = () => {
         {/* HEADER */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold flex items-center gap-2">
-            <User className="w-7 h-7 text-blue-500" />
+            <User className="w-7 h-7 text-emerald-500" />
             My Profile
           </h1>
 
           {!isEditing ? (
             <button
               onClick={() => setIsEditing(true)}
-              className="px-4 py-2 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-600 hover:bg-blue-500/30"
+              className="px-4 py-2 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-600 hover:bg-rose-500/30"
             >
               Edit
             </button>
@@ -153,7 +153,7 @@ const Profile = () => {
               </button>
               <button
                 onClick={handleSave}
-                className="px-4 py-2 rounded-lg bg-blue-600 text-white"
+                className="px-4 py-2 rounded-lg bg-rose-600 text-white"
               >
                 {isSaving ? "Saving..." : "Save"}
               </button>
@@ -173,16 +173,16 @@ const Profile = () => {
                 <img
                   src={formData.profileImage}
                   alt="profile"
-                  className="w-28 h-28 rounded-full object-cover border-2 border-blue-400"
+                  className="w-28 h-28 rounded-full object-cover border-2 border-rose-400"
                 />
               ) : (
-                <div className="w-28 h-28 rounded-full border-2 border-blue-400 bg-blue-500/20 flex items-center justify-center text-3xl font-bold">
+                <div className="w-28 h-28 rounded-full border-2 border-rose-400 bg-rose-500/20 flex items-center justify-center text-3xl font-bold">
                   {(formData.name || "U")[0]}
                 </div>
               )}
 
               {isEditing && (
-                <div className="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full border border-blue-400">
+                <div className="absolute bottom-0 right-0 bg-rose-600 p-2 rounded-full border border-rose-400">
                   <Camera className="w-4 h-4 text-white" />
                 </div>
               )}
@@ -314,7 +314,7 @@ const FieldRow = ({
   inputBg,
 }) => (
   <div className="flex items-center gap-3">
-    <div className="text-blue-500">{icon}</div>
+    <div className="text-rose-500">{icon}</div>
     <div className="flex-1">
       <p className={`text-xs mb-1 ${labelText}`}>{label}</p>
       {isEditing && name ? (
@@ -339,7 +339,7 @@ const StatCard = ({ title, count, onClick, statCard }) => (
       <div className="text-2xl font-semibold">{count}</div>
       <button
         onClick={onClick}
-        className="px-3 py-1 rounded-lg bg-blue-600 text-white text-sm"
+        className="px-3 py-1 rounded-lg bg-rose-600 text-white text-sm"
       >
         View
       </button>

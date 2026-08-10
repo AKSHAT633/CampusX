@@ -6,29 +6,25 @@ const testimonials = [
   {
     name: "Aisha R.",
     role: "2nd Year, CS",
-    quote:
-      "Found my lost laptop within hours — the matching feature is incredible!",
+    quote: "Literally saved my life. Left my laptop in the library and someone posted it here 10 mins later. Absolute lifesaver.",
     initial: "A"
   },
   {
     name: "Rohit K.",
     role: "4th Year, Chemistry",
-    quote:
-      "Sold my old textbooks quickly and safely through CampusSync.",
+    quote: "Got rid of my dusty old chem textbooks and actually made some pocket money. Way better than throwing them away.",
     initial: "R"
   },
   {
     name: "Meera S.",
     role: "1st Year, Arts",
-    quote:
-      "The chat feature made coordinating pickup so smooth. Highly recommend.",
+    quote: "Met a senior who gave me half their old notes for free just by chatting on the app. It's actually super useful.",
     initial: "M"
   },
   {
     name: "Arjun P.",
     role: "3rd Year, IT",
-    quote:
-      "AI Interview mode helped me practice technical + HR rounds with instant feedback before placements.",
+    quote: "The mock interviews roasted my resume, but honestly I needed that before the actual campus placements started.",
     initial: "A"
   }
 ]
@@ -47,18 +43,18 @@ const Testimonials = () => {
       >
         {/* GLOW */}
         <div className="absolute inset-0 flex justify-center">
-          <div className={`w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 ${isDark ? "bg-blue-500/20" : "bg-blue-400/15"} blur-[140px] rounded-full`} />
+          <div className={`w-60 h-60 sm:w-80 sm:h-80 md:w-96 md:h-96 ${isDark ? "bg-rose-500/20" : "bg-rose-400/15"} blur-[140px] rounded-full`} />
         </div>
 
         <h2 className="relative text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
           <span className={isDark ? "text-white" : "text-slate-900"}>What Students </span>
-          <span className={`bg-clip-text text-transparent ${isDark ? "bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400" : "bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500"}`}>
+          <span className={`bg-clip-text text-transparent ${isDark ? "bg-gradient-to-r from-rose-400 via-orange-400 to-purple-400" : "bg-gradient-to-r from-rose-600 via-orange-500 to-purple-500"}`}>
             Say
           </span>
         </h2>
 
         <p className={`relative ${isDark ? "text-gray-200" : "text-slate-600"} text-base sm:text-lg px-4`}>
-          Real students, real results — from lost-item recovery to AI Notes and AI Interview prep.
+          Don't just take our word for it. Here's what other students are saying about the app.
         </p>
       </motion.div>
 
@@ -71,16 +67,16 @@ const Testimonials = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.15, duration: 0.6 }}
             whileHover={{ y: -8, scale: 1.02 }}
-            className={`group relative rounded-2xl p-[1px] ${isDark ? "bg-gradient-to-br from-blue-500/40 via-indigo-500/20 to-transparent" : "bg-gradient-to-br from-blue-400/30 via-indigo-400/15 to-transparent"}`}
+            className={`group relative rounded-2xl p-[1px] ${isDark ? "bg-gradient-to-br from-rose-500/40 via-orange-500/20 to-transparent" : "bg-gradient-to-br from-rose-400/30 via-orange-400/15 to-transparent"}`}
           >
             {/* CARD */}
-            <div className={`h-full rounded-2xl ${isDark ? "bg-slate-950/90" : "bg-white/90"} backdrop-blur-xl ${isDark ? "border-blue-500/10" : "border-blue-300/20"} border p-6 relative overflow-hidden`}>
+            <div className={`h-full rounded-2xl ${isDark ? "bg-slate-950/90" : "bg-white/90"} backdrop-blur-xl ${isDark ? "border-rose-500/10" : "border-rose-300/20"} border p-6 relative overflow-hidden`}>
 
               {/* HOVER GLOW */}
-              <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${isDark ? "bg-gradient-to-br from-blue-500/10 via-indigo-500/10 to-transparent" : "bg-gradient-to-br from-blue-400/10 via-indigo-400/10 to-transparent"}`} />
+              <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 ${isDark ? "bg-gradient-to-br from-rose-500/10 via-orange-500/10 to-transparent" : "bg-gradient-to-br from-rose-400/10 via-orange-400/10 to-transparent"}`} />
 
               {/* AVATAR */}
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold mb-4 shadow-lg shadow-blue-500/40">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-rose-500 to-orange-600 flex items-center justify-center text-white font-semibold mb-4 shadow-lg shadow-rose-500/40">
                 {t.initial}
               </div>
 
@@ -95,7 +91,7 @@ const Testimonials = () => {
               </div>
 
               {/* ROLE */}
-              <div className={`${isDark ? "text-blue-300" : "text-blue-600"} text-xs`}>
+              <div className={`${isDark ? "text-rose-300" : "text-rose-600"} text-xs`}>
                 {t.role}
               </div>
             </div>

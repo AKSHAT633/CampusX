@@ -64,24 +64,24 @@ const History = () => {
   /* ---------- COLORS ---------- */
 
   const pageBg = isDark
-    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950"
-    : "bg-gradient-to-br from-white via-blue-50 to-white"
+    ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950"
+    : "bg-gradient-to-br from-white via-emerald-50 to-white"
 
   const sidebarBg = isDark
-    ? "bg-slate-950 border-blue-500/20"
+    ? "bg-slate-950 border-rose-500/20"
     : "bg-white border-slate-200"
 
   const itemIdle = isDark
-    ? "bg-slate-900/60 border-blue-500/20 hover:bg-blue-500/10"
-    : "bg-white border-slate-200 hover:bg-blue-50"
+    ? "bg-slate-900/60 border-rose-500/20 hover:bg-rose-500/10"
+    : "bg-white border-slate-200 hover:bg-rose-50"
 
   const itemActive = isDark
-    ? "bg-blue-600/20 border-blue-400"
-    : "bg-blue-100 border-blue-400"
+    ? "bg-rose-600/20 border-rose-400"
+    : "bg-rose-100 border-rose-400"
 
   const titleColor = isDark ? "text-slate-100" : "text-slate-900"
   const dateColor = isDark ? "text-slate-400" : "text-slate-500"
-  const headerColor = isDark ? "text-blue-300" : "text-blue-600"
+  const headerColor = isDark ? "text-rose-300" : "text-rose-600"
   const emptyColor = isDark ? "text-slate-400" : "text-slate-500"
 
   return (
@@ -91,10 +91,10 @@ const History = () => {
         <button
           onClick={() => setOpen(true)}
           className={`fixed top-20 left-4 z-50 p-2 rounded-lg border ${
-            isDark ? "bg-slate-900 border-blue-500/20" : "bg-white border-slate-300"
+            isDark ? "bg-slate-900 border-rose-500/20" : "bg-white border-slate-300"
           }`}
         >
-          <Menu className="w-5 h-5 text-blue-500" />
+          <Menu className="w-5 h-5 text-emerald-500" />
         </button>
       )}
 
@@ -152,7 +152,7 @@ const History = () => {
                       {note.topic}
                     </p>
                     {activeNote?._id === note._id && (
-                      <ChevronRight className="w-4 h-4 text-blue-500" />
+                      <ChevronRight className="w-4 h-4 text-emerald-500" />
                     )}
                   </div>
 
@@ -163,7 +163,7 @@ const History = () => {
                   </div>
 
                   {/* FLAGS */}
-                  <div className="flex gap-2 mt-2 text-blue-500">
+                  <div className="flex gap-2 mt-2 text-rose-500">
                     {note.includeDiagram && (
                       <span className="flex items-center gap-1 text-xs">
                         <GitBranch className="w-3 h-3" /> Diagram
@@ -193,7 +193,7 @@ const History = () => {
           {!activeNote && (
             <div className="h-[70vh] flex items-center justify-center text-center">
               <div>
-                <FileText className="w-14 h-14 mx-auto text-blue-400/40 mb-4" />
+                <FileText className="w-14 h-14 mx-auto text-rose-400/40 mb-4" />
                 <p className={emptyColor}>
                   Select a note from the sidebar
                 </p>
@@ -202,7 +202,7 @@ const History = () => {
           )}
 
           {loadingNote && (
-            <div className="text-center py-20 text-blue-500">
+            <div className="text-center py-20 text-rose-500">
               Loading note...
             </div>
           )}

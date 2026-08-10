@@ -7,12 +7,12 @@ const LostItemCard = ({ item }) => {
   const { isDark } = useTheme()
 
   const cardBg = isDark
-    ? "bg-slate-950/80 border-blue-500/20 hover:shadow-blue-500/10"
+    ? "bg-slate-950/80 border-rose-500/20 hover:shadow-rose-500/10"
     : "bg-white border-slate-200 hover:shadow-slate-300/40"
 
   const title = isDark ? "text-white" : "text-slate-800"
-  const text1 = isDark ? "text-blue-200/80" : "text-slate-600"
-  const text2 = isDark ? "text-blue-300/60" : "text-slate-500"
+  const text1 = isDark ? "text-rose-200/80" : "text-slate-600"
+  const text2 = isDark ? "text-rose-300/60" : "text-slate-500"
 
   return (
     <motion.div
@@ -35,7 +35,7 @@ const LostItemCard = ({ item }) => {
         </h3>
 
         <div className={`flex items-center text-sm gap-2 mb-1 ${text1}`}>
-          <MapPin size={14} className="text-blue-400" />
+          <MapPin size={14} className="text-rose-400" />
           {item.location}
         </div>
 
@@ -44,7 +44,7 @@ const LostItemCard = ({ item }) => {
           {item.date}
         </div>
 
-        <button className="mt-4 w-full py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-medium hover:scale-[1.02] transition">
+        <button className="mt-4 w-full py-2 rounded-lg bg-gradient-to-r from-rose-500 to-orange-600 text-white text-sm font-medium hover:scale-[1.02] transition">
           View Details
         </button>
       </div>

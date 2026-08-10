@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const connectDb=async()=>{
     try {
-        const res = await mongoose.connect(process.env.MONGOSE_URL);
+        const res = await mongoose.connect(process.env.MONGOSE_URL, { family: 4 });
         if(res){
             console.log("DB connectred successfully");
             

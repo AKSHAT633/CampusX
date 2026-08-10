@@ -15,12 +15,12 @@ const JoinCTA = () => {
       {/* GLOW BLOBS */}
       <div
         className={`absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] blur-[160px] rounded-full ${
-          isDark ? "bg-blue-600/20" : "bg-blue-400/20"
+          isDark ? "bg-emerald-600/20" : "bg-emerald-400/20"
         }`}
       />
       <div
         className={`absolute bottom-0 right-0 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] blur-[160px] rounded-full ${
-          isDark ? "bg-indigo-600/20" : "bg-indigo-400/20"
+          isDark ? "bg-orange-600/20" : "bg-orange-400/20"
         }`}
       />
 
@@ -35,14 +35,14 @@ const JoinCTA = () => {
         <div
           className={`relative p-[1px] rounded-2xl sm:rounded-3xl ${
             isDark
-              ? "bg-gradient-to-br from-blue-500/40 via-indigo-500/30 to-transparent"
-              : "bg-gradient-to-br from-blue-200 via-indigo-200 to-transparent"
+              ? "bg-gradient-to-br from-rose-500/40 via-orange-500/30 to-transparent"
+              : "bg-gradient-to-br from-rose-200 via-orange-200 to-transparent"
           }`}
         >
           <div
             className={`rounded-2xl sm:rounded-3xl backdrop-blur-xl px-6 py-10 sm:px-10 sm:py-16 border ${
               isDark
-                ? "bg-slate-950/80 border-blue-500/20"
+                ? "bg-slate-950/80 border-rose-500/20"
                 : "bg-white border-slate-200 shadow-xl"
             }`}
           >
@@ -52,9 +52,9 @@ const JoinCTA = () => {
                 isDark ? "text-white" : "text-slate-900"
               }`}
             >
-              Built for Students,{" "}
-              <span className="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
-                Powered by Technology
+              Built by Students,{" "}
+              <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
+                For the Campus
               </span>
             </h2>
 
@@ -64,8 +64,7 @@ const JoinCTA = () => {
                 isDark ? "text-gray-200" : "text-slate-600"
               }`}
             >
-              Join thousands of students who are already using CampusSync to
-              make their campus life better. Start your journey today!
+              Join the campus network today. Let's make college life a little less chaotic and a lot more fun.
             </p>
 
             {/* BUTTON */}
@@ -73,18 +72,18 @@ const JoinCTA = () => {
               <motion.button
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.95 }}
-                className={`relative px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-base sm:text-lg text-white bg-gradient-to-r from-blue-500 to-indigo-600 overflow-hidden ${
+                className={`relative px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-base sm:text-lg text-white bg-gradient-to-r from-rose-500 to-orange-600 overflow-hidden ${
                   isDark
-                    ? "shadow-lg shadow-blue-500/30"
-                    : "shadow-lg shadow-blue-500/20"
+                    ? "shadow-lg shadow-rose-500/30"
+                    : "shadow-lg shadow-rose-500/20"
                 }`}
               >
                 <span className="relative z-10">
-                  Join CampusSync Today
+                  Join CampusX Today
                 </span>
 
                 {/* BUTTON GLOW */}
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-400/40 to-indigo-500/40 opacity-0 hover:opacity-100 transition duration-300 blur-xl" />
+                <span className="absolute inset-0 bg-gradient-to-r from-rose-400/40 to-orange-500/40 opacity-0 hover:opacity-100 transition duration-300 blur-xl" />
               </motion.button>
             </Link>
           </div>

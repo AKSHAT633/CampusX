@@ -60,7 +60,7 @@ const MarketPlace = () => {
     <div
       className={`min-h-screen p-6 ${
         isDark
-          ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
+          ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
           : "bg-slate-50 text-slate-900"
       }`}
     >
@@ -70,7 +70,7 @@ const MarketPlace = () => {
         <div className="flex flex-col gap-4 mb-8">
           <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
             <ShoppingBag
-              className={isDark ? "w-6 h-6 md:w-7 md:h-7 text-blue-400" : "w-6 h-6 md:w-7 md:h-7 text-blue-500"}
+              className={isDark ? "w-6 h-6 md:w-7 md:h-7 text-rose-400" : "w-6 h-6 md:w-7 md:h-7 text-rose-500"}
             />
             Campus Marketplace
           </h1>
@@ -80,7 +80,7 @@ const MarketPlace = () => {
             <div className="relative flex-1">
               <Search
                 className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${
-                  isDark ? "text-blue-300" : "text-slate-400"
+                  isDark ? "text-rose-300" : "text-slate-400"
                 }`}
               />
               <input
@@ -89,7 +89,7 @@ const MarketPlace = () => {
                 placeholder="Search items..."
                 className={`w-full pl-10 pr-4 py-2 rounded-lg border text-sm ${
                   isDark
-                    ? "bg-slate-900 border-blue-500/20 text-white"
+                    ? "bg-slate-900 border-rose-500/20 text-white"
                     : "bg-white border-slate-300 text-slate-900"
                 }`}
               />
@@ -100,7 +100,7 @@ const MarketPlace = () => {
               onClick={() => navigate("/sell/add")}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold shadow-lg text-sm whitespace-nowrap"
+              className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-orange-600 text-white font-semibold shadow-lg text-sm whitespace-nowrap"
             >
               <Plus className="w-4 h-4 md:w-5 md:h-5" />
               Sell Item
@@ -116,9 +116,9 @@ const MarketPlace = () => {
               onClick={() => setCategory(cat)}
               className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm border transition ${
                 category === cat
-                  ? "bg-blue-500/20 border-blue-400 text-blue-500"
+                  ? "bg-rose-500/20 border-rose-400 text-rose-500"
                   : isDark
-                  ? "border-blue-500/20 text-blue-200 hover:bg-white/5"
+                  ? "border-rose-500/20 text-rose-200 hover:bg-white/5"
                   : "border-slate-300 text-slate-600 hover:bg-slate-100"
               }`}
             >
@@ -129,11 +129,11 @@ const MarketPlace = () => {
 
         {/* GRID */}
         {loading ? (
-          <div className={isDark ? "text-center text-blue-300/60 mt-20" : "text-center text-slate-500 mt-20"}>
+          <div className={isDark ? "text-center text-rose-300/60 mt-20" : "text-center text-slate-500 mt-20"}>
             Loading...
           </div>
         ) : filtered.length === 0 ? (
-          <div className={isDark ? "text-center text-blue-300/60 mt-20" : "text-center text-slate-500 mt-20"}>
+          <div className={isDark ? "text-center text-rose-300/60 mt-20" : "text-center text-slate-500 mt-20"}>
             No items found
           </div>
         ) : (
@@ -147,7 +147,7 @@ const MarketPlace = () => {
                   whileHover={{ y: -6 }}
                   className={`rounded-2xl border overflow-hidden backdrop-blur-xl shadow cursor-pointer ${
                     isDark
-                      ? "border-blue-500/20 bg-white/5"
+                      ? "border-rose-500/20 bg-white/5"
                       : "border-slate-200 bg-white"
                   }`}
                 >
@@ -160,7 +160,7 @@ const MarketPlace = () => {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className={isDark ? "w-full h-full flex items-center justify-center text-blue-300/30" : "w-full h-full flex items-center justify-center text-slate-400"}>
+                      <div className={isDark ? "w-full h-full flex items-center justify-center text-rose-300/30" : "w-full h-full flex items-center justify-center text-slate-400"}>
                         <ShoppingBag className="w-16 h-16" />
                       </div>
                     )}
@@ -172,7 +172,7 @@ const MarketPlace = () => {
                       {item.title}
                     </h3>
 
-                    <div className={isDark ? "flex items-center gap-1 text-xs text-blue-300/70" : "flex items-center gap-1 text-xs text-slate-500"}>
+                    <div className={isDark ? "flex items-center gap-1 text-xs text-rose-300/70" : "flex items-center gap-1 text-xs text-slate-500"}>
                       <Tag className="w-3.5 h-3.5" />
                       {item.category}
                     </div>
@@ -182,12 +182,12 @@ const MarketPlace = () => {
                       {item.price}
                     </div>
 
-                    <div className={isDark ? "flex items-center gap-2 text-xs text-blue-200/70" : "flex items-center gap-2 text-xs text-slate-500"}>
+                    <div className={isDark ? "flex items-center gap-2 text-xs text-rose-200/70" : "flex items-center gap-2 text-xs text-slate-500"}>
                       <User className="w-3.5 h-3.5" />
                       {item.seller?.name}
                     </div>
 
-                    <div className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-medium shadow text-center">
+                    <div className="w-full py-2 rounded-lg bg-gradient-to-r from-rose-500 to-orange-600 text-white text-sm font-medium shadow text-center">
                       View Details
                     </div>
                   </div>

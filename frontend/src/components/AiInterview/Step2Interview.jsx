@@ -329,8 +329,8 @@ const Step2Interview = ({ interviewData, onFinish }) => {
 
     <div className={`min-h-screen px-4 py-8 transition-all duration-300 ${
       isDark
-        ? "bg-linear-to-b from-slate-950 via-blue-950 to-slate-950 text-white"
-        : "bg-linear-to-b from-slate-50 to-blue-50 text-black"
+        ? "bg-linear-to-b from-slate-950 via-emerald-950 to-slate-950 text-white"
+        : "bg-linear-to-b from-slate-50 to-rose-50 text-black"
     }`}>
 
       <div className={`mx-auto max-w-6xl rounded-3xl border shadow-xl transition-all duration-300 ${
@@ -362,7 +362,7 @@ const Step2Interview = ({ interviewData, onFinish }) => {
 
                 <span className={`${isDark ? "text-slate-400" : "text-gray-500"}`}>Interview Status</span>
 
-                <span className="font-semibold text-emerald-600">
+                <span className="font-semibold text-rose-600">
                   {isAIPlaying ? "AI Speaking" : "Waiting"}
                 </span>
 
@@ -379,7 +379,7 @@ const Step2Interview = ({ interviewData, onFinish }) => {
               <div className="grid grid-cols-2 text-center">
 
                 <div>
-                  <p className="text-xl font-bold text-blue-600">
+                  <p className="text-xl font-bold text-rose-600">
                     {currentIndex+1}
                   </p>
                   <p className={`text-xs ${isDark ? "text-slate-400" : "text-gray-500"}`}>
@@ -388,7 +388,7 @@ const Step2Interview = ({ interviewData, onFinish }) => {
                 </div>
 
                 <div>
-                  <p className="text-xl font-bold text-blue-600">
+                  <p className="text-xl font-bold text-rose-600">
                     {totalQuestions}
                   </p>
                   <p className={`text-xs ${isDark ? "text-slate-400" : "text-gray-500"}`}>
@@ -434,7 +434,7 @@ const Step2Interview = ({ interviewData, onFinish }) => {
               value={answer}
               onChange={(e)=>setAnswer(e.target.value)}
               placeholder="Type your answer here..."
-              className={`mt-4 flex-1 rounded-xl border p-4 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-300 ${
+              className={`mt-4 flex-1 rounded-xl border p-4 focus:outline-none focus:ring-2 focus:ring-rose-200 transition-all duration-300 ${
                 isDark ? "border-slate-700 bg-slate-800 text-slate-100 placeholder:text-slate-500" : "bg-white text-slate-900"
               }`}
             />
@@ -444,7 +444,7 @@ const Step2Interview = ({ interviewData, onFinish }) => {
               <button
                 onClick={toggleMic}
                 className={`flex h-12 w-12 items-center justify-center rounded-full text-white ${
-                  isMicOn ? "bg-emerald-600" : "bg-black"
+                  isMicOn ? "bg-rose-600" : "bg-black"
                 }`}
               >
                 <FaMicrophone/>
@@ -453,7 +453,7 @@ const Step2Interview = ({ interviewData, onFinish }) => {
               <button
                 onClick={()=>handleSubmitAnswer(false)}
                 disabled={isSubmitting || isAIPlaying}
-                className="flex-1 rounded-xl bg-linear-to-r from-blue-600 to-indigo-600 text-white font-semibold disabled:opacity-60"
+                className="flex-1 rounded-xl bg-linear-to-r from-rose-600 to-orange-600 text-white font-semibold disabled:opacity-60"
               >
                 {isSubmitting ? "Submitting..." : "Submit Answer"}
               </button>
@@ -462,7 +462,7 @@ const Step2Interview = ({ interviewData, onFinish }) => {
 
             {feedback && (
               <p className={`mt-3 rounded-lg border px-3 py-2 text-sm ${
-                isDark ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300" : "border-emerald-100 bg-emerald-50 text-emerald-700"
+                isDark ? "border-rose-500/30 bg-rose-500/10 text-rose-300" : "border-rose-100 bg-rose-50 text-rose-700"
               }`}>
                 {feedback}
               </p>

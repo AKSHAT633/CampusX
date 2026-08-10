@@ -21,15 +21,15 @@ const Sidebar = ({ result }) => {
   }
 
   /* THEME */
-  const textMain = isDark ? "text-blue-100" : "text-slate-800"
-  const textHead = isDark ? "text-blue-300" : "text-slate-700"
-  const textSub = isDark ? "text-blue-200" : "text-slate-600"
+  const textMain = isDark ? "text-rose-100" : "text-slate-800"
+  const textHead = isDark ? "text-rose-300" : "text-slate-700"
+  const textSub = isDark ? "text-rose-200" : "text-slate-600"
   const card = isDark
-    ? "bg-white/5 border-blue-500/20"
+    ? "bg-white/5 border-rose-500/20"
     : "bg-white border-slate-200 shadow-sm"
   const badge = isDark
-    ? "bg-blue-500/20 text-blue-300"
-    : "bg-blue-100 text-blue-700"
+    ? "bg-rose-500/20 text-rose-300"
+    : "bg-rose-100 text-rose-700"
 
   return (
     <div className={`space-y-6 text-sm ${textMain}`}>

@@ -28,18 +28,18 @@ const UserSellPost = () => {
 
   /* ---------- THEME ---------- */
   const pageBg = isDark
-    ? "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 text-white"
-    : "bg-gradient-to-br from-white via-blue-50 to-white text-slate-900"
+    ? "bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 text-white"
+    : "bg-gradient-to-br from-white via-emerald-50 to-white text-slate-900"
 
   const cardBg = isDark
-    ? "bg-white/5 border-blue-500/20"
+    ? "bg-white/5 border-rose-500/20"
     : "bg-white border-slate-200 shadow-sm"
 
-  const textMuted = isDark ? "text-blue-300/70" : "text-slate-500"
-  const descText = isDark ? "text-blue-200/80" : "text-slate-600"
+  const textMuted = isDark ? "text-rose-300/70" : "text-slate-500"
+  const descText = isDark ? "text-rose-200/80" : "text-slate-600"
 
   const inputStyle = isDark
-    ? "bg-slate-900/60 border-blue-500/20 text-white"
+    ? "bg-slate-900/60 border-rose-500/20 text-white"
     : "bg-white border-slate-300 text-slate-900"
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const UserSellPost = () => {
 
           <button
             onClick={() => navigate("/sell/add")}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-orange-600 text-white shadow"
           >
             <Plus className="w-4 h-4" />
             New Item
@@ -139,7 +139,7 @@ const UserSellPost = () => {
                   <h3 className="font-semibold line-clamp-1">
                     {item?.title}
                   </h3>
-                  <span className="text-blue-500 font-semibold">
+                  <span className="text-rose-500 font-semibold">
                     ₹{item?.price}
                   </span>
                 </div>
@@ -218,7 +218,7 @@ const UserSellPost = () => {
 
                     <button
                       onClick={() => navigate(`/sell/${item?._id}`)}
-                      className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-blue-500/20 text-blue-600 border border-blue-500/40"
+                      className="flex-1 flex items-center justify-center gap-1 py-2 rounded bg-rose-500/20 text-rose-600 border border-rose-500/40"
                     >
                       <Eye className="w-4 h-4" />
                       View
