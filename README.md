@@ -123,17 +123,28 @@ CampusSync integrates AI features to enhance the platform:
 ```
 CampusSync
 │
-├── client
-│   ├── components
-│   ├── pages
-│   ├── context
-│   └── assets
+├── frontend/                  ← React + Vite (Tailwind CSS, Redux)
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   ├── redux/
+│   │   ├── servers/           ← Axios API layer
+│   │   └── utils/
+│   ├── public/
+│   ├── index.html
+│   └── .env.example
 │
-├── server
-│   ├── routes
-│   ├── controllers
-│   ├── models
-│   └── middleware
+├── backend/                   ← Node.js + Express
+│   ├── config/                ← DB, Cloudinary, JWT helpers
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── services/              ← Gemini & OpenRouter AI clients
+│   ├── index.js
+│   ├── socket.js
+│   └── .env.example
 │
 └── README.md
 ```
@@ -166,7 +177,7 @@ Planned improvements include:
 
 # 👨‍💻 Author
 
-**Pranshu Chauhan**
+**Akshat Pandey**
 
 Full Stack Developer
 MERN Stack | AI Projects | Web Applications
